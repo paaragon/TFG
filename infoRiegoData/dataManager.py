@@ -154,6 +154,39 @@ def uncompressData(sourcePath, destinationPath, verbose = True):
         if verbose:
             print str(i) + '/' + str(len(zipFiles)) + ' | ' + zFile + ' uncompressed'
             
+def deleteTildes(s):
+    import unicodedata
+    return ''.join((c for c in unicodedata.normalize('NFD', s) if unicodedata.category(c) != 'Mn'))
+             
+            
+def correctCharacters(csvFolder, verbose = True):
 
-if __name__ == "__main__":
-    print downloadData(2001, 2005, 'zipFiles/')
+    from os import listdir
+    
+    
+    csvFiles = [f for f in listdir(csvFolder) if f.endswith('.csv')]
+    
+    for f in csvFiles:
+        
+        filedata = None
+        
+        with open(csvFolder + '/' + f) as file :
+          filedata = file.read()
+        
+        filedata = filedata.decode('unicode_escape')
+        filedata = filedata.replace(u'á', 'a')
+        filedata = filedata.replace(u'é', 'e')
+        filedata = filedata.replace(u'í', 'i')
+        filedata = filedata.replace(u'ó', 'o')
+        filedata = filedata.replace(u'ú', 'u')
+        filedata = filedata.replace(u'º', 'o')
+        filedata = filedata.replace(u'ó', 'o')
+        filedata = filedata.encode("utf-8")
+        
+        # Write the file out again
+        with open(csvFolder + '/' + f, 'w') as file:
+          file.write(filedata)
+          
+        if verbose:
+            print 'Correcting characters in ' + f
+    
