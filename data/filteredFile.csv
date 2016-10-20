@@ -1,0 +1,5 @@
+Codigo,Ubicacion,Fecha (AAAA-MM-DD),Hora (HHMM),Precipitacion (mm),Temperatura (oC),Humedad relativa (%),Radiacion (W/m2),Vel. viento (m/s),Dir. viento (o)
+AV01,Nava de Arevalo,2001-01-02,100,0.0,5.95,79.6,0.0,6.7,193.1
+AV01,Nava de Arevalo,2001-01-02,200,1.2,5.22,86.7,0.0,6.93,208.0
+BU01,Miranda de Ebro,2001-01-02,100,0.0,9.19,72.3,0.0,8.26,206.7
+BU01,Miranda de Ebro,2001-01-02,200,0.0,9.17,70.4,0.0,7.86,208.6

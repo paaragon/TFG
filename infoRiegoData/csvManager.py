@@ -5,16 +5,20 @@ Created on Wed Oct 19 15:14:50 2016
 @author: slide22
 """
 
-'''
-csvFolder - Folder in wich the csv are in
-conditions:
-    - dateStart: YYYYMMDD
-    - dateEnd: YYYYMMDD
-    - hourStart HHMM
-    - hourEnd: HHMM
-    - ubication
-    
-'''
+"""
+Read all CSV in a specific folder and create a new one based on the condition
+dictionary
+
+Args:
+    sourceFolder (str): csv source folder. It have to ends in /
+    destinationPath (str): new csv filename
+    cond (dict): dictionary with the filter conditios
+                 - startDate (int): the date on which begins csv. Format: YYYYMMDD
+                 - endDate (int): the date on which ends csv. Format: YYYYMMDD
+                 - startHour (int): the hour on which begins csv. Format: HHMM
+                 - endHour (int): the hout on which ends csv. Format: HHMM
+                 - ubication (list): list with the ubications of the csv
+"""
 def createCSVWithConditions(sourceFolder, destinationPath, cond = dict()):
     
     import pandas
