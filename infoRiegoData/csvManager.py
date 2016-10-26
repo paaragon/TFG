@@ -60,9 +60,13 @@ def createCSVWithConditions(sourceFolder, destinationPath, cond = dict(), verbos
         else:
             df = df.append(pandas.read_csv(sourceFolder + f, ';'))
     
-    df = pandas.DataFrame(df[(df['Hora (HHMM)'] >= conditions['hourStart']) \
-                           & (df['Hora (HHMM)'] <= conditions['hourEnd']) \
-                           & (df['Ubicacion'].isin(conditions['ubication']))])
+    if len(conditions['ubication']) > 0:
+        df = pandas.DataFrame(df[(df['Hora (HHMM)'] >= conditions['hourStart']) \
+                               & (df['Hora (HHMM)'] <= conditions['hourEnd']) \
+                               & (df['Ubicacion'].isin(conditions['ubication']))])
+    else:
+        df = pandas.DataFrame(df[(df['Hora (HHMM)'] >= conditions['hourStart']) \
+                               & (df['Hora (HHMM)'] <= conditions['hourEnd'])])
     
     df = df.sort_values(by=['Fecha (AAAA-MM-DD)', 'Hora (HHMM)'], ascending=True)
                            
