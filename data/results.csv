@@ -1,0 +1,4 @@
+dateStart,dateEnd,hourStart,hourEnd,ubicacion,relativeTargetSample,nSamples,alg,cv,mean,std
+20150601.0,20150930.0,800.0,2000.0,['Nava de Arevalo'],2.0,3.0,"LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)",3.0,0.841680819665,0.0790354913022
+20150601.0,20150930.0,800.0,2000.0,['Nava de Arevalo'],2.0,4.0,"LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)",3.0,0.841680819665,0.0790354913022
+20150601.0,20150930.0,800.0,2000.0,['Nava de Arevalo'],2.0,5.0,"LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)",3.0,0.841680819665,0.0790354913022

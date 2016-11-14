@@ -57,10 +57,17 @@ def createCSVWithConditions(sourceFolder, destinationPath, cond = dict(), verbos
             
         if 'df' not in locals():
             df = pandas.read_csv(sourceFolder + f, ';')
+            
         else:
             df = df.append(pandas.read_csv(sourceFolder + f, ';'))
+       
+    #patching the 2015-06-06 csv
+    df.loc[df['Fecha (AAAA-MM-DD)'] == '2014-06-24', 'Fecha (AAAA-MM-DD)'] = '2015-06-06'
+    df.loc[df['Fecha (AAAA-MM-DD)'] == '2014-06-26', 'Fecha (AAAA-MM-DD)'] = '2015-06-08'
+    df.loc[df['Fecha (AAAA-MM-DD)'] == '2014-06-28', 'Fecha (AAAA-MM-DD)'] = '2015-06-10'
     
     if len(conditions['ubication']) > 0:
+      
         df = pandas.DataFrame(df[(df['Hora (HHMM)'] >= conditions['hourStart']) \
                                & (df['Hora (HHMM)'] <= conditions['hourEnd']) \
                                & (df['Ubicacion'].isin(conditions['ubication']))])
@@ -68,9 +75,10 @@ def createCSVWithConditions(sourceFolder, destinationPath, cond = dict(), verbos
         df = pandas.DataFrame(df[(df['Hora (HHMM)'] >= conditions['hourStart']) \
                                & (df['Hora (HHMM)'] <= conditions['hourEnd'])])
     
-    df = df.sort_values(by=['Fecha (AAAA-MM-DD)', 'Hora (HHMM)'], ascending=True)
-                           
-                           
+    df = df.sort_values(by=['Fecha (AAAA-MM-DD)', 'Hora (HHMM)'], ascending=True)                         
+     
+    if len(df.loc[df['Fecha (AAAA-MM-DD)'] == '2014-06-24']) > 0:
+            print f                      
     df.to_csv(destinationPath, index = False)
     
 if __name__ == "__main__":
