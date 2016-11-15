@@ -7,7 +7,6 @@ Created on Mon Oct 24 15:03:10 2016
 """
 
 from infoRiegoData import csvManager as cM
-<<<<<<< HEAD
 from sklearn.model_selection import cross_val_score
 from sklearn import linear_model
 import pandas as pd
@@ -24,7 +23,7 @@ conditions['hourEnd'] = 2000
 conditions['ubication'] = ['Nava de Arevalo']
 
 #cM.createCSVWithConditions('data/csvFiles/', 'data/filteredFile.csv', conditions)
-=======
+
 import pandas
 from sklearn import svm
 import numpy as np
@@ -101,7 +100,6 @@ newDf = pd.DataFrame(data = data, columns = columns)
 resultDf = resultDf.append(newDf)
 
 resultDf.to_csv('data/results.csv', index = False)
-                                                 random_state=0)
 
 alg = linear_model.LinearRegression()
 
