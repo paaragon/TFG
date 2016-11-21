@@ -101,8 +101,6 @@ resultDf = resultDf.append(newDf)
 
 resultDf.to_csv('data/results.csv', index = False)
 
-alg = linear_model.LinearRegression()
-
 #scores = cross_val_score(alg, solar_data[:-1], solar_target[:-1], cv=5)
 #print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
 
