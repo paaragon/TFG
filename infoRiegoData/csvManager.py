@@ -5,6 +5,8 @@ Created on Wed Oct 19 15:14:50 2016
 @author: slide22
 """
 
+import pandas
+
 """
 Read all CSV in a specific folder and create a new one based on the condition
 dictionary
@@ -21,7 +23,6 @@ Args:
 """
 def createCSVWithConditions(sourceFolder, destinationPath, cond = dict(), verbose = True):
     
-    import pandas
     from os import listdir
 
     # dictionary with the default conditions
@@ -79,6 +80,26 @@ def createCSVWithConditions(sourceFolder, destinationPath, cond = dict(), verbos
      
     if len(df.loc[df['Fecha (AAAA-MM-DD)'] == '2014-06-24']) > 0:
             print f                      
+    df.to_csv(destinationPath, index = False)
+        
+def normalize(col):
+    return (col - col.mean()) / (col.max() - col.min())
+    
+def normalizeCSV(souceCSVPath, destinationPath):
+    
+    df = pandas.read_csv(souceCSVPath)
+    
+    df['Fecha (AAAA-MM-DD)'] = df['Fecha (AAAA-MM-DD)'].str.replace('-', '').astype(float)
+
+    df['Fecha (AAAA-MM-DD)'] = normalize(df['Fecha (AAAA-MM-DD)'])
+    df['Hora (HHMM)'] = normalize(df['Hora (HHMM)'])
+    df['Precipitacion (mm)'] = normalize(df['Precipitacion (mm)'])
+    df['Temperatura (oC)'] = normalize(df['Temperatura (oC)'])
+    df['Humedad relativa (%)'] = normalize(df['Humedad relativa (%)'])
+    df['Radiacion (W/m2)'] = normalize(df['Radiacion (W/m2)'])
+    df['Vel. viento (m/s)'] = normalize(df['Vel. viento (m/s)'])
+    df['Dir. viento (o)'] = normalize(df['Dir. viento (o)'])
+    
     df.to_csv(destinationPath, index = False)
     
 if __name__ == "__main__":

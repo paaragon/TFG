@@ -3,9 +3,6 @@
 
 import pandas as pd
 
-def normalize(col):
-    return (col - col.mean()) / (col.max() - col.min())
-
 def generateDataFrame(csvFilePath, destinationcsvPath, conditions, verbose = True):
     
     df = pd.read_csv(csvFilePath)
@@ -14,18 +11,8 @@ def generateDataFrame(csvFilePath, destinationcsvPath, conditions, verbose = Tru
     if len(df['Codigo'].unique()) > 1:
         for i, codigo in enumerate(df['Codigo'].unique()):
             df.loc[df["Codigo"] == codigo, "Codigo"] = i
-        df['Codigo'] = normalize(df['Codigo'])
     else:
         df.loc["Codigo"] = 1
-    
-    '''
-    df['Precipitacion (mm)'] = normalize(df['Precipitacion (mm)'])
-    df['Temperatura (oC)'] = normalize(df['Temperatura (oC)'])
-    df['Humedad relativa (%)'] = normalize(df['Humedad relativa (%)'])
-    df['Radiacion (W/m2)'] = normalize(df['Radiacion (W/m2)'])
-    df['Vel. viento (m/s)'] = normalize(df['Vel. viento (m/s)'])
-    df['Dir. viento (o)'] = normalize(df['Dir. viento (o)'])
-    '''
     
     columns = ['codigo', 'fecha']
     
@@ -68,11 +55,10 @@ def generateDataFrame(csvFilePath, destinationcsvPath, conditions, verbose = Tru
             
         r.append(df['Hora (HHMM)'].loc[index + j + conditions['relativeTargetSample']])
         resultList.append(r) 
-        
-    retDF = pd.DataFrame(data = resultList, columns = columns)
+    
+    retDF = pd.DataFrame(data = resultList, columns = columns) 
     
     retDF.to_csv(destinationcsvPath, index = False)
-    
     
 if __name__ == '__main__':
     
