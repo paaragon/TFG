@@ -25,7 +25,7 @@ def dht():
 
 
 #
-# return - JSOn with humidity and temperature keys
+# return - temperature and humidity
 #
 def readDHT(ledOn=True):
 
@@ -36,11 +36,7 @@ def readDHT(ledOn=True):
 
     led("off")
 
-    if humidity is not None and temperature is not None:
-	return '{"temperature": '+str(format(temperature, '.2f'))+', "humidity": '+str(format(humidity, '.2f'))+'}'
-
-    else:
-        return '{"temperature": null, "humidity": null}'
+    return temperature, humidity
 
 if __name__ == "__main__":
 
