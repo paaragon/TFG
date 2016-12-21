@@ -1,7 +1,8 @@
 # TFG - Solar prediction
 This project tries to predict the solar radiation based on **temperature, humidity and the actual solar radiation**.
-##Prerequisites
-We need to build the node with the following components
+##Node
+###Prerequisites
+####HardWare
 - **Raspberry Pi 2 model B** with a Linux distribution *(we use Raspbian)*
 - 1 Led
 - 1 [DHT22](https://www.sparkfun.com/datasheets/Sensors/Temperature/DHT22.pdf) to measure temperature and humidity
@@ -9,19 +10,24 @@ We need to build the node with the following components
 
 *The wiring is described in [node/node_setup.txt](node/node_setup.txt)*
 
-##Installation
-###Node
-- Place the folder node in our Raspberry Pi
+####Software
+In the Raspberry pi we need
+- [paho-mqtt](https://pypi.python.org/pypi/paho-mqtt/1.1): ```pip install paho-mqtt```
 
-###Server
-- Install [Mosquitto](https://mosquitto.org/).
-- Place the server folder in your server.
+###Installation
+- Place the folder **node** in our Raspberry Pi
 
-##Usage
-###Node
+###Usage
 - Change the variables brokerIp, brokerPort, topic, ubication in solar_node.py
 - Execute [node/solar_node.py](node/solar_node.py)
 
-###Server
-- execute mosquitto
+##Server
+###Prerequisites
+-  [Mosquitto](https://mosquitto.org/)
+
+###Installation
+- Place the folder **server** in your server.
+
+###Usage
+- execute ```mosquitto```
 - execute [server/main.py](server/main.py)
