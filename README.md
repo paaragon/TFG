@@ -1,5 +1,8 @@
 # TFG - Solar prediction
 This project tries to predict the solar radiation based on **temperature, humidity and the actual solar radiation**.
+
+The system is composed of two elements: the node and the server
+
 ##Node
 ###Prerequisites
 ####HardWare
@@ -16,17 +19,19 @@ In the Raspberry pi we need
 
 ###Installation
 - Place the folder **node** in our Raspberry Pi
+- Change the variables brokerIp, brokerPort, topic, ubication in solar_node.py
 
 ###Usage
-- Change the variables brokerIp, brokerPort, topic, ubication in solar_node.py
 - Execute [node/solar_node.py](node/solar_node.py)
 
 ##Server
 ###Prerequisites
--  [Mosquitto](https://mosquitto.org/)
+- [thingspeak](https://thingspeak.com/) account
+- [Mosquitto](https://mosquitto.org/)
 
 ###Installation
 - Place the folder **server** in your server.
+- Change the variables brokerIp, brokerPort, topic and thingspeakKey in solar_node.py
 
 ###Usage
 - execute ```mosquitto```
