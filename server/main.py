@@ -10,6 +10,7 @@ from lib.thingSpeak import thingSpeakBridge
 brokerIp = "192.168.1.135"
 brokerPort = 1883
 topic = "solar"
+thingspeakKey = "O2M7W8NYQL5X7XD3"
 
 def mqtt_listen_function(client, userdata, msg):
 
@@ -69,7 +70,7 @@ def mqtt_listen_function(client, userdata, msg):
         'field4': data['humidity'],
         'field5': data['radiation'],
         'field6': data['prediction'],
-        'key': 'O2M7W8NYQL5X7XD3'
+        'key': thingspeakKey
         }
 
     thingSpeakBridge.sendToThingSpeak(thingSpeakData)
