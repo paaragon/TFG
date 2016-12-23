@@ -17,7 +17,7 @@ def mqtt_listen_function(client, userdata, msg):
     data = json.loads(msg.payload)
 
     # make prediction and add it to data dictionary
-    data['prediction'] = predict.fakePredict(data['date'],
+    data['prediction'] = predict.predict(data['date'],
                                  data['ubication'],
                                  data['temperature'],
                                  data['humidity'],
