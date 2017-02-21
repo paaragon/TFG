@@ -52,6 +52,9 @@ def start():
     except KeyboardInterrupt:
         pass
 
+def test():
+    print json.dumps(getData())
+
 if __name__ == "__main__":
     
     while(True):
@@ -59,16 +62,18 @@ if __name__ == "__main__":
         print "1 - config"
         print "2 - send"
         print "3 - start"
-        print "4 - exit\n"
+        print "4 - test"
+        print "5 - exit\n"
 
         options = {'1': config,
                    '2': send,
                    '3': start,
-                   '4': exit}
+                   '4': test,
+                   '5': exit}
     
         command = raw_input("Enter a command number: ")
 
-        if command == '4':
+        if command == '5':
             break
 
         options[command]()
