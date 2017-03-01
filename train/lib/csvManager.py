@@ -21,7 +21,7 @@ Args:
                  - endHour (int): the hout on which ends csv. Format: HHMM
                  - ubication (list): list with the ubications of the csv
 """
-def createCSVWithConditions(sourceFolder, destinationPath, cond = dict(), verbose = True):
+def createCSVWithConditions(sourceFolder, destinationPath=None, cond = dict(), verbose = True):
     
     from os import listdir
 
@@ -36,7 +36,7 @@ def createCSVWithConditions(sourceFolder, destinationPath, cond = dict(), verbos
     # merge the conditions dict with the parameters cond
     conditions.update(cond)
     
-    # get the files between the condition date
+    #filter data by date
     if conditions['dateEnd'] != None:
         csvFiles = [f for f in listdir(sourceFolder) \
                       if f[:8].isdigit() \
@@ -47,8 +47,13 @@ def createCSVWithConditions(sourceFolder, destinationPath, cond = dict(), verbos
                       if f[:8].isdigit() \
                       and int(f[:8]) >= conditions['dateStart']]
     
+    if len(csvFiles) == 0:
+        print 'No csv Files found'
+        return None
+
+    csvFiles = sorted(csvFiles)
+
     # loading the files
-    
     i = 0
     for f in csvFiles:
         
@@ -60,13 +65,27 @@ def createCSVWithConditions(sourceFolder, destinationPath, cond = dict(), verbos
             df = pandas.read_csv(sourceFolder + f, ';')
             
         else:
-            df = df.append(pandas.read_csv(sourceFolder + f, ';'))
-       
+            dfAux = pandas.read_csv(sourceFolder + f, ';')
+            df = df.append(dfAux)
+    
     #patching the 2015-06-06 csv
+    df.loc[df['Fecha (AAAA-MM-DD)'] == '2012-04-06', 'Fecha (AAAA-MM-DD)'] = '2015-02-06'
+    df.loc[df['Fecha (AAAA-MM-DD)'] == '2012-04-08', 'Fecha (AAAA-MM-DD)'] = '2015-02-08'
+    df.loc[df['Fecha (AAAA-MM-DD)'] == '2012-05-11', 'Fecha (AAAA-MM-DD)'] = '2015-01-18'
+    df.loc[df['Fecha (AAAA-MM-DD)'] == '2012-05-26', 'Fecha (AAAA-MM-DD)'] = '2015-06-22'
+    df.loc[df['Fecha (AAAA-MM-DD)'] == '2012-06-07', 'Fecha (AAAA-MM-DD)'] = '2015-04-09'
+    df.loc[df['Fecha (AAAA-MM-DD)'] == '2013-04-29', 'Fecha (AAAA-MM-DD)'] = '2015-03-29'
+    df.loc[df['Fecha (AAAA-MM-DD)'] == '2012-07-14', 'Fecha (AAAA-MM-DD)'] = '2015-05-16'
+    df.loc[df['Fecha (AAAA-MM-DD)'] == '2013-05-02', 'Fecha (AAAA-MM-DD)'] = '2015-04-01'
+    df.loc[df['Fecha (AAAA-MM-DD)'] == '2013-05-25', 'Fecha (AAAA-MM-DD)'] = '2015-04-24'
+    df.loc[df['Fecha (AAAA-MM-DD)'] == '2013-06-12', 'Fecha (AAAA-MM-DD)'] = '2015-05-12'
+    df.loc[df['Fecha (AAAA-MM-DD)'] == '2014-01-29', 'Fecha (AAAA-MM-DD)'] = '2015-01-11'
+    df.loc[df['Fecha (AAAA-MM-DD)'] == '2014-06-24', 'Fecha (AAAA-MM-DD)'] = '2015-06-06'
     df.loc[df['Fecha (AAAA-MM-DD)'] == '2014-06-24', 'Fecha (AAAA-MM-DD)'] = '2015-06-06'
     df.loc[df['Fecha (AAAA-MM-DD)'] == '2014-06-26', 'Fecha (AAAA-MM-DD)'] = '2015-06-08'
     df.loc[df['Fecha (AAAA-MM-DD)'] == '2014-06-28', 'Fecha (AAAA-MM-DD)'] = '2015-06-10'
     
+    #filter the data by hour and ubication
     if len(conditions['ubication']) > 0:
       
         df = pandas.DataFrame(df[(df['Hora (HHMM)'] >= conditions['hourStart']) \
@@ -76,31 +95,36 @@ def createCSVWithConditions(sourceFolder, destinationPath, cond = dict(), verbos
         df = pandas.DataFrame(df[(df['Hora (HHMM)'] >= conditions['hourStart']) \
                                & (df['Hora (HHMM)'] <= conditions['hourEnd'])])
     
-    df = df.sort_values(by=['Fecha (AAAA-MM-DD)', 'Hora (HHMM)'], ascending=True)                         
+    #sort values
+    df = df.sort_values(by=['Codigo', 'Fecha (AAAA-MM-DD)', 'Hora (HHMM)'], ascending=True)                         
      
-    if len(df.loc[df['Fecha (AAAA-MM-DD)'] == '2014-06-24']) > 0:
-            print f                      
-    df.to_csv(destinationPath, index = False)
+    if destinationPath != None:
+        df.to_csv(destinationPath, index = False)
         
+    return df
+        
+#
+#Normalize a pandas column
+#
 def normalize(col):
-    return (col - col.mean()) / (col.max() - col.min())
-    
-def normalizeCSV(souceCSVPath, destinationPath):
-    
-    df = pandas.read_csv(souceCSVPath)
-    
+    return (col - col.mean()) / (col.max() - col.min()), [col.mean(), col.max(), col.min()]
+
+#
+#normalize dataframe values and get the control values to restore the data
+#
+def normalizeCSV(df):
+
     df['Fecha (AAAA-MM-DD)'] = df['Fecha (AAAA-MM-DD)'].str.replace('-', '').astype(float)
 
-    df['Fecha (AAAA-MM-DD)'] = normalize(df['Fecha (AAAA-MM-DD)'])
-    df['Hora (HHMM)'] = normalize(df['Hora (HHMM)'])
-    df['Precipitacion (mm)'] = normalize(df['Precipitacion (mm)'])
-    df['Temperatura (oC)'] = normalize(df['Temperatura (oC)'])
-    df['Humedad relativa (%)'] = normalize(df['Humedad relativa (%)'])
-    df['Radiacion (W/m2)'] = normalize(df['Radiacion (W/m2)'])
-    df['Vel. viento (m/s)'] = normalize(df['Vel. viento (m/s)'])
-    df['Dir. viento (o)'] = normalize(df['Dir. viento (o)'])
+    #retrieve normalized values and control values to restore data
+    normValues = dict()
+    df['Fecha (AAAA-MM-DD)'], normValues['Fecha (AAAA-MM-DD)'] = normalize(df['Fecha (AAAA-MM-DD)'])
+    df['Hora (HHMM)'], normValues['Hora (HHMM)'] = normalize(df['Hora (HHMM)'])
+    df['Temperatura (oC)'], normValues['Temperatura (oC)'] = normalize(df['Temperatura (oC)'])
+    df['Humedad relativa (%)'], normValues['Humedad relativa (%)'] = normalize(df['Humedad relativa (%)'])
+    df['Radiacion (W/m2)'], normValues['Radiacion (W/m2)'] = normalize(df['Radiacion (W/m2)'])
     
-    df.to_csv(destinationPath, index = False)
+    return df, normValues
     
 if __name__ == "__main__":
 

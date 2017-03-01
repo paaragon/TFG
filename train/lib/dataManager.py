@@ -17,13 +17,18 @@ Return:
        specified
     
 """
-def downloadData(startYear, endYear, pathName, verbose = True):
+def downloadData(starDate, endDate, pathName, verbose = True):
     
     import os
     from bs4 import BeautifulSoup
     import requests
     from urllib2 import urlopen, URLError, HTTPError
     
+    #get year from startDate
+    startYear = startDate / 10000
+    endYear = endDate / 10000
+    print "StartYear: " + str(startYear)
+    print "EndYear: " + str(endYear)
     years = range(startYear, endYear + 1)
     
     url = "http://ftp.itacyl.es/Meteorologia/Datos_observacion_Red_InfoRiego/DatosHorarios/"
@@ -40,7 +45,7 @@ def downloadData(startYear, endYear, pathName, verbose = True):
             
         # getting the html of the webpage
         # and the year links
-        html = BeautifulSoup(req.text)
+        html = BeautifulSoup(req.text, "lxml")
         links = html.find_all('a')
         
         # making the list of the years
@@ -73,12 +78,21 @@ def downloadData(startYear, endYear, pathName, verbose = True):
                 if verbose:
                     print 'Succesfully request year ' + year
                 
-                html = BeautifulSoup(req.text)
+                html = BeautifulSoup(req.text, "lxml")
                 links = html.find_all('a')
                 
+                for link in links:
+                    if link.get('href').endswith('.zip'):
+                        print int(link.get('href')[4:8]) >= startDate
+                        print int(link.get('href')[4:8]) <= endDate%10000
+                        print link.get('href')[4:8] + str(endDate%10000)
                 # only zip files
-                links = [link for link in links if link.get('href').endswith('.zip')]
+                links = [link for link in links \
+                        if link.get('href').endswith('.zip') \
+                        and int(link.get('href')[4:8]) >= startDate%10000 \
+                        and int(link.get('href')[4:8]) <= endDate%10000]
                 
+                print len(links)
                 # getting the .zip links
                 i = 0
                 for link in links:
@@ -189,4 +203,11 @@ def correctCharacters(csvFolder, verbose = True):
           
         if verbose:
             print 'Correcting characters in ' + f
+
+if __name__ == "__main__":
     
+    startDate = 20130321
+    endDate = 20150621
+
+    downloadData(startDate, endDate, './prueba/', verbose = True)
+

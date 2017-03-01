@@ -3,10 +3,16 @@
 
 import pandas as pd
 
-def generateDataFrame(csvFilePath, destinationcsvPath, conditions, verbose = True):
+def generateXDF(conditions, csvFilePath=None, destinationcsvPath=None, df=None, verbose = True):
     
-    df = pd.read_csv(csvFilePath)
+    #if no source path espicified uses df by param
+    if csvFilePath is not None:
+        df = pd.read_csv(csvFilePath)
     
+    if csvFilePath is None and df is None:
+        print 'No DataFrame'
+        return None
+
     #Replace code for number
     if len(df['Codigo'].unique()) > 1:
         for i, codigo in enumerate(df['Codigo'].unique()):
@@ -14,24 +20,22 @@ def generateDataFrame(csvFilePath, destinationcsvPath, conditions, verbose = Tru
     else:
         df.loc["Codigo"] = 1
     
-    columns = ['codigo', 'fecha']
-    
     if verbose:
         print 'Creating column list'
-        
+   
+    columns = ['codigo', 'fecha']
+         
     for i in range(conditions['nSamples']):
         columns.append('hora' + str(i))
-        columns.append('precipitacion' + str(i))
         columns.append('temperatura' + str(i))
         columns.append('humedad' + str(i))
         columns.append('radiacion' + str(i))
-        columns.append('velviento' + str(i))
-        columns.append('dirviento' + str(i))
         
     columns.append('targetHour')
     
     resultList = []
-    
+   
+    #append X data in list
     i = 0
     for index in range(len(df.index) - conditions['nSamples'] - conditions['relativeTargetSample']):
         
@@ -39,26 +43,27 @@ def generateDataFrame(csvFilePath, destinationcsvPath, conditions, verbose = Tru
             print 'Apending row. ' + str(i) + '/' + str(len(df.index))
             
         r = []
-        r.append(df['Codigo'].loc[index])
-        r.append(df['Fecha (AAAA-MM-DD)'].loc[index])
+        r.append(df['Codigo'].iloc[index])
+        r.append(df['Fecha (AAAA-MM-DD)'].iloc[index])
 
         for j in range(conditions['nSamples']):
-            r.append(df['Hora (HHMM)'].loc[index + j])
-            r.append(df['Precipitacion (mm)'].loc[index + j])
-            r.append(df['Temperatura (oC)'].loc[index + j])
-            r.append(df['Humedad relativa (%)'].loc[index + j])
-            r.append(df['Radiacion (W/m2)'].loc[index + j])
-            r.append(df['Vel. viento (m/s)'].loc[index + j])
-            r.append(df['Dir. viento (o)'].loc[index + j])
+            r.append(df['Hora (HHMM)'].iloc[index + j])
+            r.append(df['Temperatura (oC)'].iloc[index + j])
+            r.append(df['Humedad relativa (%)'].iloc[index + j])
+            r.append(df['Radiacion (W/m2)'].iloc[index + j])
             
         i += 1
             
-        r.append(df['Hora (HHMM)'].loc[index + j + conditions['relativeTargetSample']])
+        r.append(df['Hora (HHMM)'].iloc[index + j + conditions['relativeTargetSample']])
         resultList.append(r) 
     
+    #create Data Frame with result values
     retDF = pd.DataFrame(data = resultList, columns = columns) 
     
-    retDF.to_csv(destinationcsvPath, index = False)
+    if destinationcsvPath != None:
+        retDF.to_csv(destinationcsvPath, index = False)
+    else:
+        return retDF
     
 if __name__ == '__main__':
     
@@ -66,5 +71,5 @@ if __name__ == '__main__':
     conditions['relativeTargetSample'] = 2
     conditions['nSamples'] = 4
     
-    generateDataFrame('data/filteredFile.csv', 'data/x.csv' ,conditions)
+    generateXDF(conditions, '../data/csvWithCondition/2015.csv', '../data/xy/2015X.csv')
     
