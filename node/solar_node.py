@@ -1,79 +1,90 @@
 from lib.mqttClient import sendToBroker
 from lib.sensors import readDHT
-from lib import fake_radiation as fk
-import json
+from lib.sensors import readDyn
 import time
+from time import localtime, strftime
+import sys
+import json
 
 brokerIp = "192.168.1.135"
 brokerPort = 1883
 topic = "solar"
 ubication = 1
-interval = 30
 
-def getData(): 
+def logData(data):
+    csv = ""
+    csv += str(data['ubication'])+','
+    csv += str(data['time'])+','
+    csv += str(data['temperature'])+','
+    csv += str(data['humidity'])+','
+    csv += str(data['radiation'])+','
+    csv += '\n'
+    with open("logs/log.csv", "a") as log:
+        log.write(csv) 
+
+def sendData(data):
+    payload = json.dumps(data)
+
+    state =  sendToBroker(brokerIp, brokerPort, payload, topic)
+    time = strftime("%d-%m-%Y %H:%M:%S", localtime())
+    with open("logs/mqttlog.csv", "a") as log:
+       log.write(time + ","+state)
+
+
+def getData():
     data = dict()
     data['ubication'] = ubication
-    data['radiation'] = fk.getRadiation()
+    data['time'] = strftime("%d-%m-%Y %H:%M:%S", localtime())
     data['temperature'], data['humidity'] = readDHT()
+    data['radiation'] = readDyn()
     return data
-    
-
-def send():
-
-    payload =json.dumps(getData())
-
-    if sendToBroker(brokerIp, brokerPort, payload, topic):
-        print "Successfully published in broker"
-    else:
-        print "Error publishing in broker"
-
-def config():
-    global brokerIp
-    global brokerPort
-    global topic
-    global ubication
-    global interval
-
-    brokerIp = raw_input("MQTT broker Ip: ")
-    brokerPort = int(raw_input("MQTT broker port: "))
-    topic = raw_input("MQTT topic: ")
-    ubication = int(raw_input("Ubication id: "))
-    interval = int(raw_input("Interval (seconds): "))
-
-def start():
-
-    print "\nPress ctrl + C to stop"
-
-    try:
-        while True:
-            send()
-            time.sleep(interval)
-
-    except KeyboardInterrupt:
-        pass
 
 def test():
-    print json.dumps(getData())
+    print getData()
+
+def start(interval, mode):
+    
+    while True:
+        data = getData()   
+        logData(data)
+        time.sleep(interval)
+        if mode == 1:
+            sendData(data)
+        time.sleep(interval)
+
+def help():
+    print "\nsudo python solar_node.py [start|test|help] [m|l] [i]"
+    print "\nIf not command is specified, the program will take one single sample and save it into a log file."
+    print "\n\t- start: turn on the client and collect samples. If nothing is specified, the interval time will be 5 minutes and the samples will be recorded into a log file."
+    print "\t- test: collect one single sample and print the results. This command is intended to test wether the sensors are right connected or not."
+    print "\n\tIf start command is selected,the data can be stored into a log file or send it to an mqtt server. The interval between samples can be modified"
+    print "\t- m: the data will be send to an mqtt server"
+    print "\t- l: (default option) the data wil be stored into a log file"
+    print "\t- i: specified the interval in seconds between taking one sample and another"
+
+
 
 if __name__ == "__main__":
-    
-    while(True):
-        print "\nCommands: "
-        print "1 - config"
-        print "2 - send"
-        print "3 - start"
-        print "4 - test"
-        print "5 - exit\n"
 
-        options = {'1': config,
-                   '2': send,
-                   '3': start,
-                   '4': test,
-                   '5': exit}
-    
-        command = raw_input("Enter a command number: ")
+    if len(sys.argv) > 1:
 
-        if command == '5':
-            break
+        if sys.argv[1] == 'start':
 
-        options[command]()
+            mode = 0
+
+            if len(sys.argv) > 2 and sys.argv[2] == 'm':
+                mode = 1
+
+            start(300, mode)
+
+        elif sys.argv[1] == 'test':
+            test()
+
+        elif sys.argv[1] == 'help':
+            help()
+        else:
+            help()
+
+    else:
+        data = getData()
+        logData(data)  
