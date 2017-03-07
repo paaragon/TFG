@@ -32,6 +32,7 @@ def generateYDF(csvFilePath=None, xFilePath=None, destinationcsvPath=None, df=No
         
         if verbose:
             print 'Appending row ', index, '/', str(len(dfX))
+
         rad = df[(df['Hora (HHMM)'] == value) &\
                  (df['Fecha (AAAA-MM-DD)'] == dfX['fecha'].loc[index])]['Radiacion (W/m2)'].values[0]
             

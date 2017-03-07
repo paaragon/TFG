@@ -59,7 +59,7 @@ def createCSVWithConditions(sourceFolder, destinationPath=None, cond = dict(), v
         
         i += 1
         if verbose:
-            print 'Reading '+ f + '('+ str(i) +'/'+ str(len(csvFiles)) +')'
+            print '\rReading '+ f + '('+ str(i) +'/'+ str(len(csvFiles)) +')'
             
         if 'df' not in locals():
             df = pandas.read_csv(sourceFolder + f, ';')

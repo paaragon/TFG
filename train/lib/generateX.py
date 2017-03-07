@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!usr/bin/env python2
 # -*- coding: utf-8 -*-
 
 import pandas as pd
@@ -62,8 +62,8 @@ def generateXDF(conditions, csvFilePath=None, destinationcsvPath=None, df=None, 
     
     if destinationcsvPath != None:
         retDF.to_csv(destinationcsvPath, index = False)
-    else:
-        return retDF
+
+    return retDF
     
 if __name__ == '__main__':
     

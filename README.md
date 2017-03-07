@@ -29,6 +29,12 @@ In the Raspberry pi we need
 - [thingspeak](https://thingspeak.com/) account
 - [Mosquitto](https://mosquitto.org/)
 
+###Python version and libraries
+- Python 2.7
+- Pandas to manage csv files ```sudo pip install pandas```
+- Paho MQTT to create the listener of the MQTT server ```sudo pip install paho-mqtt```
+
+
 ###Installation
 - Place the folder **server** in your server.
 - Change the variables brokerIp, brokerPort, topic and thingspeakKey in solar_node.py
