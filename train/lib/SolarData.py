@@ -46,7 +46,7 @@ class SolarData:
         self.relativeTargetDistance = relativeTargetDistance
 
         # path where data csv file will be stored
-        dataPath = self.dataPath + "/xy/" + str(self.startDate) + str(self.endDate) + str(nSamples) + str(relativeTargetDistance) + "-X-" + ".csv"
+        dataPath = self.dataPath + "/xy/" + str(self.startDate) + str(self.endDate) + str(nSamples) + str(relativeTargetDistance) + "-X" + ".csv"
 
         # check if csv file already exists
         if os.path.isfile(dataPath):
@@ -73,7 +73,7 @@ class SolarData:
     '''
     def _generateTarget(self):
 
-        targetPath = self.dataPath + "/xy/" + str(self.startDate) + str(self.endDate) + str(self.nSamples) + str(self.relativeTargetDistance) + "-Y-" + ".csv"
+        targetPath = self.dataPath + "/xy/" + str(self.startDate) + str(self.endDate) + str(self.nSamples) + str(self.relativeTargetDistance) + "-Y" + ".csv"
 
         if os.path.isfile(targetPath):
 
