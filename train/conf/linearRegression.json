@@ -1,8 +1,9 @@
 {
+	"id": "linearRegression1"
 	"start": 20150101,
 	"end": 20150131,
 	"k": [1, 2],
-	"estimator": "SVC",
+	"estimator": "LinearRegresion",
 	"parameters": [
 		{
 			"fit_intercept": [true, false],
