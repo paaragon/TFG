@@ -6,6 +6,8 @@ Created on Wed Oct 19 15:14:50 2016
 """
 
 import pandas
+import os
+import json
 
 """
 Read all CSV in a specific folder and create a new one based on the condition
@@ -22,7 +24,10 @@ Args:
                  - ubication (list): list with the ubications of the csv
 """
 def createCSVWithConditions(sourceFolder, destinationPath=None, cond = dict(), verbose = True):
-    
+   
+    relativePath = os.path.dirname(__file__)
+    sourceFolder = os.path.join(relativePath, sourceFolder)
+
     from os import listdir
 
     # dictionary with the default conditions
@@ -52,6 +57,12 @@ def createCSVWithConditions(sourceFolder, destinationPath=None, cond = dict(), v
         return None
 
     csvFiles = sorted(csvFiles)
+    
+    origColumns = ['Codigo', 'Fecha (AAAA-MM-DD)', 'Hora (HHMM)','Temperatura (oC)', 'Humedad relativa (%)', 'Radiacion (W/m2)']
+
+    columns = ['codigo', 'fecha', 'hora', 'temperatura', 'humedad', 'radiacion']
+
+    df = pandas.DataFrame(columns = columns)
 
     # loading the files
     i = 0
@@ -61,43 +72,54 @@ def createCSVWithConditions(sourceFolder, destinationPath=None, cond = dict(), v
         if verbose:
             print '\rReading '+ f + '('+ str(i) +'/'+ str(len(csvFiles)) +')'
             
-        if 'df' not in locals():
-            df = pandas.read_csv(sourceFolder + f, ';')
-            
-        else:
-            dfAux = pandas.read_csv(sourceFolder + f, ';')
-            df = df.append(dfAux)
-    
+        dfAux = pandas.read_csv(sourceFolder + f, ';', usecols=origColumns)
+
+        dfAux.columns = columns
+
+        df = df.append(dfAux)
+   
+    #sort values
+    df = df.sort_values(by=['codigo', 'fecha', 'hora'], ascending=True)                         
+      
     #patching the 2015-06-06 csv
-    df.loc[df['Fecha (AAAA-MM-DD)'] == '2012-04-06', 'Fecha (AAAA-MM-DD)'] = '2015-02-06'
-    df.loc[df['Fecha (AAAA-MM-DD)'] == '2012-04-08', 'Fecha (AAAA-MM-DD)'] = '2015-02-08'
-    df.loc[df['Fecha (AAAA-MM-DD)'] == '2012-05-11', 'Fecha (AAAA-MM-DD)'] = '2015-01-18'
-    df.loc[df['Fecha (AAAA-MM-DD)'] == '2012-05-26', 'Fecha (AAAA-MM-DD)'] = '2015-06-22'
-    df.loc[df['Fecha (AAAA-MM-DD)'] == '2012-06-07', 'Fecha (AAAA-MM-DD)'] = '2015-04-09'
-    df.loc[df['Fecha (AAAA-MM-DD)'] == '2013-04-29', 'Fecha (AAAA-MM-DD)'] = '2015-03-29'
-    df.loc[df['Fecha (AAAA-MM-DD)'] == '2012-07-14', 'Fecha (AAAA-MM-DD)'] = '2015-05-16'
-    df.loc[df['Fecha (AAAA-MM-DD)'] == '2013-05-02', 'Fecha (AAAA-MM-DD)'] = '2015-04-01'
-    df.loc[df['Fecha (AAAA-MM-DD)'] == '2013-05-25', 'Fecha (AAAA-MM-DD)'] = '2015-04-24'
-    df.loc[df['Fecha (AAAA-MM-DD)'] == '2013-06-12', 'Fecha (AAAA-MM-DD)'] = '2015-05-12'
-    df.loc[df['Fecha (AAAA-MM-DD)'] == '2014-01-29', 'Fecha (AAAA-MM-DD)'] = '2015-01-11'
-    df.loc[df['Fecha (AAAA-MM-DD)'] == '2014-06-24', 'Fecha (AAAA-MM-DD)'] = '2015-06-06'
-    df.loc[df['Fecha (AAAA-MM-DD)'] == '2014-06-24', 'Fecha (AAAA-MM-DD)'] = '2015-06-06'
-    df.loc[df['Fecha (AAAA-MM-DD)'] == '2014-06-26', 'Fecha (AAAA-MM-DD)'] = '2015-06-08'
-    df.loc[df['Fecha (AAAA-MM-DD)'] == '2014-06-28', 'Fecha (AAAA-MM-DD)'] = '2015-06-10'
-    
+    df['fecha'] = df['fecha'].str.replace('-', '').astype(float)
+
+    df.loc[df['fecha'] == 20120406, 'fecha'] = 20150206
+    df.loc[df['fecha'] == 20120408, 'fecha'] = 20150208
+    df.loc[df['fecha'] == 20120511, 'fecha'] = 20150118
+    df.loc[df['fecha'] == 20120526, 'fecha'] = 20150622
+    df.loc[df['fecha'] == 20120607, 'fecha'] = 20150409
+    df.loc[df['fecha'] == 20130429, 'fecha'] = 20150329
+    df.loc[df['fecha'] == 20120714, 'fecha'] = 20150516
+    df.loc[df['fecha'] == 20130502, 'fecha'] = 20150401
+    df.loc[df['fecha'] == 20130525, 'fecha'] = 20150424
+    df.loc[df['fecha'] == 20130612, 'fecha'] = 20150512
+    df.loc[df['fecha'] == 20140129, 'fecha'] = 20150111
+    df.loc[df['fecha'] == 20140624, 'fecha'] = 20150606
+    df.loc[df['fecha'] == 20140624, 'fecha'] = 20150606
+    df.loc[df['fecha'] == 20140626, 'fecha'] = 20150608
+    df.loc[df['fecha'] == 20140628, 'fecha'] = 20150610
+   
+    for i, codigo in enumerate(df['codigo'].unique()):
+        df.loc[df['codigo'] == codigo, 'codigo'] = i
+
     #filter the data by hour and ubication
     if len(conditions['ubication']) > 0:
       
-        df = pandas.DataFrame(df[(df['Hora (HHMM)'] >= conditions['hourStart']) \
-                               & (df['Hora (HHMM)'] <= conditions['hourEnd']) \
+        df = pandas.DataFrame(df[(df['hora'] >= conditions['hourStart']) \
+                               & (df['hora'] <= conditions['hourEnd']) \
                                & (df['Ubicacion'].isin(conditions['ubication']))])
     else:
-        df = pandas.DataFrame(df[(df['Hora (HHMM)'] >= conditions['hourStart']) \
-                               & (df['Hora (HHMM)'] <= conditions['hourEnd'])])
-    
-    #sort values
-    df = df.sort_values(by=['Codigo', 'Fecha (AAAA-MM-DD)', 'Hora (HHMM)'], ascending=True)                         
-     
+        df = pandas.DataFrame(df[(df['hora'] >= conditions['hourStart']) \
+                               & (df['hora'] <= conditions['hourEnd'])])
+  
+    normpath = sourceFolder + '../reverseNorm/'+ str(conditions['hourStart']) + str(conditions['hourEnd']) + '.json'
+
+    df, normValues = normalizeCSV(df)
+
+    with open(normpath, 'w') as outfile:
+        json.dump(normValues, outfile)
+
     if destinationPath != None:
         df.to_csv(destinationPath, index = False)
         
@@ -113,16 +135,11 @@ def normalize(col):
 #normalize dataframe values and get the control values to restore the data
 #
 def normalizeCSV(df):
-
-    df['Fecha (AAAA-MM-DD)'] = df['Fecha (AAAA-MM-DD)'].str.replace('-', '').astype(float)
-
-    #retrieve normalized values and control values to restore data
+    
     normValues = dict()
-    df['Fecha (AAAA-MM-DD)'], normValues['Fecha (AAAA-MM-DD)'] = normalize(df['Fecha (AAAA-MM-DD)'])
-    df['Hora (HHMM)'], normValues['Hora (HHMM)'] = normalize(df['Hora (HHMM)'])
-    df['Temperatura (oC)'], normValues['Temperatura (oC)'] = normalize(df['Temperatura (oC)'])
-    df['Humedad relativa (%)'], normValues['Humedad relativa (%)'] = normalize(df['Humedad relativa (%)'])
-    df['Radiacion (W/m2)'], normValues['Radiacion (W/m2)'] = normalize(df['Radiacion (W/m2)'])
+    
+    for column in list(df):
+        df[column], normValues[column] = normalize(df[column])
     
     return df, normValues
     

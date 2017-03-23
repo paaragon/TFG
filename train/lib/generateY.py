@@ -28,13 +28,17 @@ def generateYDF(csvFilePath=None, xFilePath=None, destinationcsvPath=None, df=No
     
     resultList = []
     
+    percentage = -1
     for index, value in enumerate(dfX['targetHour']):
         
-        if verbose:
-            print 'Appending row ', index, '/', str(len(dfX))
+        perc = index * 100 / len(dfX)
+        
+        if verbose and perc != percentage:
+            print 'Appending row ', index, '/', str(len(dfX)) + '. ' + str(perc) + '%'
+            percentage = perc
 
-        rad = df[(df['Hora (HHMM)'] == value) &\
-                 (df['Fecha (AAAA-MM-DD)'] == dfX['fecha'].loc[index])]['Radiacion (W/m2)'].values[0]
+        rad = df[(df['hora'] == value) &\
+                 (df['fecha'] == dfX['fecha'].loc[index])]['radiacion'].values[0]
             
         resultList.append(rad)
     

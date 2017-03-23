@@ -13,13 +13,6 @@ def generateXDF(conditions, csvFilePath=None, destinationcsvPath=None, df=None, 
         print 'No DataFrame'
         return None
 
-    #Replace code for number
-    if len(df['Codigo'].unique()) > 1:
-        for i, codigo in enumerate(df['Codigo'].unique()):
-            df.loc[df["Codigo"] == codigo, "Codigo"] = i
-    else:
-        df.loc["Codigo"] = 1
-    
     if verbose:
         print 'Creating column list'
    
@@ -37,24 +30,28 @@ def generateXDF(conditions, csvFilePath=None, destinationcsvPath=None, df=None, 
    
     #append X data in list
     i = 0
+    percentage = -1
     for index in range(len(df.index) - conditions['nSamples'] - conditions['relativeTargetSample']):
         
-        if verbose:
-            print 'Apending row. ' + str(i) + '/' + str(len(df.index))
+        perc = i * 100 / len(df.index)
+        if verbose and perc != percentage:
+            print 'Apending row. ' + str(i) + '/' + str(len(df.index)) + '. ' + str(perc)+'%'
+
+            percentage = perc
             
         r = []
-        r.append(df['Codigo'].iloc[index])
-        r.append(df['Fecha (AAAA-MM-DD)'].iloc[index])
+        r.append(df['codigo'].iloc[index])
+        r.append(df['fecha'].iloc[index])
 
         for j in range(conditions['nSamples']):
-            r.append(df['Hora (HHMM)'].iloc[index + j])
-            r.append(df['Temperatura (oC)'].iloc[index + j])
-            r.append(df['Humedad relativa (%)'].iloc[index + j])
-            r.append(df['Radiacion (W/m2)'].iloc[index + j])
+            r.append(df['hora'].iloc[index + j])
+            r.append(df['temperatura'].iloc[index + j])
+            r.append(df['humedad'].iloc[index + j])
+            r.append(df['radiacion'].iloc[index + j])
             
         i += 1
             
-        r.append(df['Hora (HHMM)'].iloc[index + j + conditions['relativeTargetSample']])
+        r.append(df['hora'].iloc[index + j + conditions['relativeTargetSample']])
         resultList.append(r) 
     
     #create Data Frame with result values

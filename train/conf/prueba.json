@@ -1,0 +1,12 @@
+{
+	"start": 20150101,
+	"end": 20150131,
+	"k": [1, 2],
+	"estimator": "SVC",
+	"parameters": [
+		{
+			"fit_intercept": [true, false],
+			"copy_X": [true, false]
+		}
+	]
+}
