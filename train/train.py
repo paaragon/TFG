@@ -45,3 +45,6 @@ for k in kList:
     stds = clf.cv_results_['std_test_score']
     for mean, std, params in zip(means, stds, clf.cv_results_['params']):
         print "%0.3f (+/-%0.03f) for %r" % (mean, std * 2, params)
+
+    with open(tuned_parameters['id']+'.csv', 'w') as csvfile:
+	write("%0.3f,%0.03f,%r" % (mean, std * 2, params))
