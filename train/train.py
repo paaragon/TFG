@@ -5,6 +5,7 @@ from sklearn import linear_model
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
 import numpy as np
+import csv
 
 with open('./conf/prueba.json') as data_file:    
     conf = json.load(data_file)
@@ -46,5 +47,5 @@ for k in kList:
     for mean, std, params in zip(means, stds, clf.cv_results_['params']):
         print "%0.3f (+/-%0.03f) for %r" % (mean, std * 2, params)
 
-    with open(tuned_parameters['id']+'.csv', 'w') as csvfile:
-	write("%0.3f,%0.03f,%r" % (mean, std * 2, params))
+	with open(tuned_parameters['id'] + '.csv', 'w') as csvfile:
+		write("%0.3f,%0.03f,%r" % (mean, std * 2, params))
