@@ -35,17 +35,12 @@ for k in kList:
     clf = GridSearchCV(model, tuned_parameters, cv=None)
     clf.fit(X_train, y_train.values.ravel())
 
-    print ""
-    print "Best parameters set found on development set:"
-    print ""
-
-    print clf.best_params_
-    print "Grid scores on development set:"
-    print ""
     means = clf.cv_results_['mean_test_score']
     stds = clf.cv_results_['std_test_score']
 
-    with open(tuned_parameters['id']+'.csv', 'w') as csvfile:
+    with open('results/'+conf['id']+str(k)+'.csv', 'w') as csvfile:
         for mean, std, params in zip(means, stds, clf.cv_results_['params']):
-        print "%0.3f (+/-%0.03f) for %r" % (mean, std * 2, params)
-        write("%0.3f,%0.03f,%r" % (mean, std * 2, params))
+            print "%f (+/-%f) for %r" % (mean, std * 2, params)
+            csvfile.write("%i;%f;%f;%r;%s\n" % (k, mean, std * 2, params,clf.best_params_))
+
+print "Test finished"

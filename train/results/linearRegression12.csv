@@ -1,0 +1,4 @@
+2;0.703336;0.005081;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+2;0.698087;0.005223;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+2;0.703336;0.005081;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+2;0.698087;0.005223;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
