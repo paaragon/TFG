@@ -1,0 +1,33 @@
+% +--------------------------------------------------------------------+
+% | Sample Chapter 2
+% +--------------------------------------------------------------------+
+
+\cleardoublepage
+
+% +--------------------------------------------------------------------+
+% | Replace "This is Chapter 2" below with the title of your chapter.
+% | LaTeX will automatically number the chapters.
+% +--------------------------------------------------------------------+
+
+\chapter{This is Chapter 2}
+\label{makereference2}
+
+In this chapter, I want to refer to Chapter~\ref{makereference},
+so I'm going to use the slash ref command along with the
+"makereference" label which I assigned back at the beginning of
+Chapter 1.
+
+\section{Page Number References}
+\label{makereference2.1} I should also be able to refer to a
+specific page number, such as page~\pageref{makereference}.  Of
+course, I'll need to have a slash label command and a unique name
+in each section that I want to be able to refer to later in the
+text.
+
+\section{Referring to Sections Within Chapter 1}
+\label{makereference2.2} Now, I'm going to refer to different
+sections within Chapter 1. I gave an example of a figure in
+section~\ref{makereference1.1} and an example of a table in
+section~\ref{makereference1.2}.  In
+section~\ref{makereference1.3}, we looked at examples of
+bibliographic citations.
