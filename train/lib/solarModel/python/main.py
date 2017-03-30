@@ -12,11 +12,11 @@ def getGHI(fecha, hora, lat = 40.9904320, lng = -4.758942):
     doy = datetime.strptime(str(fecha), "%Y%m%d").timetuple().tm_yday
     print doy
 
-    hAux = datetime.strptime("00:00", "%H:%M")
-    h = ((datetime.strptime("{:04d}".format(hora), "%H%M") - hAux).total_seconds() % 3600) // 60
+    h = hora / 100 * 60
+    h += hora % 100
     print h
 
-    z, cosz = zentihAngle(lat, lng, doy, h)
+    z, cosz = zentihAngle(lat, lng, doy - 1, h - 1)
 
     return robledoSoler(z)
 
