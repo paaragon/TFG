@@ -21,7 +21,7 @@ Args:
                  - endDate (int): the date on which ends csv. Format: YYYYMMDD
                  - startHour (int): the hour on which begins csv. Format: HHMM
                  - endHour (int): the hout on which ends csv. Format: HHMM
-                 - ubication (list): list with the ubications of the csv
+                 - ubicationsId (list): list with the ubications ids of the csv
 """
 def createCSVWithConditions(sourceFolder, destinationPath=None, cond = dict(), verbose = True):
    
@@ -35,7 +35,7 @@ def createCSVWithConditions(sourceFolder, destinationPath=None, cond = dict(), v
                   'dateEnd': None,
                   'hourStart': 100,
                   'hourEnd': 2400,
-                  'ubication': list()
+                  'ubicationsId': list()
                   }
     
     # merge the conditions dict with the parameters cond
@@ -104,17 +104,18 @@ def createCSVWithConditions(sourceFolder, destinationPath=None, cond = dict(), v
         df.loc[df['codigo'] == codigo, 'codigo'] = i
 
     #filter the data by hour and ubication
-    if len(conditions['ubication']) > 0:
+    if len(conditions['ubicationsId']) > 0:
       
         df = pandas.DataFrame(df[(df['hora'] >= conditions['hourStart']) \
                                & (df['hora'] <= conditions['hourEnd']) \
-                               & (df['Ubicacion'].isin(conditions['ubication']))])
+                               & (df['codigo'].isin(conditions['ubicationsId']))])
     else:
         df = pandas.DataFrame(df[(df['hora'] >= conditions['hourStart']) \
                                & (df['hora'] <= conditions['hourEnd'])])
   
-    normpath = sourceFolder + '../reverseNorm/'+ str(conditions['hourStart']) + str(conditions['hourEnd']) + '.json'
+    normpath = sourceFolder + '../reverseNorm/'+ str(conditions['dateStart']) + str(conditions['dateEnd']) + '.json'
 
+    df.to_csv(destinationPath+'.tmp', index = False)
     df, normValues = normalizeCSV(df)
 
     with open(normpath, 'w') as outfile:
@@ -131,6 +132,16 @@ def createCSVWithConditions(sourceFolder, destinationPath=None, cond = dict(), v
 def normalize(col):
     return (col - col.mean()) / (col.max() - col.min()), [col.mean(), col.max(), col.min()]
 
+def denormalize(colName, col, mean, mx, mn):
+    
+    i = 0
+    for val in col:
+        print 'Denormalizing ' + colName + '-' + str(i) + '/' + str(len(col))
+        val = val * (mx - mn) + mean
+        i += 1
+
+    return col
+
 #
 #normalize dataframe values and get the control values to restore the data
 #
@@ -143,16 +154,25 @@ def normalizeCSV(df):
     
     return df, normValues
 
-def deNormalizeCSV(df):
-    pass
+def denormalizeCSV(df, reverseNormPath):
+    
+    reverseNorm = pandas.read_json(reverseNormPath)
+
+    for col in list(df):
+        mean = reverseNorm[col][0]
+        mx = reverseNorm[col][1]
+        mn = reverseNorm[col][2]
+        df[col] = denormalize(col, df[col], mean, mx, mn)
+    
+    return df
     
 if __name__ == "__main__":
 
     conditions = dict()
-    conditions['dateStart'] = 20010101
-    conditions['dateEnd'] = 20020101
+    conditions['dateStart'] = 20150101
+    conditions['dateEnd'] = 20151231
     #conditions['hourStart'] = 100
     #conditions['hourEnd'] = 200
     conditions['ubication'] = ['Nava de Arevalo']
     
-    createCSVWithConditions('../data/csvFiles/', '../data/filteredFile.csv', conditions)
+    createCSVWithConditions('../data/csvFiles/', '../data/csvWithCondition/2015010120151231.csv', conditions)

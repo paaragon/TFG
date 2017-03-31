@@ -7,18 +7,25 @@ from kasten import kasten
 from adnot import adnot
 from dpp import dpp
 
-def getGHI(fecha, hora, lat = 40.9904320, lng = -4.758942):
-   
+def getGHI(doy, h, model, lat = 40.9904320, lng = -4.758942):
+    '''
     doy = datetime.strptime(str(fecha), "%Y%m%d").timetuple().tm_yday
     print doy
 
     h = hora / 100 * 60
     h += hora % 100
     print h
-
+    '''
     z, cosz = zentihAngle(lat, lng, doy - 1, h - 1)
 
-    return robledoSoler(z)
+    if model == 'robledo':
+        return robledoSoler(z)
+    elif model == 'kast':
+        return kasten(cosz)
+    elif model == 'adnot':
+        return adnot(cosz)
+    elif model == 'dpp':
+        return dpp(z, cosz)
 
 if __name__ == "__main__":
     
