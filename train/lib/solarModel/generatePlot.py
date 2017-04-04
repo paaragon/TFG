@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from python.main import getGHI
 
 def getRealRadiation():
-    df = pd.read_csv('../../data/csvWithCondition/primavera2015.csv')
+    df = pd.read_csv('../../data/csvWithCondition/invierno20152016.csv')
     radiacion = list()
 
     horas = df['hora'].unique()
@@ -18,17 +18,19 @@ def getRealRadiation():
         hAux += h % 100 / 60.0
         newHoras.append(hAux)
 
-    return plt.plot(newHoras, radiacion, label='Radiacion 2015')
+    return plt.plot(newHoras, radiacion, label='Invierno 2015')
 
-def getModelRadiation(model, startDate = None, endDate = None):
-    
+def getModelRadiation(model, startDate = None, endDate = None): 
     if startDate == None:
         dias = np.arange(365)
     else:
         start = datetime.strptime(str(startDate), "%Y%m%d").timetuple().tm_yday
         end = datetime.strptime(str(endDate), "%Y%m%d").timetuple().tm_yday
         print str(start) + '-' + str(end)
-        dias = np.arange(start, end)
+        if start > end:
+            dias = np.arange(end, start)
+        else:
+            dias = np.arange(start, end)
     horas = np.arange(0, 24, 1/60.0)
     ghi = np.zeros(shape=(len(horas), len(dias)))
     
@@ -44,26 +46,16 @@ def getModelRadiation(model, startDate = None, endDate = None):
     return plt.plot(horas, meanGHI, label=model)
 
 if __name__ == "__main__":
-    '''
-    df = pd.read_csv('../../data/csvWithCondition/verano2015.csv')
-    radiacion = list()
-
-    horas = df['hora'].unique()
-    for hora in horas:
-        radiacion.append(df[df['hora'] == hora]['radiacion'].mean())
-
-    plt.plot(horas, radiacion)
-    plt.show()
-    '''
+   
     plot1, = getRealRadiation()
-    plot2, = getModelRadiation('robledo', 20150321, 20150620)
-    plot3, = getModelRadiation('kast', 20150321, 20150620)
-    plot4, = getModelRadiation('adnot', 20150321, 20150620)
-    plot5, = getModelRadiation('dpp', 20150321, 20150620)
+    plot2, = getModelRadiation('robledo', 20151221, 20160320)
+    plot3, = getModelRadiation('kast', 20151221, 20160320)
+    plot4, = getModelRadiation('adnot', 20151221, 20160320)
+    plot5, = getModelRadiation('dpp', 20151221, 20160320)
     plt.xlabel('Hora (0:24)')
     plt.ylabel('Radiacion')
     plt.legend(handles=[plot1, plot2, plot3, plot4, plot5])
-    plt.savefig('verano2015.png')
+    plt.savefig('invierno2015.png')
     plt.show()
 
 
