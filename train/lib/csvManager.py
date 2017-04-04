@@ -8,6 +8,7 @@ Created on Wed Oct 19 15:14:50 2016
 import pandas
 import os
 import json
+import sys
 
 """
 Read all CSV in a specific folder and create a new one based on the condition
@@ -169,8 +170,16 @@ def denormalizeCSV(df, reverseNormPath):
 if __name__ == "__main__":
 
     conditions = dict()
+    
     conditions['dateStart'] = 20150101
     conditions['dateEnd'] = 20151231
+    print sys.argv[1]
+    print sys.argv[2]
+    if len(sys.argv) > 1:
+        conditions['dateStart'] = int(sys.argv[1])
+    if len(sys.argv) > 2:
+        conditions['dateEnd'] = int(sys.argv[2])
+
     #conditions['hourStart'] = 100
     #conditions['hourEnd'] = 200
     conditions['ubication'] = ['Nava de Arevalo']

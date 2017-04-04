@@ -83,16 +83,17 @@ def downloadData(starDate, endDate, pathName, verbose = True):
                 
                 for link in links:
                     if link.get('href').endswith('.zip'):
-                        print int(link.get('href')[4:8]) >= startDate
-                        print int(link.get('href')[4:8]) <= endDate%10000
-                        print link.get('href')[4:8] + str(endDate%10000)
+                        print link.get('href')[0:8]
+                        print int(link.get('href')[0:8]) >= startDate
+                        print int(link.get('href')[0:8]) <= endDate
+                        print link.get('href')[0:8] + str(endDate)
                 # only zip files
-                links = [link for link in links \
-                        if link.get('href').endswith('.zip') \
-                        and int(link.get('href')[4:8]) >= startDate%10000 \
-                        and int(link.get('href')[4:8]) <= endDate%10000]
+                    links = [link for link in links \
+                            if link.get('href').endswith('.zip') \
+                            and int(link.get('href')[0:8]) >= startDate \
+                            and int(link.get('href')[0:8]) <= endDate]
                 
-                print len(links)
+                #print len(links)
                 # getting the .zip links
                 i = 0
                 for link in links:
@@ -206,8 +207,9 @@ def correctCharacters(csvFolder, verbose = True):
 
 if __name__ == "__main__":
     
-    startDate = 20130321
-    endDate = 20150621
+    startDate = 20151221
+    endDate = 20160320
 
-    downloadData(startDate, endDate, './prueba/', verbose = True)
-
+    downloadData(startDate, endDate, '../data/zipFiles/', verbose = True)
+    uncompressData('../data/zipFiles/', '../data/csvFiles/')
+    correctCharacters('../data/csvFiles/')
