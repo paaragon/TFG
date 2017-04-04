@@ -1,0 +1,35 @@
+{
+	"id": "linearRegression1",
+	"start": 20150101,
+	"end": 20150131,
+	"k": [2, 3, 4],
+	"estimator": [
+		{
+			"module": "sklearn.linear_model",
+			"class": "linear_model",
+			"model": "LinearRegression",
+			"parameters": [
+				{
+					"fit_intercept": [true, false],
+					"copy_X": [true, false]
+				}
+			]
+		},
+		{
+			"module": "sklearn.svm",
+			"class": "svm",
+			"model": "SVR",
+			"parameters": [
+				{
+					"C": [1, 10, 100, 1000],
+					"kernel": ["linear"]
+				},
+				{
+					"C": [1, 10, 100, 1000],
+					"gamma": [0.001, 0.0001],
+					"kernel": ["rbf"]
+				}
+			]
+		}
+	]
+}
