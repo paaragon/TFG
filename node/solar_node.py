@@ -5,6 +5,7 @@ import time
 from time import localtime, strftime
 import sys
 import json
+import time
 
 brokerIp = "192.168.1.135"
 brokerPort = 1883
@@ -43,7 +44,12 @@ def test():
     print getData()
 
 def start(interval, mode):
-    
+
+    mins = int(time.strftime("%M"))
+    while ((mins % 10) != 0):
+        mins = int(time.strftime("%M"))
+    print str(mins)    
+
     while True:
         data = getData()   
         logData(data)
