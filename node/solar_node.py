@@ -30,9 +30,9 @@ def sendData(data):
 
     state =  sendToBroker(brokerIp, brokerPort, payload, topic)
     time = strftime("%d-%m-%Y %H:%M:%S", localtime())
-    pathName = "mqttLog"+time.strftime("%d%B%Y") + ".csv"
+    pathName = "mqttLog"+ strftime("%d%B%Y") + ".csv"
     with open("logs/mqtt/"+ pathName, "a") as log:
-       log.write(time + ","+state)
+       log.write(time + ","+ str(state))
 
 
 def getData():
