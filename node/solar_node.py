@@ -20,7 +20,9 @@ def logData(data):
     csv += str(data['humidity'])+','
     csv += str(data['radiation'])+','
     csv += '\n'
-    with open("logs/log.csv", "a") as log:
+
+    pathName = "log-"+ time.strftime("%d%B%Y") + ".csv"·
+    with open("logs/"+logName, "a") as log:
         log.write(csv) 
 
 def sendData(data):
@@ -28,7 +30,8 @@ def sendData(data):
 
     state =  sendToBroker(brokerIp, brokerPort, payload, topic)
     time = strftime("%d-%m-%Y %H:%M:%S", localtime())
-    with open("logs/mqttlog.csv", "a") as log:
+    pathName = "mqttLog"+time.strftime("%d%B%Y") + ".csv"
+    with open("logs/mqtt/"+ pathName, "a") as log:
        log.write(time + ","+state)
 
 
@@ -41,14 +44,16 @@ def getData():
     return data
 
 def test():
-    print getData()
+    data = getData()
+    print data
+    sendData(data)
 
 def start(interval, mode):
 
     mins = int(time.strftime("%M"))
     while ((mins % 10) != 0):
         mins = int(time.strftime("%M"))
-    print str(mins)    
+    print "Starting."
 
     while True:
         data = getData()   
@@ -65,7 +70,7 @@ def help():
     print "\t- test: collect one single sample and print the results. This command is intended to test wether the sensors are right connected or not."
     print "\n\tIf start command is selected,the data can be stored into a log file or send it to an mqtt server. The interval between samples can be modified"
     print "\t- m: the data will be send to an mqtt server"
-    print "\t- l: (default option) the data wil be stored into a log file"
+    print "\t- l: (default option) the data will be stored into a log file"
     print "\t- i: specified the interval in seconds between taking one sample and another"
 
 
