@@ -41,7 +41,7 @@ for k in kList:
         method = getattr(class_, model_name)
         model = method()
     
-        clf = GridSearchCV(model, tuned_parameters, cv=None)
+        clf = GridSearchCV(model, tuned_parameters, cv=None, n_jobs=56)
         clf.fit(X_train, y_train.values.ravel())
     
         means = clf.cv_results_['mean_test_score']
