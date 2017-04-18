@@ -69,7 +69,7 @@ def start(interval, mode):
         print "Data retrieved"  
         logData(data)
         if mode == 1:
-            t = threading.Thread(target=sendData, args=data)
+            t = threading.Thread(target=sendData, args=(data))
             t.start()
         time.sleep(interval)
 
@@ -96,7 +96,7 @@ if __name__ == "__main__":
             if len(sys.argv) > 2 and sys.argv[2] == 'm':
                 mode = 1
 
-            start(300, mode)
+            start(60, mode)
 
         elif sys.argv[1] == 'test':
             test()
