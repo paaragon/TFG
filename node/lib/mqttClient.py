@@ -22,8 +22,10 @@ def sendToBroker(brokerIp, brokerPort, payload, topic):
     client = mqtt.Client()
     client.connect(brokerIp, brokerPort, 60)
     
-    client.publish(topic, payload=payload)
-    
+    result = client.publish(topic, payload=payload)
+    if result[0] == mqtt.MQTT_ERR_NO_CONN:
+        return False
+
     client.disconnect()
     return True
 

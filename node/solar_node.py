@@ -28,11 +28,19 @@ def logData(data):
 def sendData(data):
     payload = json.dumps(data)
 
-    state =  sendToBroker(brokerIp, brokerPort, payload, topic)
+    state = sendToBroker(brokerIp, brokerPort, payload, topic)
     time = strftime("%d-%m-%Y %H:%M:%S", localtime())
-    pathName = "mqttLog"+ strftime("%d%B%Y") + ".csv"
+ 
+    if state:
+        message = time + " | success"
+    else:
+        message = time + " | failure"
+
+    print message
+
+   pathName = "mqttLog"+ strftime("%d%B%Y") + ".csv"
     with open("logs/mqtt/"+ pathName, "a") as log:
-       log.write(time + ","+ str(state))
+       log.write(time + ","+ message)
 
 
 def getData():
@@ -58,7 +66,6 @@ def start(interval, mode):
     while True:
         data = getData()   
         logData(data)
-        time.sleep(interval)
         if mode == 1:
             sendData(data)
         time.sleep(interval)
