@@ -22,7 +22,7 @@ def logData(data):
     csv += str(data['radiation'])+','
     csv += '\n'
 
-    pathName = "log-"+ time.strftime("%d%B%Y") + ".csv"·
+    pathName = "log-"+ time.strftime("%d%B%Y") + ".csv"
     with open("logs/"+logName, "a") as log:
         log.write(csv) 
 
