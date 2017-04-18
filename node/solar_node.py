@@ -6,6 +6,7 @@ from time import localtime, strftime
 import sys
 import json
 import time
+import threading
 
 brokerIp = "192.168.1.135"
 brokerPort = 1883
@@ -40,7 +41,7 @@ def sendData(data):
 
    pathName = "mqttLog"+ strftime("%d%B%Y") + ".csv"
     with open("logs/mqtt/"+ pathName, "a") as log:
-       log.write(time + ","+ message)
+       log.write(time + "," + message)
 
 
 def getData():
@@ -64,10 +65,12 @@ def start(interval, mode):
     print "Starting."
 
     while True:
-        data = getData()   
+        data = getData()
+        print "Data retrieved"  
         logData(data)
         if mode == 1:
-            sendData(data)
+            t = threading.Thread(target=sendData, args=(data))
+            t.start()
         time.sleep(interval)
 
 def help():
