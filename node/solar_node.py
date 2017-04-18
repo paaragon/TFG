@@ -22,8 +22,8 @@ def logData(data):
     csv += str(data['radiation'])+','
     csv += '\n'
 
-    pathName = "log-"+ time.strftime("%d%B%Y") + ".csv"
-    with open("logs/"+logName, "a") as log:
+    pathName = "log-" + time.strftime("%d%B%Y") + ".csv"
+    with open("logs/" + pathName, "a") as log:
         log.write(csv) 
 
 def sendData(data):
@@ -39,8 +39,8 @@ def sendData(data):
 
     print message
 
-   pathName = "mqttLog"+ strftime("%d%B%Y") + ".csv"
-    with open("logs/mqtt/"+ pathName, "a") as log:
+   pathName = "mqttLog" + strftime("%d%B%Y") + ".csv"
+    with open("logs/mqtt/" + pathName, "a") as log:
        log.write(time + "," + message)
 
 
@@ -69,7 +69,7 @@ def start(interval, mode):
         print "Data retrieved"  
         logData(data)
         if mode == 1:
-            t = threading.Thread(target=sendData, args=(data))
+            t = threading.Thread(target=sendData, args=data)
             t.start()
         time.sleep(interval)
 
