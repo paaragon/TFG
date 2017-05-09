@@ -1,0 +1,20 @@
+{
+	"id": "MLPClassifier1",
+	"start": 20150101,
+	"end": 20150131,
+	"k": [2, 3, 4],
+	"estimator": [
+		{
+			"module": "sklearn.neural_network",
+			"class": "neural_network",
+			"model": "MLPClassifier",
+			"parameters": [
+				{
+					"hidden_layer_sizes": [5, 2],
+					"solver": ["lbfgs", "sgd"],
+					"random_state": [1, 2]
+				}
+			]
+		}
+	]
+}
