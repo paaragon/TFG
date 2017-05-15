@@ -17,9 +17,13 @@ Copy this folder into the raspberry
 
 ## 4 - Denpendencies
 
-Fisrt of all
-
+- Update
 ```
 sudo apt-get update
 sudo apt-get upgrade
+```
+
+- Python2.7
+```
+sudo apt-get install python2.7 build-essential
 ```
