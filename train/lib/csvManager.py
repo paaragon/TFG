@@ -81,7 +81,7 @@ def createCSVWithConditions(sourceFolder, destinationPath=None, cond = dict(), v
    
     #sort values
     df = df.sort_values(by=['codigo', 'fecha', 'hora'], ascending=True)                         
-      
+    print df.shape      
     #patching the 2015-06-06 csv
     df['fecha'] = df['fecha'].str.replace('-', '').astype(float)
 
@@ -101,9 +101,6 @@ def createCSVWithConditions(sourceFolder, destinationPath=None, cond = dict(), v
     df.loc[df['fecha'] == 20140626, 'fecha'] = 20150608
     df.loc[df['fecha'] == 20140628, 'fecha'] = 20150610
    
-    for i, codigo in enumerate(df['codigo'].unique()):
-        df.loc[df['codigo'] == codigo, 'codigo'] = i
-
     #filter the data by hour and ubication
     if len(conditions['ubicationsId']) > 0:
       
@@ -115,6 +112,13 @@ def createCSVWithConditions(sourceFolder, destinationPath=None, cond = dict(), v
                                & (df['hora'] <= conditions['hourEnd'])])
   
     normpath = sourceFolder + '../reverseNorm/'+ str(conditions['dateStart']) + str(conditions['dateEnd']) + '.json'
+
+    for i, codigo in enumerate(df['codigo'].unique()):
+        # i + 1 para que al normalizar no divida entre 0
+        df.loc[df['codigo'] == codigo, 'codigo'] = i + 1
+
+
+    print df.shape
 
     df.to_csv(destinationPath+'.tmp', index = False)
     df, normValues = normalizeCSV(df)

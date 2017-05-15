@@ -100,7 +100,7 @@ class SolarData:
             return self.dataPath+"/csvWithCondition/"+str(self.startDate)+str(self.endDate)+".csv"
     
         cond = {
-                'ubation': ['Nava de Arevalo'],
+                'ubicationsId': ['AV01'],
                 'dateStart': self.startDate,
                 'dateEnd': self.endDate
                 }

@@ -1,8 +1,8 @@
 {
 	"id": "MLPClassifier1",
 	"start": 20150101,
-	"end": 20150131,
-	"k": [2, 3, 4, 5],
+	"end": 20153131,
+	"k": [2, 3],
 	"estimator": [
 		{
 			"module": "sklearn.neural_network",
@@ -18,3 +18,4 @@
 		}
 	]
 }
+
