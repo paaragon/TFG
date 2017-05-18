@@ -16,7 +16,7 @@ Copy this folder into the raspberry
  
 ![Node wiring schema](readme_assets/solar_project_node_diagram.png)
 
-## 4 - Denpendencies
+## 4 - Dependencies
 
 - Update
 ```
