@@ -8,7 +8,7 @@ from sklearn.model_selection import GridSearchCV
 import numpy as np
 import csv
 
-with open('./conf/regression.json') as data_file:    
+with open('./conf/mlpclassifier.json') as data_file:    
     conf = json.load(data_file)
 
 kList = conf['k']
@@ -32,6 +32,9 @@ for k in kList:
         X = solarData.getData()
         y = solarData.getTarget()
     
+        print X.shape
+        print y.shape
+
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
     
         #y = y_train.values.ravel()
