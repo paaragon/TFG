@@ -3,7 +3,7 @@
 \chapter{Introducción}
 \label{makereference}
 
-El objetivo de este proyecto es predecir la radiación solar en un plazo de treinta minutos. Para ello debemos hacer un estudio de los distintos algoritmos de predicción y de los parámetros meteorólogicos determinantes para obtener dicha predicción.
+Este proyecto tiene como objetivo predecir, a través de herramientas informáticas, la radiación solar en un punto teniendo en cuenta factores geográficos y meteorológicos.
 
 % Mirar descripción inicial TFG y Drive
 
@@ -53,13 +53,15 @@ Table~\ref{table1}.
 \section{Breve descripción del sistema}
 \label{makereference1.2}
 
-Nuestro sistema cuenta con tres grandes módulos de trabajo: nodo, servidor, resultados.
+Este sistema cuenta con cuatro grandes módulos de trabajo para llevar a cabo su función: nodo, servidor de datos, servidor de resultados y visualizador de datos.
 
-El nodo es una Raspberry Pi a las que están conectados varios sensores que recogen muestras del entorno para su posterior tratamiento. Dichos datos serán enviados a un servidor alojado en la Facultad de Físicas donde se generará una predicción de la radiación solar.
+El \textbf{nodo}, encargado de recoger los datos necesarios, está formado por distintos sensores que recogen la información meteorológica necesaria y una pequeña placa programable encargada de enviar esta información al \textbf{servidor de datos}.
 
-El servidor, previamente entrenado con los datos meteorológicos que nos proporcionó nuestro tutor, predecirá la radiación a partir de los datos recibidos del nodo. 
+El \textbf{servidor de datos}, es el encargado de recibir, almacenar y distribuir la información obtenida por el \textbf{nodo}. 
 
-Esa predicción será representada en ThinkSpeak mediante una gráfica junto a la radiación real.
+El \texbf{servidor de resultados} tiene como función recoger la información almacenada del servidor de datos, procesarla para obtener la predicción y enviarla al \textbf{visualizador de datos}.
+
+El visualizador de datos es otro sistema encargado de obtener toda la información resultante del proceso anterior y presentarla al usuario de forma clara y precisa.
 
 In this section, we refer back to text mentioned in
 Section~\ref{makereference1.1} on page~\pageref{makereference1.1}.
