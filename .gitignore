@@ -1,5 +1,12 @@
 **/*~
 **/*.swp
 **/*.swo
+**/*.aux
+**/*.toc
+**/*.bbl
+**/*.blg
+**/*.out
+**/*.pdf
+**/*.log
 node/Adafruit_Python_GPIO/
 train/data
