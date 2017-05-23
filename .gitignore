@@ -8,5 +8,6 @@
 **/*.out
 **/*.pdf
 **/*.log
+**/*.gz # Fichero synctex de Maris
 node/Adafruit_Python_GPIO/
 train/data
