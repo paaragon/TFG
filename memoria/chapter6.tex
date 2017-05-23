@@ -1,12 +1,123 @@
 \cleardoublepage
 
-\chapter{Resultados}
+\chapter{Instalación del proyecto}
 \label{makereference6}
 
-Here are more examples of referring to previous sections.  In
-Chapter~\ref{makereference} there were several sections, including
-section~\ref{makereference1.1}, section~\ref{makereference1.2},
-and section~\ref{makereference1.3}.
+\section{Nodo}
+\subsection{Prerrequisitos}
+\subsubsection{Hardware}
+	\begin{itemize}
+		\item \textbf{Raspberry Pi 2 model B} con una distribución Linux (nosotros usamos Raspbian)
+		\item 1 Led
+			\begin{itemize}
+				\item Ánodo a 220 0hms de resistencia y la resistencia a vcc (3.3V)
+				\item Cátodo a GPIO27
+			\end{itemize}
+		\item \textbf{Sensor DHT22} para medir humedad y temperatura
+			\begin{itemize}
+				\item Pin 1 a vcc (3.3V)
+				\item Pin 2 a vcc (3.3V) con 10K 0hms de resistencia entre él y GPIO04
+				\item Pin 3 desconectado
+				\item Pin 4 a GND
+			\end{itemize}
+		\item \textbf{Piranómetro}
+	\end{itemize}
 
-Likewise, in Chapter~\ref{makereference2}, there are
-sections~\ref{makereference2.1} and ~\ref{makereference2.2}.
+	Las conexiones vienen explicadas en:
+\lstset{language=bash}
+\begin{lstlisting}[frame=single]
+$ node/node_setup.txt
+\end{lstlisting}
+
+\subsubsection{Software}
+	En la Raspberry Pi necesitamos
+	\begin{itemize}
+		\item \textbf{paho-mqtt}
+	\end{itemize}
+	Ejemplo de nuestro cliente MQTT
+\lstset{language=python}
+\begin{lstlisting}[frame=single]
+import paho.mqtt.client as mqtt
+import json
+
+def listen_on_connect(client, userdata, rc):
+print "Connected with result code "+ str(rc)
+# Subscribing in on_connect() means that if we lose the connection
+# and reconnect then subscriptions will be renewed.
+client.subscribe("solar")
+
+def listen_on_message(client, userdata, msg):
+print msg.topic+" "+ str(msg.payload)
+
+def sendToBroker(brokerIp, brokerPort, payload, topic):
+
+client = mqtt.Client()
+client.connect(brokerIp, brokerPort, 60)
+
+result = client.publish(topic, payload=payload)
+if result[0] == mqtt.MQTT_ERR_NO_CONN:
+return False
+
+client.disconnect()
+return True
+
+def listenToBroker(brokerIp, brokerPort, topic):
+
+client = mqtt.Client()
+client.on_connect = listen_on_connect
+client.on_message = listen_on_message
+
+client.connect(brokerIp, brokerPort, 60)
+
+client.loop_forever()
+\end{lstlisting}
+
+\lstset{language=bash}
+\begin{lstlisting}[frame=single]
+$ pip install paho-mqtt
+\end{lstlisting}
+
+\subsection{Instalación}
+	\begin{itemize}
+		\item Introduce el directiorio \textbf{node} en tu Rapsberry Pi
+		\item Cambia las variables \textbf{brokerIp, brokerPort, topic, ubication} en solar-node.py
+	\end{itemize}
+
+\subsection{Uso}
+Ejecutar:
+\begin{lstlisting}[frame=single]
+$ node/solar_node.py
+\end{lstlisting}
+
+\section{Servidor}
+\subsection{Prerrequisitos}
+	\begin{itemize}
+		\item Cuenta en \textbf{ThinkSpeak}
+		\item \textbf{Mosquitto}
+	\end{itemize}
+\subsection{Python version and libraries}
+	\begin{itemize}
+		\item Python 2.7
+		\item Pandas para manipular ficheros CSV
+\begin{lstlisting}[frame=single]
+$ sudo pip install pandas
+\end{lstlisting}
+		\item Paho MQTT para crear el servidor MQTT
+\begin{lstlisting}[frame=single]
+$ sudo pip install paho-mqtt
+\end{lstlisting}
+
+	\end{itemize}
+\subsection{Instalación}
+\begin{itemize}
+	\item Introduce el directiorio \textbf{server} en tu servidor
+	\item Cambia las variables \textbf{brokerIp, brokerPort, topic and thinkspeakKey} en solar-node.py
+\end{itemize}
+\subsection{Uso}
+\begin{itemize}
+	\item Ejecuta
+\begin{lstlisting}[frame=single]
+$ mosquitto
+$ server/main.py
+\end{lstlisting}
+\end{itemize}
