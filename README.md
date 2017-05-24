@@ -1,6 +1,9 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3be38ff6640c402fa1a0b31df74852d5)](https://www.codacy.com/app/acoronado/TFG?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MrSlide22/TFG&amp;utm_campaign=Badge_Grade)
 
 # TFG - Solar prediction
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3be38ff6640c402fa1a0b31df74852d5)](https://www.codacy.com/app/acoronado/TFG?utm_source=github.com&utm_medium=referral&utm_content=MrSlide22/TFG&utm_campaign=badger)
+
 This project tries to predict the solar radiation based on **temperature, humidity and the actual solar radiation**.
 
 The system is composed of two elements: the node and the server
