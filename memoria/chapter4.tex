@@ -14,11 +14,65 @@ sections~\ref{makereference2.1} and ~\ref{makereference2.2}.
 \section{Introducción}
 \label{makereference4.1}
 
+
+Como hemos comentado anteriormente el nodo es quien recoge los datos y los envía al servidor de datos.
+Para ello, el nodo esta formado por una Raspberry Pi modelo 2b con Raspbian a la que están conectados dos sensores: DHT22 (temperatura y humedad) y un piranómetro~\ref{figure2}.
+Gracias a la ayuda de los 'datasheets' proporcionados por los fabricantes de los dispositivos, comprendimos cómo era el funcionamiento de estos. 
+Las llamadas al sensor se realizan a través de su API en Python, proporcionada por Adafruit, lo cual nos facilitó mucho el trabajo de recolección de datos.
+
+En el nodo corre un script que se encarga de recoger los datos del exterior y enviarlos vía MQTT al servidor de datos para, más adelante, ser procesados.
+
+
+\begin{figure}[htb]
+	
+	\begin{center}
+		\includegraphics[width=15cm,height=15cm]{figures/solar_project_node_diagram.png}
+		\caption{Diagrama del nodo}
+	\end{center}
+	
+	\label{figure2}
+\end{figure}
+
 \section{Elementos utilizados}
 \label{makereference4.2}
 \subsection{Raspberry}
-	\subsection{Sensor de temperatura y humedad}
-	\subsection{Piranómetro}
+
+Nuestro nodo esta formado por una Raspberry Pi que es un "pequeño ordenador", un computador de placa reducida   \ref{figure3}. Se dice que es un pequeño ordenador porque soporta componentes de un ordenador pero es una pequeña placa, con el cual podemos hasta jugar como en un ordenador normal o conectar un teclado y una pantalla.
+ Raspbian es una versión adaptada de Debian y es su sistema operativo oficial, pero permite otros.
+ 
+ \begin{figure}[htb]
+ 	
+ 	\begin{center}
+ 		\includegraphics[width=12cm,height=10cm]{figures/Raspberry_Pi.jpg}
+ 		\caption{Raspberry Pi Modelo 2b}
+ 	\end{center}
+ 	
+ 	\label{figure3}
+ \end{figure}
+ 
+Fue creado en 2006, en la Universidad de Cambridge, con el fin de fomentar la enseñanza en las escuela de ciencias de la computación, pero hasta 2012 no salió al mercado.
+
+Existen distintos modelos de Raspberry Pi, desde la Raspberry Pi 1 Modelo A hasta la Raspberry Pi 3 Modelo B \ref{figure4}.
+En nuestro proyecto hemos usado una Raspberry Pi modelo 2b, con su sistema operativo oficial , Raspbian.
+
+
+ \begin{figure}[htb]
+	
+	\begin{center}
+		\includegraphics[width=17cm,height=17cm]{figures/Cuadro_Tipos_Raspberry.png}
+		\caption{Cuadro comparativo de las especificaciones técnicas}
+	\end{center}
+	
+	\label{figure4}
+\end{figure}
+
+
+Sabemos que hay otros nodos muchos más baratos, con menos consumo, menos capacidad y más fácil para prototipado, pero como no es la placa final, decidimos que para un primer prototipo está muy bien, porque es relativamente barata para hacer un nodo, para hacer muchos no, pero para uno solo sí. Además como tiene sistema operativo, facilita el desarrollo, puedes depurar. Y como es ampliamente usada y existe una comunidad, ayuda que a la hora de tener un problema siempre tiendes donde consultar.
+
+
+
+\subsection{Sensor de temperatura y humedad}
+\subsection{Piranómetro}
 
 \section{Organización del código}
 \label{makereference4.3} 

@@ -10,11 +10,6 @@
 \section{Nodo}
 \label{makereference2.2}
 
-El nodo cuenta con una Raspberry Pi modelo 2b con Raspbian a la que están conectados dos sensores: DHT22 (temperatura y humedad) y un piranómetro~\ref{figure2}.
-Gracias a la ayuda de los 'datasheets' proporcionados por los fabricantes de los dispositivos, comprendimos cómo era el funcionamiento de estos. 
-Las llamadas al sensor se realizan a través de su API en Python, proporcionada por Adafruit, lo cual nos facilitó mucho el trabajo de recolección de datos.
-
-En el nodo corre un script que se encarga de recoger los datos del exterior y enviarlos vía MQTT al servidor para, más adelante, ser procesados.
 
 \section{Servidor}
 \label{makereference2.3}
@@ -33,13 +28,3 @@ Cuando la máquina obtiene una predicción, esta será enviada a ThinkSpeak, don
 ThinkSpeak es una aplicación de código abierto que permite llevar un registro de los datos que se desean. Permite representarlos y estudiarlos.
 
 En nuestro caso, el servidor enviará la predicción junto a la hora a la que debería ocurrir. ThinkSpeak se encarga de representar estos datos en una gráfica junto a la radicación real en esa hora, para poder ver el error respecto a la realidad.
-
-\begin{figure}[htb]
-	
-	\begin{center}
-		\includegraphics[width=15cm,height=15cm]{figures/solar_project_node_diagram.png}
-		\caption{Diagrama del nodo}
-	\end{center}
-	
-	\label{figure2}
-\end{figure}
