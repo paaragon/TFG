@@ -72,8 +72,19 @@ Sabemos que hay otros nodos muchos más baratos, con menos consumo, menos capaci
 
 
 \subsection{Sensor de temperatura y humedad}
+
+Nuestro nodo tiene conectado en la Raspberry dos sensores, uno de temperatura y humedad y un piranómetro del cual hablaremos más tarde, ambos para recoger los datos meteorológicos que necesitamos para nuestro modelo.
+
+Normalmente en los modelos que predicen lo que va a producir un panel solar, los elementos que más afecta son, por supuesto la radiación, pero también la temperatura, ya que a mayor temperatura el panel es menos eficaz. 
+
+
 \subsection{Piranómetro}
 
+
+Hay otros elementos que podríamos haber medido y que no lo hemos hecho, por ejemplo la velocidad del viento, que nos importaría si refrigera el panel.
+La superficie es otro de estos elementos, aunque este está a su vez relacionado con la temperatura0, ya que por ejemplo cuando nosotros lo hemos sacado para hacer las pruebas, rápidamente es alcanzado por el sol y alcanza altas temperaturas, no es igual que si está en la superficie.
+
+Por lo que nos hemos limitado a recoger información de radiación y temperatura porque son las más relevantes para nuestro modelo.
 \section{Organización del código}
 \label{makereference4.3} 
 	\subsection{Librerías usadas}
