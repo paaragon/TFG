@@ -46,7 +46,7 @@ class SolarData:
         self.relativeTargetDistance = relativeTargetDistance
 
         # path where data csv file will be stored
-        dataPath = self.dataPath + "/xy/" + str(self.startDate) + str(self.endDate) + str(nSamples) + str(relativeTargetDistance) + "-X" + ".csv"
+        dataPath = os.path.join(self.dataPath, 'xy', str(self.startDate) + str(self.endDate) + str(nSamples) + str(relativeTargetDistance) + "-X" + ".csv")
 
         # check if csv file already exists
         if os.path.isfile(dataPath):
@@ -60,8 +60,7 @@ class SolarData:
                 }
             
             # generate the csv file with the conditions
-            df = generateXDF(csvFilePath = self.csvWithConditionsPath,
-                        conditions = cond, destinationcsvPath = dataPath)
+            df = generateXDF(cond, self.csvWithConditionsPath, dataPath)
        
         # It's better create a file and return the path instead of
         # return the data frame as a variable because it's an innescesary
@@ -105,21 +104,15 @@ class SolarData:
                 'dateEnd': self.endDate
                 }
     
-        destinationPath = self.dataPath+"/csvWithCondition/"+str(self.startDate)+str(self.endDate)+".csv"
-        createCSVWithConditions(self.dataPath+'/csvFiles/', destinationPath = destinationPath, cond = cond)
+        destinationFolder = os.path.join(self.dataPath, "csvWithCondition")
+        sourceFolder = os.path.join(self.dataPath, 'csvFiles/')
+        destinationPath = createCSVWithConditions(sourceFolder, destinationFolder = destinationFolder, cond = cond)[0]
 
         return destinationPath
    
     def getData(self):
-        
-        destinationpath = self.dataPath + '/reverseNorm/' + str(self.startDate) + str(self.endDate) + str(self.nSamples) + str(self.relativeTargetDistance) + "data.json"
 
-        df, normValues = self.normalizeCSV(pd.read_csv(self.csvDataPath))
-
-        with open(destinationpath, 'w') as outfile:
-                json.dump(normValues, outfile)
-
-        return df
+        return pd.read_csv(self.csvDataPath)
 
     def getTarget(self):
 
@@ -131,16 +124,15 @@ class SolarData:
 
 if __name__ == "__main__":
         
-    solarData = SolarData(20150101, 20151231)
-    solarData.loadData(3, 2)
+    k = 3
+    sDistance = 2
 
-    data = solarData.data
-    target = solarData.target
+    solarData = SolarData(20150101, 20150131)
+    solarData.loadData(k, sDistance)
 
-    #dfX = getX(df, 3, 2)
-    #dfY = getY(df, dfX)
-    
-    #if df is not None and dfX is not None and dfY is not None:
-    #    dfX.to_csv('tmp/x.csv')
-    #    dfY.to_csv('tmp/y.csv')
+    data = solarData.getData()
+    target = solarData.getTarget()
+
+    print data.shape
+    print target.shape
 

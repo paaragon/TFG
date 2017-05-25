@@ -20,7 +20,7 @@ print str(end)
 
 for k in kList:
     for estimator in conf['estimator']:
-        
+
         module_name = estimator["module"]
         class_name = estimator["class"]
         model_name = estimator["model"]
@@ -28,15 +28,15 @@ for k in kList:
 
         solarData = SolarData(start, end)
         solarData.loadData(k, 2)
-    
+
         X = solarData.getData()
         y = solarData.getTarget()
-    
+
         print X.shape
         print y.shape
 
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
-    
+
         #y = y_train.values.ravel()
         #y_train.values = np.array(y).astype(float)
         module = __import__(module_name)    

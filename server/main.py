@@ -7,7 +7,7 @@ from lib.mqtt import mqttClient
 from lib.prediction import predict
 from lib.thingSpeak import thingSpeakBridge
 
-brokerIp = "192.168.1.135"
+brokerIp = "solarcasting.dacya.ucm.es"
 brokerPort = 1883
 topic = "solar"
 thingspeakKey = "O2M7W8NYQL5X7XD3"

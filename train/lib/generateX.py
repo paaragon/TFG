@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import pandas as pd
+import os
 
 def generateXDF(conditions, csvFilePath=None, destinationcsvPath=None, df=None, verbose = True):
     
@@ -57,6 +58,10 @@ def generateXDF(conditions, csvFilePath=None, destinationcsvPath=None, df=None, 
     #create Data Frame with result values
     retDF = pd.DataFrame(data = resultList, columns = columns) 
     
+    dirName = os.path.dirname(destinationcsvPath)
+    if not os.path.isdir(dirName):
+        os.makedirs(dirName)
+
     if destinationcsvPath != None:
         retDF.to_csv(destinationcsvPath, index = False)
 
@@ -68,5 +73,5 @@ if __name__ == '__main__':
     conditions['relativeTargetSample'] = 2
     conditions['nSamples'] = 4
     
-    generateXDF(conditions, '../data/csvWithCondition/2015.csv', '../data/xy/2015X.csv')
+    generateXDF(conditions, '../data/csvWithCondition/2015.csv', '../data/xy')
     

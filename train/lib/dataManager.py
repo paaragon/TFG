@@ -5,6 +5,11 @@ Created on Wed Oct 19 11:35:48 2016
 @author: slide22
 """
 
+def generateCsv(startDate, endDate, zipDestinationPath, csvDestinationPath, verbose = True):
+    downloadData(startDate, endDate, zipDestinationPath, True)
+    uncompressData(zipDestinationPath, csvDestinationPath, True)
+    correctCharacters(csvDestinationPath, True)
+
 """
 This function download the hourly csv between the years specified at the 
 parameters.
@@ -15,9 +20,8 @@ Return:
     2. Failed fetching data: year - The year url in innaccesible
     3. 0 - Everything is ok. The data have been downloaded in the path 
        specified
-    
 """
-def downloadData(starDate, endDate, pathName, verbose = True):
+def downloadData(startDate, endDate, pathName, verbose = True):
     
     import os
     from bs4 import BeautifulSoup
@@ -27,12 +31,12 @@ def downloadData(starDate, endDate, pathName, verbose = True):
     #get year from startDate
     startYear = startDate / 10000
     endYear = endDate / 10000
-    print "StartYear: " + str(startYear)
-    print "EndYear: " + str(endYear)
+    print "\nStartYear: " + str(startYear)
+    print "EndYear: " + str(endYear) + "\n"
     years = range(startYear, endYear + 1)
     
     url = "http://ftp.itacyl.es/Meteorologia/Datos_observacion_Red_InfoRiego/DatosHorarios/"
-    
+
     # making the request to InfoRiego
     req = requests.get(url)
     
@@ -41,7 +45,7 @@ def downloadData(starDate, endDate, pathName, verbose = True):
     if statusCode == 200:
         
         if verbose:
-            print 'Succesfully request InfoRiego'
+            print 'Succesfully request InfoRiego\n'
             
         # getting the html of the webpage
         # and the year links
@@ -53,17 +57,20 @@ def downloadData(starDate, endDate, pathName, verbose = True):
         for link in links:
             
             if link.get('href')[:-1].isdigit() and \
-               int(link.get('href')[:-1]) in years:
+                int(link.get('href')[:-1]) in years:
                    
                 yearsLinks.append(link.get('href')[:-1])
                 
         if verbose:
-            print str(len(yearsLinks)) + ' years found'
+            print 'Years found: ' + str(len(yearsLinks)) + '\n'
             
         # create the directory if doesn't exist
-        d = os.path.dirname(pathName)
-        if not os.path.exists(d):
-            os.makedirs(d)
+        if not os.path.exists(pathName):
+            
+            if verbose:
+                print pathName + " not found. Creating it.\n"
+
+            os.makedirs(pathName)
             
         # requesting the years pages
         for year in yearsLinks:
@@ -76,22 +83,18 @@ def downloadData(starDate, endDate, pathName, verbose = True):
             if statCode == 200:
                 
                 if verbose:
-                    print 'Succesfully request year ' + year
+                    print 'Succesfully request year ' + year + '\n'
                 
                 html = BeautifulSoup(req.text, "lxml")
                 links = html.find_all('a')
                 
                 for link in links:
                     if link.get('href').endswith('.zip'):
-                        print link.get('href')[0:8]
-                        print int(link.get('href')[0:8]) >= startDate
-                        print int(link.get('href')[0:8]) <= endDate
-                        print link.get('href')[0:8] + str(endDate)
-                # only zip files
-                    links = [link for link in links \
-                            if link.get('href').endswith('.zip') \
-                            and int(link.get('href')[0:8]) >= startDate \
-                            and int(link.get('href')[0:8]) <= endDate]
+                        # only zip files
+                        links = [link for link in links \
+                                if link.get('href').endswith('.zip') \
+                                and int(link.get('href')[0:8]) >= startDate \
+                                and int(link.get('href')[0:8]) <= endDate]
                 
                 #print len(links)
                 # getting the .zip links
@@ -99,30 +102,36 @@ def downloadData(starDate, endDate, pathName, verbose = True):
                 for link in links:
                         
                     zipUrl = url2 + link.get('href')
-                    
-                    #downloading zip file
-                    try:
-                        
-                        # open url
-                        zipFile = urlopen(zipUrl)
+                    auxPath = os.path.join(pathName, link.get_text())
+
+                    if os.path.isfile(auxPath):
+                        print "File found. Not downloading: " + auxPath
+
+                    else:
+                        #downloading zip file
+                        try:
+                            
+                            # open url
+                            zipFile = urlopen(zipUrl)
+                            
+                            if verbose:
+                                print 'Downloading ' + link.get_text()
+                            
+                            # save the file in local file
+                            
+                            with open(auxPath, "wb") as localFile:
+                                localFile.write(zipFile.read())
+                            
+                        #handle errors
+                        except HTTPError, e:
+                            return 'Failed downloading zip file: ' + link.get('href'), e.code, url
+                        except URLError, e:
+                            return 'Failed downloading zip file: ' + link.get('href'), e.reason, url
                         
                         if verbose:
-                            print 'Downloading ' + link.get_text()
-                        
-                        # save the file in local file
-                        with open(pathName + link.get_text(), "wb") as localFile:
-                            localFile.write(zipFile.read())
-                        
-                    #handle errors
-                    except HTTPError, e:
-                        return 'Failed downloading zip file: ' + link.get('href'), e.code, url
-                    except URLError, e:
-                        return 'Failed downloading zip file: ' + link.get('href'), e.reason, url
-                    
-                    if verbose:
-                        i+=1
-                        print 'Successfuly download ' + str(i) + '/' + str(len(links)) + ' in year ' + year
-                            
+                            i+=1
+                            print 'Successfuly download ' + str(i) + '/' + str(len(links)) + ' in year ' + year
+                                
                         
             else:
                 return 'Failed on fetching data (' + year + ')'
@@ -151,12 +160,10 @@ def uncompressData(sourcePath, destinationPath, verbose = True):
     if not os.path.exists(d):
        os.makedirs(d)
        
-    zipFiles = [f for f in listdir(sourcePath) if isfile(join(sourcePath, f)) and zipfile.is_zipfile(join(sourcePath, f))]
-    if verbose:    
-        print zipFiles    
+    zipFiles = [f for f in listdir(sourcePath) if isfile(join(sourcePath, f)) and zipfile.is_zipfile(join(sourcePath, f))] 
     
     if verbose:
-        print 'starting uncommpression'
+        print '\nstarting uncommpression\n'
         
     i = 0
     for zFile in zipFiles:
@@ -177,6 +184,9 @@ def deleteTildes(s):
 def correctCharacters(csvFolder, verbose = True):
 
     from os import listdir
+
+    if verbose:
+        print "\nStarting correcting characters\n"
     
     
     csvFiles = [f for f in listdir(csvFolder) if f.endswith('.csv')]
@@ -207,9 +217,9 @@ def correctCharacters(csvFolder, verbose = True):
 
 if __name__ == "__main__":
     
-    startDate = 20151221
-    endDate = 20160320
+    startDate = 20150101
+    endDate = 20150131
 
-    downloadData(startDate, endDate, '../data/zipFiles/', verbose = True)
-    uncompressData('../data/zipFiles/', '../data/csvFiles/')
-    correctCharacters('../data/csvFiles/')
+    downloadData(startDate, endDate, '../data/zipFiles', verbose = True)
+    uncompressData('../data/zipFiles', '../data/csvFiles')
+    correctCharacters('../data/csvFiles')
