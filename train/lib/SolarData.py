@@ -6,7 +6,6 @@ from generateX import generateXDF
 from generateY import generateYDF
 import pandas as pd
 import os.path
-import json
 
 
 class SolarData:
@@ -25,12 +24,12 @@ class SolarData:
         self.startDate = startDate
         self.csvWithConditionsPath = self._generatePeriodCsv()
 
-    '''
+    """
     Function that generate the needed data frames to predict the solar radiation
     
         nSamples - number of data records to include in each row
         relativeTargetDistance - number of records below to set as target
-    '''
+    """
 
     def loadData(self, nSamples, relativeTargetDistance):
         self.csvDataPath = self._generateData(nSamples, relativeTargetDistance)
@@ -65,7 +64,7 @@ class SolarData:
 
             # generate the csv file with the conditions
 
-            df = generateXDF(cond, self.csvWithConditionsPath, dataPath)
+            generateXDF(cond, self.csvWithConditionsPath, dataPath)
 
         # It's better create a file and return the path instead of
         # return the data frame as a variable because it's an innescesary
@@ -87,8 +86,8 @@ class SolarData:
 
         else:
 
-            df = generateYDF(csvFilePath=self.csvWithConditionsPath,
-                             xFilePath=self.csvDataPath, destinationcsvPath=targetPath)
+            generateYDF(csvFilePath=self.csvWithConditionsPath,
+                        xFilePath=self.csvDataPath, destinationcsvPath=targetPath)
 
         return targetPath
 

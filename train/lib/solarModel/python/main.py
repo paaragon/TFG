@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from datetime import datetime
 from zentihAngle import zentihAngle
 from robledoSoler import robledoSoler
 from kasten import kasten
