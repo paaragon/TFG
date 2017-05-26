@@ -8,6 +8,7 @@ import pandas as pd
 import os.path
 import json
 
+
 class SolarData:
 
     endDate = -1
@@ -23,13 +24,14 @@ class SolarData:
         self.endDate = endDate
         self.startDate = startDate
         self.csvWithConditionsPath = self._generatePeriodCsv()
- 
+
     '''
     Function that generate the needed data frames to predict the solar radiation
     
         nSamples - number of data records to include in each row
         relativeTargetDistance - number of records below to set as target
     '''
+
     def loadData(self, nSamples, relativeTargetDistance):
         self.csvDataPath = self._generateData(nSamples, relativeTargetDistance)
         self.csvTargetPath = self._generateTarget()
@@ -40,13 +42,15 @@ class SolarData:
         nSamples - number of data records to include in each row
         relativeTargetDistance - number of records below to set as target
     '''
+
     def _generateData(self, nSamples, relativeTargetDistance):
-        
+
         self.nSamples = nSamples
         self.relativeTargetDistance = relativeTargetDistance
 
         # path where data csv file will be stored
-        dataPath = os.path.join(self.dataPath, 'xy', str(self.startDate) + str(self.endDate) + str(nSamples) + str(relativeTargetDistance) + "-X" + ".csv")
+        dataPath = os.path.join(self.dataPath, 'xy', str(self.startDate) + str(
+            self.endDate) + str(nSamples) + str(relativeTargetDistance) + "-X" + ".csv")
 
         # check if csv file already exists
         if os.path.isfile(dataPath):
@@ -55,13 +59,14 @@ class SolarData:
 
         else:
             cond = {
-                    'relativeTargetSample': relativeTargetDistance,
-                    'nSamples': nSamples
-                }
-            
+                'relativeTargetSample': relativeTargetDistance,
+                'nSamples': nSamples
+            }
+
             # generate the csv file with the conditions
+
             df = generateXDF(cond, self.csvWithConditionsPath, dataPath)
-       
+
         # It's better create a file and return the path instead of
         # return the data frame as a variable because it's an innescesary
         # huge amount of data in memory
@@ -70,9 +75,11 @@ class SolarData:
     '''
     Generate the target data frame of the target data (Y)
     '''
+
     def _generateTarget(self):
 
-        targetPath = self.dataPath + "/xy/" + str(self.startDate) + str(self.endDate) + str(self.nSamples) + str(self.relativeTargetDistance) + "-Y" + ".csv"
+        targetPath = self.dataPath + "/xy/" + str(self.startDate) + str(self.endDate) + str(
+            self.nSamples) + str(self.relativeTargetDistance) + "-Y" + ".csv"
 
         if os.path.isfile(targetPath):
 
@@ -80,36 +87,43 @@ class SolarData:
 
         else:
 
-            df = generateYDF(csvFilePath = self.csvWithConditionsPath, xFilePath = self.csvDataPath, destinationcsvPath = targetPath)
-      
+            df = generateYDF(csvFilePath=self.csvWithConditionsPath,
+                             xFilePath=self.csvDataPath, destinationcsvPath=targetPath)
+
         return targetPath
-       
+
     '''
     Generate the data frame with the data between two dates
     '''
+
     def _generatePeriodCsv(self):
-   
-        if os.path.isfile(str(self.dataPath) \
-                              + "/csvWithCondition/" \
-                              + str(self.startDate) \
-                              + str(self.endDate) \
-                              + ".csv"):
-    
+
+        if os.path.isfile(str(self.dataPath)
+                          + "/csvWithCondition/"
+                          + str(self.startDate)
+                          + str(self.endDate)
+                          + ".csv"):
+
             print "Csv found. Not generated."
-            return self.dataPath+"/csvWithCondition/"+str(self.startDate)+str(self.endDate)+".csv"
-    
+            return self.dataPath \
+                + "/csvWithCondition/" \
+                + str(self.startDate) \
+                + str(self.endDate) + ".csv"
+
         cond = {
-                'ubicationsId': ['AV01'],
-                'dateStart': self.startDate,
-                'dateEnd': self.endDate
-                }
-    
+            'ubicationsId': ['AV01'],
+            'dateStart': self.startDate,
+            'dateEnd': self.endDate
+        }
+
         destinationFolder = os.path.join(self.dataPath, "csvWithCondition")
-        sourceFolder = os.path.join(self.dataPath, 'csvFiles/')
-        destinationPath = createCSVWithConditions(sourceFolder, destinationFolder = destinationFolder, cond = cond)[0]
+        sourceFolder = os.path.join(self.dataPath, 'csvFiles')
+
+        destinationPath = createCSVWithConditions(
+            sourceFolder, destinationFolder=destinationFolder, cond=cond)
 
         return destinationPath
-   
+
     def getData(self):
 
         return pd.read_csv(self.csvDataPath)
@@ -122,8 +136,9 @@ class SolarData:
 
         return normalizeCSV(df)
 
+
 if __name__ == "__main__":
-        
+
     k = 3
     sDistance = 2
 
@@ -135,4 +150,3 @@ if __name__ == "__main__":
 
     print data.shape
     print target.shape
-
