@@ -6,6 +6,8 @@ Created on Mon Nov 21 16:25:16 2016
 """
 
 import paho.mqtt.client as mqtt
+from time import localtime, strftime
+import json
 
 client = mqtt.Client()
 
@@ -42,4 +44,16 @@ def set_on_message(function):
 
 if __name__ == "__main__":
 
-    listenToBroker("127.0.0.1", 1883, "solar")
+    print "Example of sending data:\n"
+
+    date = strftime("%d-%m-%Y %H:%M:%S", localtime())
+
+    data = {
+        'date': date,
+        'ubication': 'AV01',
+        'temperature': 24.5468,
+        'humidity': 40,
+        'radiation': 400
+    }
+
+    sendToBroker("solarcasting.dacya.ucm.es", 1883, json.dumps(data), "solar")
