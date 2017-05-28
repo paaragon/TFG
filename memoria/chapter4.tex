@@ -17,10 +17,25 @@ sections~\ref{makereference2.1} and ~\ref{makereference2.2}.
 
 Como hemos comentado anteriormente el nodo es quien recoge los datos y los envía al servidor de datos.
 Para ello, el nodo esta formado por una Raspberry Pi modelo 2b con Raspbian a la que están conectados dos sensores: DHT22 (temperatura y humedad) y un piranómetro~\ref{figure2}.
+
 Gracias a la ayuda de los 'datasheets' proporcionados por los fabricantes de los dispositivos, comprendimos cómo era el funcionamiento de estos. 
 Las llamadas al sensor se realizan a través de su API en Python, proporcionada por Adafruit, lo cual nos facilitó mucho el trabajo de recolección de datos.
 
 En el nodo corre un script que se encarga de recoger los datos del exterior y enviarlos vía MQTT al servidor de datos para, más adelante, ser procesados.
+
+-----
+http://www.pveducation.org/pvcdrom/2-properties-sunlight/solar-radiation-earths-surface
+
+La radiación solar varía debido a diversos factores, como los efectos atmosféricos, las variaciones locales en la atmósfera como el vapor de agua, las nubes y la contaminación, otros como la latitud y la estación del año y la hora del día.
+
+---https://www.imn.ac.cr/documents/10179/27818/factores-influyen-radiac-UV.pdf/187e5ea7-7c11-4ed7-955b-4e35c2f0ebf1
+
+Por ejemplo la latitud influye en la cantidad de radiación solar que llega a la superficie; por otro lado la radiación disminuirá cuanta más cantidad de nubes y más alta sea la humedad. Al contrario pasará con la temperatura, cuanto más altas sean las temperaturas mayor sera la radiación. Otro factor que influye a la hora de medir la radiación es el tipo de superficie, porque la reflexión de los rayos varía según el tipo de superficie, la nieve se refleja un 85 por ciento, al contrario del asfalto que solo un 2 por ciento.
+
+Hay otros elementos que podríamos haber medido y que no lo hemos hecho,como los comentados anteriormente o por ejemplo también la velocidad del viento, que nos importaría si refrigera el panel.
+Como hemos dicho a superficie y la altitud es otro de estos elementos, aunque este está a su vez relacionado con la temperatura, ya que por ejemplo cuando nosotros lo hemos sacado para hacer las pruebas, rápidamente es alcanzado por el sol y alcanza altas temperaturas, no es igual que si está en la superficie.
+
+Por lo que decidimos limitarnos a recoger información de radiación y temperatura porque son las más relevantes para nuestro modelo.
 
 
 \begin{figure}[htb]
@@ -81,10 +96,6 @@ Normalmente en los modelos que predicen lo que va a producir un panel solar, los
 \subsection{Piranómetro}
 
 
-Hay otros elementos que podríamos haber medido y que no lo hemos hecho, por ejemplo la velocidad del viento, que nos importaría si refrigera el panel.
-La superficie es otro de estos elementos, aunque este está a su vez relacionado con la temperatura0, ya que por ejemplo cuando nosotros lo hemos sacado para hacer las pruebas, rápidamente es alcanzado por el sol y alcanza altas temperaturas, no es igual que si está en la superficie.
-
-Por lo que nos hemos limitado a recoger información de radiación y temperatura porque son las más relevantes para nuestro modelo.
 \section{Organización del código}
 \label{makereference4.3} 
 	\subsection{Librerías usadas}
