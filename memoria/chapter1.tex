@@ -36,34 +36,31 @@ Este proyecto tiene como objetivo predecir, a través de herramientas informáti
 \section{Motivación}
 \label{makereference1.1}
 
-En un principio decidimos hablar con nuestro futuro tutor de TFG, ya que habíamos tenido una muy buena experiencia como alumnos en su clase de Sistemas Operativos.
-Nos propuso tres proyectos distintos: Control de temperatura en máquinas frigoríficas, control de accesos a grandes instituciones y este.
-
-Nos decantamos por este proyecto debido a que nos pareció el más completo en cuanto a tecnologías a manejar y con el que más prodríamos aprender. Mucha implicación tanto hardware, como software. Queríamos hacer algo fuera de lo estudiado en la carrera.
-
-Este proyecto nos ha supuesto aprender lenguajes que no conocíamos (python y matlab), reforzar otros (bash).
-
-Además de todo esto, hace dos años cursamos una asignatura optativa llamada Minería de datos y el paradigma Big Data, la cual nos motivó bastante a la hora de elegir este proyecto. Nos gustaba mucho la idea de aprender algo de 'Machine Learning' y Python debido a que es un sector muy puntero y solicitado.
-
-% Referenciar
-In this paragraph, we want to refer to Fig.~\ref{figure1}
-mentioned at the beginning of this chapter.  We also refer to the
-Table~\ref{table1}.
-
 \section{Breve descripción del sistema}
 \label{makereference1.2}
 
 Este sistema cuenta con cuatro grandes módulos de trabajo para llevar a cabo su función: nodo, servidor de datos, servidor de resultados y visualizador de datos.
 
-El \textbf{nodo}, encargado de recoger los datos necesarios, está formado por distintos sensores que recogen la información meteorológica necesaria y una pequeña placa programable encargada de enviar esta información al \textbf{servidor de datos}.
+\subsection*{Nodo}
+\label{makereference1.2.1}
+Encargado de recoger los datos necesarios, está formado por distintos sensores que recogen la información meteorológica necesaria y una pequeña placa programable encargada de enviar esta información al \textbf{servidor de datos}.
 
-El \textbf{servidor de datos}, es el encargado de recibir, almacenar y distribuir la información obtenida por el \textbf{nodo}. 
+\subsection*{Servidor de datos}
+\label{makereference1.2.2}
+El \textbf{servidor de datos}, es el encargado de recibir, almacenar y distribuir la información obtenida por el \textbf{nodo}.
 
-El \textbf{servidor de resultados} tiene como función recoger la información almacenada del servidor de datos, procesarla para obtener la predicción y enviarla al \textbf{visualizador de datos}.
+\subsection*{Servidor de cálculo}
+\label{makereference1.2.3}
+Tiene como función recoger la información almacenada del servidor de datos, procesarla para obtener la predicción y enviarla al \textbf{visualizador de datos}. Puede estar, o no, en la misma máquina que el servidor de datos.
 
-El visualizador de datos es otro sistema encargado de obtener toda la información resultante del proceso anterior y presentarla al usuario de forma clara y precisa.
+\subsection*{Sistema de visualización}
+\label{makereference1.2.3}
+El sistema de visualización de datos elegido es ThingSpeak, una aplicación de código abierto que permite llevar un registro de los datos que se desean. Permite representarlos y estudiarlos.
 
-In this section, we refer back to text mentioned in
-Section~\ref{makereference1.1} on page~\pageref{makereference1.1}.
-
-
+\begin{figure}[htb]
+    \begin{center}
+        \includegraphics[height=2in]{figures/diagrama-sistema.png}
+        \caption{Diagrama de los componentes del sistema con sus protocolos de comunicación.}
+    \end{center}
+    \label{diagrama-sistema}
+\end{figure}

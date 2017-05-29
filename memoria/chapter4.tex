@@ -1,115 +1,75 @@
+
 \cleardoublepage
 
-\chapter{Nodo}
-\label{makereference4}
+\chapter{Exploración del modelo predictivo}
+\label{makereference3}
 
-\section{Introducción}
-\label{makereference4.1}
+Here are more examples of referring to previous sections.  In
+Chapter~\ref{makereference} there were several sections, including
+section~\ref{makereference1.1}, section~\ref{makereference1.2},
+and section~\ref{makereference1.3}.
 
-Como hemos comentado anteriormente el \textbf{nodo} es quien recoge los datos y los envía al \textbf{servidor} de datos.
-Para ello, el nodo esta formado por una \textbf{Raspberry Pi modelo 2b} con Raspbian a la que están conectados dos sensores: DHT22 (temperatura y humedad) y un piranómetro~\ref{node-diagram}.
+Likewise, in Chapter~\ref{makereference2}, there are
+sections~\ref{makereference2.1} and ~\ref{makereference2.2}.
 
-Gracias a la ayuda de los 'datasheets' proporcionados por los fabricantes de los dispositivos, comprendimos cómo era el funcionamiento de estos. 
-Las llamadas al sensor se realizan a través de su API en Python, proporcionada por Adafruit, lo cual nos facilitó mucho el trabajo de recolección de datos.
+\section{Introducción a los modelos predictivos}
+\label{makereference3.1}
 
-En el nodo corre un \textbf{script} que se encarga de recoger los datos del exterior y enviarlos vía \textbf{MQTT} al servidor de datos para, más adelante, ser procesados.
+Cuando hablamos de modelos predictivos nos estamos refiriendo al análisis que agrupa una serie de técnicas para conseguir analizar datos reales tanto actuales como históricos y así conseguir predicciones. Con esta predicción podremos saber cuanto se acerca nuestra predicción a la realidad.
 
---- http://www.pveducation.org/pvcdrom/2-properties-sunlight/solar-radiation-earths-surface
-
-La \textbf{radiación solar} varía debido a diversos factores, como los efectos atmosféricos, las variaciones locales en la atmósfera como el vapor de agua, las nubes y la contaminación, otros como la latitud y la estación del año y la hora del día.
-
---- https://www.imn.ac.cr/documents/10179/27818/factores-influyen-radiac-UV.pdf/187e5ea7-7c11-4ed7-955b-4e35c2f0ebf1
-
-Por ejemplo, la \textbf{latitud} influye en la cantidad de radiación solar que llega a la superficie; por otro lado, la radiación disminuirá cuanta más cantidad de nubes y más alta sea la \textbf{humedad}. Al contrario pasará con la \textbf{temperatura}, cuanto más altas sean las temperaturas mayor será la radiación. Otro factor que influye a la hora de medir la radiación, es el tipo de \textbf{superficie}, porque la reflexión de los rayos varía según el tipo de superficie, la nieve se refleja un 85 por ciento, al contrario del asfalto que solo un 2 por ciento.
-
-Hay otros elementos que podríamos haber medido y que no lo hemos hecho, como los comentados anteriormente o, por ejemplo también, la \textbf{velocidad del viento}, que nos importaría si refrigerara el panel.
-
-Como hemos dicho, la superficie y la altitud son otros de estos elementos que están relacionados con la temperatura. Ya que por ejemplo cuando hemos sacado el nodo al exterior en el tejado para hacer las pruebas, rápidamente es alcanzado por el sol y alcanza altas temperaturas. No sería el mismo caso de estar en la superficie.
-
-Por todo esto, lo que decidimos fue limitarnos a recoger información de radiación y temperatura porque son las más relevantes para nuestro modelo.
-
-\begin{figure}[htb]
+\section{Descripción de las librerías usadas}
+\label{makereference3.2}
+	\subsection{Scikit-learn}
+	Scikit-learn es una biblioteca de aprendizaje de software libre para el lenguaje de programación Python. Cuenta con varios algoritmos de clasificación, regresión y agrupación, incluyendo máquinas de vector de apoyo, bosques aleatorios, aumento de gradiente, k-medios y DBSCAN, y está diseñado para interoperar con las bibliotecas numéricas y científicas Python NumPy y SciPy.
 	
-	\begin{center}
-		\includegraphics[width=15cm,height=15cm]{figures/solar_project_node_diagram.png}
-		\caption{Diagrama del nodo}
-	\end{center}
+	\subsection{NumPy}
+	NumPy es una extensión de Python, que le agrega mayor soporte para vectores y matrices, constituyendo una biblioteca de funciones matemáticas de alto nivel para operar con esos vectores o matrices.
 	
-	\label{node-diagram}
-\end{figure}
-
-\section{Elementos utilizados}
-\label{makereference4.2}
-\subsection{Raspberry}
-
-\begin{figure}[htb]
+	\subsection{SciPy}
+	SciPy es una biblioteca open source de herramientas y algoritmos matemáticos para Python. SciPy contiene módulos para optimización, álgebra lineal, integración, interpolación, funciones especiales, FFT, procesamiento de señales y de imagen, resolución de ODEs y otras tareas para la ciencia e ingeniería.
 	
-	\begin{center}
-		\includegraphics[width=12cm,height=10cm]{figures/Raspberry_Pi.jpg}
-		\caption{Raspberry Pi Modelo 2b}
-	\end{center}
+\section{Algoritmos utilizados}
+\label{makereference3.3}
+	\subsection{Regresión}
 	
-	\label{rasp}
-\end{figure}
-
-Nuestro nodo esta formado por una Raspberry Pi que es un "pequeño ordenador", un computador de placa reducida \ref{rasp}. Se dice que es un pequeño ordenador porque soporta componentes de un ordenador pero es una pequeña placa, con el cual podemos hasta jugar como en un ordenador normal o conectar un teclado y una pantalla.
-Raspbian es una versión adaptada de Debian y es su sistema operativo oficial, pero permite otros.
- 
-Fue creado en 2006, en la Universidad de Cambridge, con el fin de fomentar la enseñanza en las escuela de ciencias de la computación, pero hasta 2012 no salió al mercado.
-
-Existen distintos modelos de Raspberry Pi, desde la Raspberry Pi 1 Modelo A hasta la Raspberry Pi 3 Modelo B \ref{types}.
-En nuestro proyecto hemos usado una Raspberry Pi modelo 2b, con su sistema operativo oficial, Raspbian.
-
-
- \begin{figure}[htb]
-	
-	\begin{center}
-		\includegraphics[width=17cm,height=12cm]{figures/Cuadro_Tipos_Raspberry.png}
-		\caption{Cuadro comparativo de las especificaciones técnicas}
-	\end{center}
-	
-	\label{types}
-\end{figure}
-
-
-Sabemos que hay otros nodos muchos más baratos, con menos consumo, menos capacidad y más fácil para prototipado. Pero al no ser la placa final, decidimos que para un primer prototipo está muy bien, porque es relativamente barata para montar un nodo. Para hacer muchos no, pero para uno solo sí. Además como tiene sistema operativo, facilita el desarrollo, puedes depurar. Y como es ampliamente usada y existe una comunidad, ayuda que a la hora de tener un problema siempre tiendes donde consultar.
-
-\subsection{Sensor de temperatura y humedad}
-
-Nuestro nodo tiene conectado en la Raspberry dos sensores, uno de temperatura y humedad y un piranómetro del cual hablaremos más tarde, ambos para recoger los datos meteorológicos que necesitamos para nuestro modelo.
-
-Normalmente, en los modelos que predicen lo que va a producir un panel solar, los elementos que más afectan son: por supuesto la radiación, pero también la temperatura, ya que a mayor temperatura el panel es menos eficaz. 
-
---- https://www.luisllamas.es/arduino-dht11-dht22/
-
-El sensor que hemos utilizado para medir la temperatura y humedad es un \textbf{sensor DHT22}, y permite medir simultáneamente ambos parámetros. 
-Este sensor tiene un procesador interno que es el que realiza la medición y la proporciona mediante una señal digital.
-Algunas de las características de este sensor y en especial de este modelo, ya que tambien existe el modelo DHT11, son que tiene una precisión de 0.5ºC para medir la temperatura, y entre un 2 y un 5 por ciento para la humedad. Ademas recogen dos muestras por segundo. Este sensor no es un sensor de alta precisión, pero es suficiente para nuestro proyecto, además de tener un precio muy económico \ref{sensor}.
-
- \begin{figure}[htb]
-	
-	\begin{center}
-		\includegraphics[width=7cm,height=7cm]{figures/sensorTemperaturaHumedad.png}
-		\caption{Sensores de temperatura y humedad DHT11 y DHT22}
-	\end{center}
-	
-	\label{sensor}
-\end{figure} 
-
-\subsection{Piranómetro}
-
-\section{Organización del código}
-\label{makereference4.3} 
-	\subsection{Librerías usadas}
-		\subsubsection{Adafruit}
-		\textbf{Adafruit} es una compañía de hardware open-source, que además de proporcionar \textbf{hardware}, suministra de una gran cantidad de documentación y librerías para facilitar el trabajo con sus componentes.
+	\begin{figure}[htb]
 		
-		\subsubsection{Pandas}
-		\textbf{Pandas} es una biblioteca de software escrita para \textbf{Python} para la manipulación y análisis de datos. En particular, ofrece estructuras de datos y operaciones para manipular tablas numéricas y series temporales.
+		\begin{center}
+			\includegraphics[height=3.5in]{figures/regression.png}
+			\caption{Regresión lineal}
+		\end{center}
 		
-		\subsubsection{Paho}
-		El proyecto \textbf{Paho} ha sido creado para proporcionar implementaciones escalables de código abierto de \textbf{protocolos de mensajería} abiertos y estándar dirigidos a aplicaciones nuevas, existentes y emergentes para Machine to Machine (M2M) e Internet of Things (IoT).
+		\label{regression}
+	\end{figure}
+
+	La \textbf{regresión lineal} es un modelo matemático que trata de hallar la \textbf{función lineal} que mejor se ajusta a un conjunto de puntos dispersos conocidos.
+	
+	Al conocer dicha función lineal, podremos \textbf{'predecir'} con un cierto grado de exactitud, lo que pasará.
+	
+	La línea recta que se puede ver en la gráfica \ref{regression}, muestra cómo la \textbf{regresión lineal} intenta dibujar una línea recta que minimice mejor la suma residual de cuadrados entre las respuestas observadas en el conjunto de datos, y las respuestas predichas por la aproximación lineal.
+	También se calculan los coeficientes, la suma residual de cuadrados y el puntaje de varianza.
+	
+	\subsection{Clasificación}
+	El término \textbf{clasificador} se utiliza en referencia al algoritmo utilizado para asignar un elemento entrante no etiquetado en una categoría concreta conocida. Dicho algoritmo, permite pues, ordenar o disponer por clases elementos entrantes, a partir de cierta información característica de estos.
+	
+	\subsection{Redes Neuronales}
+	
+	\begin{figure}[htb]
 		
-		Paho refleja las restricciones inherentes físicas y de costo de la conectividad del dispositivo. Los objetivos incluyen niveles efectivos de desacoplamiento entre dispositivos y aplicaciones, diseñados para mantener los mercados abiertos y fomentar el rápido crecimiento de middleware y aplicaciones escalables de Web y Enterprise. Paho inicialmente comenzó con implementaciones de cliente de publicación / suscripción de MQTT para su uso en plataformas incrustadas, y en el futuro traerá el soporte de servidor correspondiente según lo determinado por la comunidad.
+		\begin{center}
+			\includegraphics[height=4.5in]{figures/neuronal_network.png}
+			\caption{Red neuronal}
+		\end{center}
 		
-	\subsection{Flujo de datos}
+		\label{network}
+	\end{figure}
+
+	Las \textbf{redes neuronales} son un algoritmo de aprendizaje supervisado. Suelen consistir en varias capas ocultas donde la señal se propaga de adelante hacia atrás.
+	
+	A partir de X características se obtiene una función f(X).
+	
+\section{Protocolo del estudio}
+\label{makereference3.4}
+
+\section{Modelo escogido}
+\label{makereference3.5}
