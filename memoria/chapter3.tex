@@ -11,12 +11,23 @@ Se ha implementado con una \textbf{Raspberry Pi modelo 3} como placa programable
 
 La parte software del nodo ha sido implementada en \textbf{Python}.
 
+\section{Qué variables medir}
+--- http://www.pveducation.org/pvcdrom/2-properties-sunlight/solar-radiation-earths-surface
+
+La \textbf{radiación solar} varía debido a diversos factores, como los efectos atmosféricos, las variaciones locales en la atmósfera como el vapor de agua, las nubes y la contaminación, otros como la latitud y la estación del año y la hora del día.
+
+--- https://www.imn.ac.cr/documents/10179/27818/factores-influyen-radiac-UV.pdf/187e5ea7-7c11-4ed7-955b-4e35c2f0ebf1
+
+Por ejemplo, la \textbf{latitud} influye en la cantidad de radiación solar que llega a la superficie; por otro lado, la radiación disminuirá cuanta más cantidad de nubes y más alta sea la \textbf{humedad}. Al contrario pasará con la \textbf{temperatura}, cuanto más altas sean las temperaturas mayor será la radiación. Otro factor que influye a la hora de medir la radiación, es el tipo de \textbf{superficie}, porque la reflexión de los rayos varía según el tipo. En la nieve se refleja un 85 por ciento, al contrario del asfalto que solo un 2 por ciento.
+
+En este proyecto, se recogen solo muestras de radiación solar, temperatura y humedad por ser las más relevantes para nuestro modelo.
+
 \section{Elementos hardware utilizados}
 \label{makereference4.2}
 
 \subsection*{Raspberry Pi modelo 3}
 
-Raspberry Pi  es un "pequeño ordenador", un computador de placa reducida \ref{rasp}. Con él se pueden controlar distintos componentes electrónicos a través de los pines que expone y combinarlo con la potencia y versatilidad de un sistema operativo.
+Raspberry Pi  es un ``pequeño ordenador", un computador de placa reducida \ref{rasp}. Con él se pueden controlar distintos componentes electrónicos a través de los pines que expone y combinarlo con la potencia y versatilidad de un sistema operativo.
 
 \begin{figure}[htb]
 	\begin{center}
@@ -55,9 +66,9 @@ Algunas de las características de este sensor y en especial de este modelo (ya 
 
 La comunicación entre el sensor y la Raspberry se realiza a través de un pin \textbf{GPIO} (General Purpose Input/Output, Entrada/Salida de Propósito General) que es un pin de propósito general. Estos pines pueden ser de entrada o de salida, y reciben y envían valores binarios de un bit.
 
-En el \href{https://cdn-shop.adafruit.com/datasheets/Digital+humidity+and+temperature+sensor+AM2302.pdf}{datasheet} del sensor viene definido el proceso de comunicación entre este y la Raspberry. Para ello, el microcontrolador (Raspberry en nuestro caso) envía una señal de arranque para que el sensor cambie del estado "standby" al estado "running". Al terminar de enviar dicha señal, el sensor envía una respuesta de 40 bits que contiene la información relativa a la humedad (16 bits), a la temperatura (16 bits) y un checksum (8 bits) para comprobar que se ha enviado correctamente. Ver imagen \ref{DHT22comunication}.
+En el \href{https://cdn-shop.adafruit.com/datasheets/Digital+humidity+and+temperature+sensor+AM2302.pdf}{datasheet} del sensor viene definido el proceso de comunicación entre este y la Raspberry. Para ello, el microcontrolador (Raspberry en nuestro caso) envía una señal de arranque para que el sensor cambie del estado ``standby'' al estado ``running''. Al terminar de enviar dicha señal, el sensor envía una respuesta de 40 bits que contiene la información relativa a la humedad (16 bits), a la temperatura (16 bits) y un checksum (8 bits) para comprobar que se ha enviado correctamente. Ver imagen \ref{DHT22comunication}.
 
-El envío de estos bits sucede de la siguiente forma: el sensor envía una señal "baja" ("0") que indica el inicio de la transmisión de un bit. Seguidamente envía una señal " alta" ("1"). Si la transmisión de esta corriente dura más de 50\mu s indica que se ha transmitido un 1, en caso contrario, se quiso transmitir un 0.
+El envío de estos bits sucede de la siguiente forma: el sensor envía una señal ``baja'' ("0") que indica el inicio de la transmisión de un bit. Seguidamente envía una señal ``alta'' (``1''). Si la transmisión de esta corriente dura más de 50\mu s indica que se ha transmitido un 1, en caso contrario, se quiso transmitir un 0.
 
 \begin{figure}[htb]
 	
@@ -79,37 +90,32 @@ El envío de estos bits sucede de la siguiente forma: el sensor envía una seña
 	\label{sensor}
 \end{figure} 
 
-\subsection*{Piranómetro}
+\subsection*{Piranómetro y ADC}
+Para recoger la cantidad de irradiación solar se utiliza un piranómetro. En este proyecto se ha utilizado el modelo \href{https://www.apogeeinstruments.co.uk/content/SP-212-215-manual.pdf}{SP-212}. Este sensor es analógico es decir, la señal que envía es un voltaje variable con el cual indica la cantidad de irradiación que recoge.
 
-\section{Organización del código}
-\label{makereference4.3} 
-	\subsection{Librerías usadas}
-		\subsubsection{Adafruit}
-		\textbf{Adafruit} es una compañía de hardware open-source, que además de proporcionar \textbf{hardware}, suministra de una gran cantidad de documentación y librerías para facilitar el trabajo con sus componentes.
-		
-		\subsubsection{Pandas}
-		\textbf{Pandas} es una biblioteca de software escrita para \textbf{Python} para la manipulación y análisis de datos. En particular, ofrece estructuras de datos y operaciones para manipular tablas numéricas y series temporales.
-		
-		\subsubsection{Paho}
-		El proyecto \textbf{Paho} ha sido creado para proporcionar implementaciones escalables de código abierto de \textbf{protocolos de mensajería} abiertos y estándar dirigidos a aplicaciones nuevas, existentes y emergentes para Machine to Machine (M2M) e Internet of Things (IoT).
-		
-		Paho refleja las restricciones inherentes físicas y de costo de la conectividad del dispositivo. Los objetivos incluyen niveles efectivos de desacoplamiento entre dispositivos y aplicaciones, diseñados para mantener los mercados abiertos y fomentar el rápido crecimiento de middleware y aplicaciones escalables de Web y Enterprise. Paho inicialmente comenzó con implementaciones de cliente de publicación / suscripción de MQTT para su uso en plataformas incrustadas, y en el futuro traerá el soporte de servidor correspondiente según lo determinado por la comunidad.
-		
-	\subsection{Flujo de datos}
+Para poder leer esa información con un microcontrolador es necesario hacer una conversión a digital. Para ello se utiliza un conversor analógico-digital o por sus siglas en inglés \textbf{ADC}.
 
---- http://www.pveducation.org/pvcdrom/2-properties-sunlight/solar-radiation-earths-surface
+El \textbf{ADC} utilizado en este proyecto ha sido el \href{https://cdn-shop.adafruit.com/datasheets/MCP3008.pdf}{MCP3008}. Es un conversor de 10 bits por lo que permite codificar entre 0 y 1024, suficiente para este proyecto. Se comunica con la Raspberry a través del puerto \textbf{SPI}.
 
-La \textbf{radiación solar} varía debido a diversos factores, como los efectos atmosféricos, las variaciones locales en la atmósfera como el vapor de agua, las nubes y la contaminación, otros como la latitud y la estación del año y la hora del día.
+\textbf{SPI} es un estándar de comunicación en serie, maestro/esclavo, regulado por un reloj. Incluye 4 señales: reloj (SCLK), salida de datos del maestro y entrada de datos al esclavo (MOSI), salida de datos del esclavo y entrada al maestro (MISO) y otra para Para seleccionar un esclavo, o para que el maestro le diga al esclavo que se active (SS/Select).
 
---- https://www.imn.ac.cr/documents/10179/27818/factores-influyen-radiac-UV.pdf/187e5ea7-7c11-4ed7-955b-4e35c2f0ebf1
+Con cada pulso de reloj el maestro envía un bit. Para que empiece la transmisión el Master baja la señal SS/Select a cero, con esto el Slave se activa y empieza la transmisión, con un pulso de reloj al mismo tiempo que el primer bit es leído.
 
-Por ejemplo, la \textbf{latitud} influye en la cantidad de radiación solar que llega a la superficie; por otro lado, la radiación disminuirá cuanta más cantidad de nubes y más alta sea la \textbf{humedad}. Al contrario pasará con la \textbf{temperatura}, cuanto más altas sean las temperaturas mayor será la radiación. Otro factor que influye a la hora de medir la radiación, es el tipo de \textbf{superficie}, porque la reflexión de los rayos varía según el tipo de superficie, la nieve se refleja un 85 por ciento, al contrario del asfalto que solo un 2 por ciento.
+Raspberry cuenta con unos pines para la comunicación a través de SPI lo que facilita el uso de este tipo de componentes.
 
-Hay otros elementos que podríamos haber medido y que no lo hemos hecho, como los comentados anteriormente o, por ejemplo también, la \textbf{velocidad del viento}, que nos importaría si refrigerara el panel.
+\section{Componentes software y librerías externas}
+El software a través del cual controlar en nodo ha sido escrito en Python2.7. Su punto de entrada es el archivo solar\_node.py.
 
-Como hemos dicho, la superficie y la altitud son otros de estos elementos que están relacionados con la temperatura. Ya que por ejemplo cuando hemos sacado el nodo al exterior en el tejado para hacer las pruebas, rápidamente es alcanzado por el sol y alcanza altas temperaturas. No sería el mismo caso de estar en la superficie.
+Se puede ejecutar a través de la consola de comandos con el comando ``python solar\_node.py'' y para obtener la ayuda del comando ``python solar\_node.py -h''
 
-Por todo esto, lo que decidimos fue limitarnos a recoger información de radiación y temperatura porque son las más relevantes para nuestro modelo.
+Este programa tiene dos partes importantes: recoger los datos y enviarlos al servidor de datos. Para ello utilizamos varias librerías ya existentes.
+
+\begin{description}  
+\item \textbf{Adafruit\_DHT:} librería proporcionada por \href{https://www.adafruit.com/}{Adafruit} para leer e interpretar los datos proporcionados por el sensor DHT22. \textbf{Adafruit} es una compañía de hardware open-source, que además de proporcionar \textbf{hardware}, suministra de una gran cantidad de documentación y librerías para facilitar el trabajo con sus componentes. 
+\item \textbf{Adafruit\_GPIO:} aporta la funcionalidad para acceder a los pines GPIO a través de python.
+\item \textbf{Adafruit\_MCP3008:} comunicación a través de SPI con el ADC
+\item \textbf{paho-mqtt:}  ha sido creado para proporcionar implementaciones escalables de código abierto de \textbf{protocolos de mensajería} abiertos y estándar dirigidos a aplicaciones nuevas, existentes y emergentes para Machine to Machine (M2M) e Internet of Things (IoT).
+\end{description}
 
 \begin{figure}[htb]
 	
