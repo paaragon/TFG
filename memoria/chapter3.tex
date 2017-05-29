@@ -7,16 +7,16 @@
 \label{makereference4.1}
 Como hemos comentado anteriormente el \textbf{nodo} es quien recoge los datos meteorológicos escogidos y los envía al \textbf{servidor} de datos.
 
-Se ha implementado con una \textbf{Raspberry Pi modelo 3} como placa programable y los sensores DHT22 para la medición de la temperatura y humedad y un piranómetro SP-212 para medir la irradiación solar.~\ref{node-diagram}
+Se ha implementado con una \textbf{Raspberry Pi modelo 3} como placa programable y los sensores DHT22 para la medición de la temperatura y humedad y un piranómetro SP-212 para medir la irradiación solar. Ver imagen \ref{node-diagram}
 
 La parte software del nodo ha sido implementada en \textbf{Python}.
 
-\section{Elementos utilizados}
+\section{Elementos hardware utilizados}
 \label{makereference4.2}
 
 \subsection*{Raspberry Pi modelo 3}
 
-Raspberry Pi  es un "pequeño ordenador", un computador de placa reducida \ref{rasp}. Con él se pueden controlar distintos componentes electrónicos a través de los pines que expone y combinarlo cno la potencia y versatilidad de un sistema operativo.
+Raspberry Pi  es un "pequeño ordenador", un computador de placa reducida \ref{rasp}. Con él se pueden controlar distintos componentes electrónicos a través de los pines que expone y combinarlo con la potencia y versatilidad de un sistema operativo.
 
 \begin{figure}[htb]
 	\begin{center}
@@ -32,9 +32,9 @@ Raspberry proporciona y sistema operativo oficial llamado Raspbian, una distribu
 Fue creado en 2006, en la Universidad de Cambridge, con el fin de fomentar la enseñanza en las escuela de ciencias de la computación, pero hasta 2012 no salió al mercado.
 
 Existen distintos modelos de Raspberry Pi, desde la Raspberry Pi 1 Modelo A hasta la Raspberry Pi 3 Modelo B \ref{types}.
-En nuestro proyecto hemos usado una Raspberry Pi modelo 3, con su sistema operativo oficial, Raspbian.
+En nuestro proyecto hemos usado una Raspberry Pi 3 modelo B, con su sistema operativo oficial, Raspbian.
 
-Se ha decidido utilizar este elemento en el proyecto debido a su facilidad de manejo gracias a que cuenta con un sistema operativo y por ser relativamente barato para realizar un prototipo. Además cuenta con un gran comunidad detrás que trabaja en el desarrollo de nuevas guías y librerías para facilitar el desarrollo. 
+Se ha decidido utilizar este microcontrolador en el proyecto debido a su facilidad de manejo gracias a que cuenta con un sistema operativo y por ser relativamente barato para realizar un prototipo. Además cuenta con un gran comunidad detrás que trabaja en el desarrollo de nuevas guías y librerías para facilitar el desarrollo. 
 
 \begin{figure}[htb]
 	\begin{center}
@@ -51,13 +51,13 @@ A la Raspberry se le conectan dos sensores, uno de temperatura y humedad y un pi
 
 Para medir la temperatura y la humedad hemos utilizado un solo componente que recoge ambas muestras. El modelo escogido ha sido el sensor \textbf{DHT22}.
 
-Algunas de las características de este sensor y en especial de este modelo (ya que tambien existe el modelo DHT11) son que tiene una precisión de 0.5ºC para medir la temperatura, y entre un 2 y un 5 por ciento para la humedad. Ademas recogen dos muestras por segundo. Este sensor no es un sensor de alta precisión, pero es suficiente para nuestro proyecto, además de tener un precio muy económico. Ver imágen \ref{sensor}.
+Algunas de las características de este sensor y en especial de este modelo (ya que tambien existe el modelo DHT11 de la misma marca) son que tiene una precisión de 0.5ºC para medir la temperatura, y entre un 2 y un 5 por ciento para la humedad. Ademas recogen dos muestras por segundo. Este sensor no es un sensor de alta precisión, pero es suficiente para nuestro proyecto, además de tener un precio muy económico. Ver imágen \ref{sensor}.
 
 La comunicación entre el sensor y la Raspberry se realiza a través de un pin \textbf{GPIO} (General Purpose Input/Output, Entrada/Salida de Propósito General) que es un pin de propósito general. Estos pines pueden ser de entrada o de salida, y reciben y envían valores binarios de un bit.
 
 En el \href{https://cdn-shop.adafruit.com/datasheets/Digital+humidity+and+temperature+sensor+AM2302.pdf}{datasheet} del sensor viene definido el proceso de comunicación entre este y la Raspberry. Para ello, el microcontrolador (Raspberry en nuestro caso) envía una señal de arranque para que el sensor cambie del estado "standby" al estado "running". Al terminar de enviar dicha señal, el sensor envía una respuesta de 40 bits que contiene la información relativa a la humedad (16 bits), a la temperatura (16 bits) y un checksum (8 bits) para comprobar que se ha enviado correctamente. Ver imagen \ref{DHT22comunication}.
 
-El envío de estos bits sucede de la siguiente forma: el sensor envía una señal "baja" ("0") que indica el inicio de la transmisión de un bit. Seguidamente envía una señal "alta" ("1"). Si la transmisión de esta corriente dura más de 50\mu s indica que se ha transmitido un 1, en caso contrario, se quiso transmitir un 0.
+El envío de estos bits sucede de la siguiente forma: el sensor envía una señal "baja" ("0") que indica el inicio de la transmisión de un bit. Seguidamente envía una señal " alta" ("1"). Si la transmisión de esta corriente dura más de 50\mu s indica que se ha transmitido un 1, en caso contrario, se quiso transmitir un 0.
 
 \begin{figure}[htb]
 	
@@ -79,7 +79,7 @@ El envío de estos bits sucede de la siguiente forma: el sensor envía una seña
 	\label{sensor}
 \end{figure} 
 
-\subsection{Piranómetro}
+\subsection*{Piranómetro}
 
 \section{Organización del código}
 \label{makereference4.3} 
