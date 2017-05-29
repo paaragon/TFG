@@ -10,7 +10,7 @@
 **/*.log
 **/*.pyc
 **/*.zip
-**/*.gz # Fichero synctex de Maris
+**/*.synctex.gz # Fichero synctex de Maris
 train/data/*
 train/results/*
 .vscode
