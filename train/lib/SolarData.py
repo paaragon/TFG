@@ -57,6 +57,7 @@ class SolarData:
             print "Data found. Not generated"
 
         else:
+
             cond = {
                 'relativeTargetSample': relativeTargetDistance,
                 'nSamples': nSamples

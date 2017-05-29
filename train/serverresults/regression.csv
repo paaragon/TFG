@@ -1,0 +1,192 @@
+LinearRegression;2;0.856098;0.026093;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;0.856098;0.026093;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;0.856098;0.026093;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;0.856098;0.026093;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+SVR;2;0.847393;0.023329;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.846546;0.020705;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.846569;0.021756;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.846598;0.021721;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.413215;0.025693;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.024971;0.019804;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.760763;0.036181;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.413451;0.026609;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.843519;0.030281;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.760951;0.036444;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.851628;0.025687;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.842989;0.030019;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+LinearRegression;3;0.870865;0.033001;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;0.870865;0.033001;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;0.870865;0.033001;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;0.870865;0.033001;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+SVR;3;0.841450;0.026619;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.839064;0.033257;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.838642;0.033830;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.838516;0.033500;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.433179;0.037238;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.046593;0.018084;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.773293;0.026178;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.432849;0.036883;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.845833;0.019010;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.772804;0.026081;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.853401;0.032250;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.843469;0.018171;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+LinearRegression;4;0.876503;0.003129;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;0.876503;0.003129;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;0.876503;0.003129;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;0.876503;0.003129;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+SVR;4;0.845703;0.020093;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.845932;0.019490;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.845993;0.018766;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.845290;0.018381;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.433615;0.059348;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.055059;0.044821;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.791387;0.007401;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.433880;0.060302;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.844409;0.011891;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.791156;0.007246;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.863927;0.009530;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.842269;0.011155;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+LinearRegression;5;0.882772;0.041081;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;5;0.882772;0.041081;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;5;0.882772;0.041081;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;5;0.882772;0.041081;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+SVR;5;0.840425;0.047592;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.841731;0.042059;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.843431;0.039814;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.843034;0.038858;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.446379;0.048368;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.063375;0.048085;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.807384;0.029154;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.446459;0.048270;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.841068;0.042142;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.806803;0.029218;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.847958;0.047608;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.840496;0.042517;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+LinearRegression;2;0.856098;0.026093;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;0.856098;0.026093;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;0.856098;0.026093;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;0.856098;0.026093;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+SVR;2;0.847393;0.023329;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.846546;0.020705;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.846569;0.021756;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.846598;0.021721;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.413215;0.025693;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.024971;0.019804;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.760763;0.036181;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.413451;0.026609;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.843519;0.030281;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.760951;0.036444;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.851628;0.025687;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.842989;0.030019;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+LinearRegression;3;0.870865;0.033001;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;0.870865;0.033001;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;0.870865;0.033001;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;0.870865;0.033001;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+SVR;3;0.841450;0.026619;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.839064;0.033257;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.838642;0.033830;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.838516;0.033500;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.433179;0.037238;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.046593;0.018084;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.773293;0.026178;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.432849;0.036883;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.845833;0.019010;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.772804;0.026081;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.853401;0.032250;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.843469;0.018171;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+LinearRegression;4;0.876503;0.003129;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;0.876503;0.003129;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;0.876503;0.003129;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;0.876503;0.003129;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+SVR;4;0.845703;0.020093;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.845932;0.019490;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.845993;0.018766;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.845290;0.018381;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.433615;0.059348;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.055059;0.044821;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.791387;0.007401;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.433880;0.060302;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.844409;0.011891;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.791156;0.007246;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.863927;0.009530;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.842269;0.011155;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+LinearRegression;5;0.882772;0.041081;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;5;0.882772;0.041081;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;5;0.882772;0.041081;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;5;0.882772;0.041081;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+SVR;5;0.840425;0.047592;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.841731;0.042059;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.843431;0.039814;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.843034;0.038858;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.446379;0.048368;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.063375;0.048085;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.807384;0.029154;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.446459;0.048270;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.841068;0.042142;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.806803;0.029218;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.847958;0.047608;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.840496;0.042517;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+LinearRegression;2;0.856098;0.026093;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;0.856098;0.026093;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;0.856098;0.026093;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;0.856098;0.026093;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+SVR;2;0.847393;0.023329;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.846546;0.020705;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.846569;0.021756;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.846598;0.021721;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.413215;0.025693;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.024971;0.019804;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.760763;0.036181;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.413451;0.026609;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.843519;0.030281;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.760951;0.036444;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.851628;0.025687;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;0.842989;0.030019;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+LinearRegression;3;0.870865;0.033001;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;0.870865;0.033001;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;0.870865;0.033001;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;0.870865;0.033001;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+SVR;3;0.841450;0.026619;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.839064;0.033257;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.838642;0.033830;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.838516;0.033500;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.433179;0.037238;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.046593;0.018084;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.773293;0.026178;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.432849;0.036883;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.845833;0.019010;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.772804;0.026081;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.853401;0.032250;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;0.843469;0.018171;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+LinearRegression;4;0.876503;0.003129;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': False}
+LinearRegression;4;0.876503;0.003129;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': False}
+LinearRegression;4;0.876503;0.003129;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': False}
+LinearRegression;4;0.876503;0.003129;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': False}
+SVR;4;0.845703;0.020093;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.845932;0.019490;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.845993;0.018766;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.845290;0.018381;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.433615;0.059348;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.055059;0.044821;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.791387;0.007401;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.433880;0.060302;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.844409;0.011891;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.791156;0.007246;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.863927;0.009530;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;0.842269;0.011155;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+LinearRegression;5;0.882772;0.041081;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;5;0.882772;0.041081;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;5;0.882772;0.041081;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;5;0.882772;0.041081;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+SVR;5;0.840425;0.047592;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.841731;0.042059;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.843431;0.039814;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.842993;0.038972;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.446379;0.048368;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.063375;0.048085;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.807384;0.029154;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.446459;0.048270;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.841068;0.042142;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.806803;0.029218;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.847958;0.047608;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;0.840496;0.042517;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}

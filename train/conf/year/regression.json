@@ -1,7 +1,7 @@
 {
     "id": "regression",
     "start": 20150101,
-    "end": 20150131,
+    "end": 20151231,
     "k": [2, 3, 4, 5],
     "estimator": [{
             "module": "sklearn.linear_model",
