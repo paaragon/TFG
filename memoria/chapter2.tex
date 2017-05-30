@@ -109,11 +109,28 @@ Raspberry cuenta con unos pines para la comunicación a través de SPI lo que fa
 
 \section{Componentes software y librerías externas}
 \label{makereference2.4}
-El software a través del cual controlar el nodo ha sido escrito en Python2.7. Su punto de entrada es el archivo solar\_node.py.
+El software a través del cual controlar el nodo ha sido escrito en Python2.7. Su punto de entrada es el archivo ``solar\_node.py''.
 
-Se puede ejecutar a través de la consola de comandos con el comando ``python solar\_node.py'' y para obtener la ayuda del comando ``python solar\_node.py -h''
+Se puede ejecutar a través de la consola de comandos con el comando ``python solar\_node.py''
 
 Este programa tiene dos partes importantes: recoger los datos y enviarlos al servidor de datos. Para ello utilizamos varias librerías ya existentes.
+
+Los datos recogidos serán almacenados en registros para evitar la pérdida de datos. Estos registros (o ``logs'') son almacenados en archivos diarios dentro del nodo. El resultado de las conexiones con el servidor de datos también serán registradas en un fichero guardando si la conexión se realizó con éxito o no.
+
+Existen diferentes argumentos posibles para cambiar el modo de ejecución del nodo.
+\begin{itemize}
+\item -start: arranca el nodo en modo servicio. Toma muestras de los sensores cada cierto periodo de tiempo (por defecto un minuto) y las almacena en los registros.
+\item -test: arranca el nodo para realizar una sola muestra. El fin de este argumento es comprobar el correcto funcionamiento del nodo.
+\item -help: muestra la ayuda del comando con todas las opciones disponibles.
+\item -m: (opcional) los datos recogidos por el nodo serán enviados al broker MQTT.
+\item -i number: (opcional) especifica el intervalo de recogida de muestras de los sensores.
+\item -h hostname: especifica el nombre de dominio o la IP del broker MQTT.
+\item -p port: puerto del broker MQTT.
+\item -u username: usuario para realizar la conexión MQTT.
+\item -p password: contraseña del usuario. 
+\end{itemize}
+
+\subsection{Librerías externas}
 
 \begin{itemize}  
 \item \textbf{Adafruit\_DHT:} librería proporcionada por \href{https://www.adafruit.com/}{Adafruit} para leer e interpretar los datos proporcionados por el sensor DHT22. \textbf{Adafruit} es una compañía de hardware open-source, que además de proporcionar \textbf{hardware}, suministra de una gran cantidad de documentación y librerías para facilitar el trabajo con sus componentes. 
@@ -131,3 +148,5 @@ Este programa tiene dos partes importantes: recoger los datos y enviarlos al ser
 	
 	\label{node-diagram}
 \end{figure}
+
+%%Falta hablar de los logs que hace el nodo

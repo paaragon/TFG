@@ -5,20 +5,48 @@
 
 \section{Introducción}
 \label{makereference3.1}
-Como comentamos en el capitulo anterior, el \textbf{nodo} necesita una interfaz de red para mandar los datos, en este caso estamos hablando de \textbf{MQTT}. Este sera el encargado de recibir, almacenar y organizar la información que recibe del nodo.
-El \textbf{cliente MQTT} lo ejecuta el nodo y por otro lado el \textbf{servidor MQTT} esta en una máquina física que hemos alojado en la Facultad de Físicas, a la cual accedemos por SSH remotamente.
+La información recogida por el nodo es almacenada en un servidor central (al que llamamos ``servidor de datos''). Este se encarga de recibir la información proporcionada por uno o varios clientes (el nodo en nuestro caso), almacenarla y distribuirla a quien la requiera.
+
+La comunicación se realiza sobre el protocolo MQTT muy utilizado para la comunicación máquina a máquina. Como implementación de este protocolo utilizamos el servidor \href{https://mosquitto.org/}{mosquitto}.
 
 \section{MQTT}
 \label{makereference3.2}
-\textbf{MQTT} o lo que es lo mismo \textit{Message Queue Telemetry Transpor}t es un protocolo para la comunicación \textbf{machine-to-machine} de mensajería bastante simple y ligero, orientado a conexión por \textbf{TCP/IP}. Esta diseñado principalmente para dispositivos con poco ancho de banda y con latencia baja. 
+\textbf{MQTT} o lo que es lo mismo \textit{Message Queue Telemetry Transpor}t es un protocolo para la comunicación \textbf{machine-to-machine} de mensajería muy simple y ligero, orientado a conexión por \textbf{TCP/IP}. Esta diseñado principalmente para dispositivos con poco ancho de banda y con latencia baja.
 
-Tiene dos puertos TCP/IP reservados, el 1883 y el 8883.
+MQTT es un servicio de publicación/suscripción TCP/IP sencillo y sumamente ligero. Se basa en el principio cliente/servidor.
 
-\section{ThingSpeak}
-\label{makereference3.3}
+El servidor, llamado broker, recopila los datos que los publishers (los dispositivos comunicantes) le transmiten. Determinados datos recopilados por el broker se enviarán a determinados publishers que previamente así se lo hayan solicitado al broker.
 
-\section{Bridge ThingSpeak}
-\label{makereference3.4}
+Los publishers envían los mensajes a un canal llamado topic. Los subscribers (suscriptores) pueden leer esos mensajes. Los topics (o canales de información) pueden estar distribuidos jerárquicamente de forma que se puedan seleccionar exactamente las informaciones que se desean.
+
+Los mensajes enviados por los dispositivos comunicantes pueden ser de todo tipo pero no pueden superar los 256 Mb.
+
+\subsection{Seguridad}
+Los datos de IoT intercambiados pueden resultar muy críticos, por lo que es posible garantizar la seguridad de los intercambios en varios niveles:
+\begin{itemize}
+\item Transporte en SSL/TLS
+\item Autenticación mediante certificados SSL/TLS
+\item Autenticación mediante usuario y contraseña
+\end{itemize}
+
+\subsection{QoS}
+El MQTT lleva integrada en modo nativo la noción de QoS (Quality of Service, calidad de servicio). En efecto, el publisher tiene la posibilidad de definir la calidad de su mensaje.
+
+Hay tres niveles posibles:
+\begin{itemize}
+\item Un mensaje de QoS nivel 0 at most once se entregará como mucho una vez. Eso significa que el mensaje se envía sin garantías de recepción (el broker no informa al remitente de que ha recibido el mensaje)
+\item Un mensaje de QoS nivel 1 at least once se entregará al menos una vez. El cliente lo transmitirá varias veces si es necesario, hasta que el broker le confirme que lo ha enviado a la red.
+\item Un mensaje de QoS nivel 2 exactly once será obligatoriamente guardado por el emisor, que lo transmitirá siempre que el receptor no confirme su envío a la red. La principal diferencia radica en que el emisor utiliza una fase de reconocimiento más sofisticada con el broker para evitar la duplicación de los mensajes (más lento pero más seguro).
+\end{itemize}
+
+\subsection{Ventajas}
+\begin{itemize}  
+\item Está especialmente adaptado para utilizar un ancho de banda mínimo .
+\item Consume muy poca energía.
+\item Es muy rápido y posibilita un tiempo de respuesta superior al resto de protocolos web actuales.
+\item Permite una gran fiabilidad si es necesario.
+\item Requiere pocos recursos.
+\end{itemize}
 
 \section{Instalación y puesta en marcha}
 \label{makereference3.5}

@@ -94,40 +94,24 @@ Ejecutar:
 $ node/solar_node.py
 \end{lstlisting}
 
-\section{Servidor}
+\section{Servidor de datos}
 \label{makereference5.2}
-\subsection{Prerrequisitos}
-\label{makereference5.2.1}
-	\begin{itemize}
-		\item Cuenta en \textbf{ThinkSpeak}
-		\item \textbf{Mosquitto}
-	\end{itemize}
-\subsection{Python version and libraries}
-\label{makereference5.2.2}
-	\begin{itemize}
-		\item Python 2.7
-		\item Pandas para manipular ficheros CSV
+\subsection{Requisitos previos}
+\begin{itemize}
+\item Máquina con distribucion Linux instalada. Recomendable Debian, Fedora, OpenSUSE o Ubuntu.
+\item conexión a internet.
+\item IP fija y opcionalmente, nombre de dominio.
+\end{itemize}
+
+La instalación de un broker MQTT es muy sencilla (una de sus principales ventajas). Para ello basta con instalar el demonio mosquitto a través del siguiente comando:
+
+Ejemplo de instalación en Ubuntu:
+\lstset{language=bash}
 \begin{lstlisting}[frame=single]
-$ sudo pip install pandas
-\end{lstlisting}
-		\item Paho MQTT para crear el servidor MQTT
-\begin{lstlisting}[frame=single]
-$ sudo pip install paho-mqtt
+$ sudo apt-get install mosquitto
 \end{lstlisting}
 
-	\end{itemize}
-\subsection{Instalación}
-\label{makereference5.2.3}
-\begin{itemize}
-	\item Introduce el directiorio \textbf{server} en tu servidor
-	\item Cambia las variables \textbf{brokerIp, brokerPort, topic and thinkspeakKey} en solar-node.py
-\end{itemize}
-\subsection{Uso}
-\label{makereference5.2.4}
-\begin{itemize}
-	\item Ejecuta
-\begin{lstlisting}[frame=single]
-$ mosquitto
-$ server/main.py
-\end{lstlisting}
-\end{itemize}
+Por defecto, Ubuntu arranca el servicio después de instalarlo. Si la distribución Lunix sobre la cual se instala no realiza esta acción por defecto, se deberá configurar debidamente para arrancarlo.
+
+Hablar aquí de como securizar ubuntu y cambiar la configuración por defecto.
+Aquí más info: https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-the-mosquitto-mqtt-messaging-broker-on-ubuntu-16-04
