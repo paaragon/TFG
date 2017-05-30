@@ -13,11 +13,11 @@ La parte software del nodo ha sido implementada en \textbf{Python}.
 
 \section{Qué variables medir}
 \label{makereference2.2}
---- http://www.pveducation.org/pvcdrom/2-properties-sunlight/solar-radiation-earths-surface
+%--- http://www.pveducation.org/pvcdrom/2-properties-sunlight/solar-radiation-earths-surface
 
 La \textbf{radiación solar} varía debido a diversos factores, como los efectos atmosféricos, las variaciones locales en la atmósfera como el vapor de agua, las nubes y la contaminación, otros como la latitud y la estación del año y la hora del día.
 
---- https://www.imn.ac.cr/documents/10179/27818/factores-influyen-radiac-UV.pdf/187e5ea7-7c11-4ed7-955b-4e35c2f0ebf1
+%--- https://www.imn.ac.cr/documents/10179/27818/factores-influyen-radiac-UV.pdf/187e5ea7-7c11-4ed7-955b-4e35c2f0ebf1
 
 Por ejemplo, la \textbf{latitud} influye en la cantidad de radiación solar que llega a la superficie; por otro lado, la radiación disminuirá cuanta más cantidad de nubes y más alta sea la \textbf{humedad}. Al contrario pasará con la \textbf{temperatura}, cuanto más altas sean las temperaturas mayor será la radiación. Otro factor que influye a la hora de medir la radiación, es el tipo de \textbf{superficie}, porque la reflexión de los rayos varía según el tipo. En la nieve se refleja un 85 por ciento, al contrario del asfalto que solo un 2 por ciento.
 
@@ -29,7 +29,7 @@ En este proyecto, se recogen solo muestras de radiación solar, temperatura y hu
 \subsection{Raspberry Pi modelo 3}
 \label{makereference2.3.1}
 
-Raspberry Pi  es un "pequeño ordenador", un computador de placa reducida \ref{rasp}. Con él se pueden controlar distintos componentes electrónicos a través de los pines que expone y combinarlo con la potencia y versatilidad de un sistema operativo.
+Raspberry Pi es un microcontrolador, un computador de placa reducida \ref{rasp}. Con él se pueden controlar distintos componentes electrónicos a través de los pines que expone y combinarlo con la potencia y versatilidad de un sistema operativo.
 
 \begin{figure}[htb]
 	\begin{center}
@@ -115,12 +115,12 @@ Se puede ejecutar a través de la consola de comandos con el comando ``python so
 
 Este programa tiene dos partes importantes: recoger los datos y enviarlos al servidor de datos. Para ello utilizamos varias librerías ya existentes.
 
-\begin{description}  
+\begin{itemize}  
 \item \textbf{Adafruit\_DHT:} librería proporcionada por \href{https://www.adafruit.com/}{Adafruit} para leer e interpretar los datos proporcionados por el sensor DHT22. \textbf{Adafruit} es una compañía de hardware open-source, que además de proporcionar \textbf{hardware}, suministra de una gran cantidad de documentación y librerías para facilitar el trabajo con sus componentes. 
 \item \textbf{Adafruit\_GPIO:} aporta la funcionalidad para acceder a los pines GPIO a través de python.
 \item \textbf{Adafruit\_MCP3008:} comunicación a través de SPI con el ADC
-\item \textbf{paho-mqtt:}  ha sido creado para proporcionar implementaciones escalables de código abierto de \textbf{protocolos de mensajería} abiertos y estándar dirigidos a aplicaciones nuevas, existentes y emergentes para Machine to Machine (M2M) e Internet of Things (IoT).
-\end{description}
+\item \textbf{paho-mqtt:} Paho ha sido creado para proporcionar implementaciones escalables de código abierto de \textbf{protocolos de mensajería} abiertos y estándar dirigidos a aplicaciones nuevas, existentes y emergentes para Machine to Machine (M2M) e Internet of Things (IoT). Esta librería proporciona la funcionalidad para la comunicación a través de MQTT. Este protocolo de comunicación será exlicado más adelante.
+\end{itemize}
 
 \begin{figure}[htb]
 	
