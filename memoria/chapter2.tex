@@ -1,10 +1,10 @@
 \cleardoublepage
 
 \chapter{Nodo}
-\label{makereference4}
+\label{makereference2}
 
 \section{Introducción}
-\label{makereference4.1}
+\label{makereference2.1}
 Como hemos comentado anteriormente el \textbf{nodo} es quien recoge los datos meteorológicos escogidos y los envía al \textbf{servidor} de datos.
 
 Se ha implementado con una \textbf{Raspberry Pi modelo 3} como placa programable y los sensores DHT22 para la medición de la temperatura y humedad y un piranómetro SP-212 para medir la irradiación solar. Ver imagen \ref{node-diagram}
@@ -12,6 +12,7 @@ Se ha implementado con una \textbf{Raspberry Pi modelo 3} como placa programable
 La parte software del nodo ha sido implementada en \textbf{Python}.
 
 \section{Qué variables medir}
+\label{makereference2.2}
 --- http://www.pveducation.org/pvcdrom/2-properties-sunlight/solar-radiation-earths-surface
 
 La \textbf{radiación solar} varía debido a diversos factores, como los efectos atmosféricos, las variaciones locales en la atmósfera como el vapor de agua, las nubes y la contaminación, otros como la latitud y la estación del año y la hora del día.
@@ -23,11 +24,12 @@ Por ejemplo, la \textbf{latitud} influye en la cantidad de radiación solar que 
 En este proyecto, se recogen solo muestras de radiación solar, temperatura y humedad por ser las más relevantes para nuestro modelo.
 
 \section{Elementos hardware utilizados}
-\label{makereference4.2}
+\label{makereference2.3}
 
-\subsection*{Raspberry Pi modelo 3}
+\subsection{Raspberry Pi modelo 3}
+\label{makereference2.3.1}
 
-Raspberry Pi  es un ``pequeño ordenador", un computador de placa reducida \ref{rasp}. Con él se pueden controlar distintos componentes electrónicos a través de los pines que expone y combinarlo con la potencia y versatilidad de un sistema operativo.
+Raspberry Pi  es un "pequeño ordenador", un computador de placa reducida \ref{rasp}. Con él se pueden controlar distintos componentes electrónicos a través de los pines que expone y combinarlo con la potencia y versatilidad de un sistema operativo.
 
 \begin{figure}[htb]
 	\begin{center}
@@ -56,7 +58,8 @@ Se ha decidido utilizar este microcontrolador en el proyecto debido a su facilid
 	\label{types}
 \end{figure}
 
-\subsection*{Sensor de temperatura y humedad}
+\subsection{Sensor de temperatura y humedad}
+\label{makereference2.3.2}
 
 A la Raspberry se le conectan dos sensores, uno de temperatura y humedad y un piranómetro del cual hablaremos más tarde. Ambos para recoger los datos meteorológicos que necesitamos para nuestro modelo.
 
@@ -90,7 +93,8 @@ El envío de estos bits sucede de la siguiente forma: el sensor envía una seña
 	\label{sensor}
 \end{figure} 
 
-\subsection*{Piranómetro y ADC}
+\subsection{Piranómetro y ADC}
+\label{makereference2.3.3}
 Para recoger la cantidad de irradiación solar se utiliza un piranómetro. En este proyecto se ha utilizado el modelo \href{https://www.apogeeinstruments.co.uk/content/SP-212-215-manual.pdf}{SP-212}. Este sensor es analógico es decir, la señal que envía es un voltaje variable con el cual indica la cantidad de irradiación que recoge.
 
 Para poder leer esa información con un microcontrolador es necesario hacer una conversión a digital. Para ello se utiliza un conversor analógico-digital o por sus siglas en inglés \textbf{ADC}.
@@ -104,6 +108,7 @@ Con cada pulso de reloj el maestro envía un bit. Para que empiece la transmisi�
 Raspberry cuenta con unos pines para la comunicación a través de SPI lo que facilita el uso de este tipo de componentes.
 
 \section{Componentes software y librerías externas}
+\label{makereference2.4}
 El software a través del cual controlar el nodo ha sido escrito en Python2.7. Su punto de entrada es el archivo solar\_node.py.
 
 Se puede ejecutar a través de la consola de comandos con el comando ``python solar\_node.py'' y para obtener la ayuda del comando ``python solar\_node.py -h''

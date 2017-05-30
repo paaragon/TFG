@@ -1,11 +1,14 @@
 \cleardoublepage
 
 \chapter{Instalación y puesta en marcha}
-\label{makereference6}
+\label{makereference5}
 
 \section{Nodo}
+\label{makereference5.1}
 \subsection{Prerrequisitos}
+\label{makereference5.1.2}
 \subsubsection{Hardware}
+\label{makereference5.1.3}
 	\begin{itemize}
 		\item \textbf{Raspberry Pi 2 model B} con una distribución Linux (nosotros usamos Raspbian)
 		\item 1 Led
@@ -78,24 +81,29 @@ $ pip install paho-mqtt
 \end{lstlisting}
 
 \subsection{Instalación}
+\label{makereference5.1.4}
 	\begin{itemize}
 		\item Introduce el directiorio \textbf{node} en tu Rapsberry Pi
 		\item Cambia las variables \textbf{brokerIp, brokerPort, topic, ubication} en solar-node.py
 	\end{itemize}
 
 \subsection{Uso}
+\label{makereference5.1.5}
 Ejecutar:
 \begin{lstlisting}[frame=single]
 $ node/solar_node.py
 \end{lstlisting}
 
 \section{Servidor}
+\label{makereference5.2}
 \subsection{Prerrequisitos}
+\label{makereference5.2.1}
 	\begin{itemize}
 		\item Cuenta en \textbf{ThinkSpeak}
 		\item \textbf{Mosquitto}
 	\end{itemize}
 \subsection{Python version and libraries}
+\label{makereference5.2.2}
 	\begin{itemize}
 		\item Python 2.7
 		\item Pandas para manipular ficheros CSV
@@ -109,11 +117,13 @@ $ sudo pip install paho-mqtt
 
 	\end{itemize}
 \subsection{Instalación}
+\label{makereference5.2.3}
 \begin{itemize}
 	\item Introduce el directiorio \textbf{server} en tu servidor
 	\item Cambia las variables \textbf{brokerIp, brokerPort, topic and thinkspeakKey} en solar-node.py
 \end{itemize}
 \subsection{Uso}
+\label{makereference5.2.4}
 \begin{itemize}
 	\item Ejecuta
 \begin{lstlisting}[frame=single]
