@@ -26,7 +26,7 @@ En este proyecto, se recogen solo muestras de radiación solar, temperatura y hu
 \section{Elementos hardware utilizados}
 \label{makereference2.3}
 
-\subsection{Raspberry Pi modelo 3}
+\subsection{Raspberry Pi modelo 2b}
 \label{makereference2.3.1}
 
 Raspberry Pi es un microcontrolador, un computador de placa reducida \ref{rasp}. Con él se pueden controlar distintos componentes electrónicos a través de los pines que expone y combinarlo con la potencia y versatilidad de un sistema operativo.
@@ -34,7 +34,7 @@ Raspberry Pi es un microcontrolador, un computador de placa reducida \ref{rasp}.
 \begin{figure}[htb]
 	\begin{center}
 		\includegraphics[height=5cm]{figures/Raspberry_Pi.jpg}
-		\caption{Raspberry Pi Modelo 2b}
+		\caption{Raspberry Pi Modelo 2b [Fuente: \href{https://www.raspberrypi.org}{Raspberry Pi}]}
 	\end{center}
 	
 	\label{rasp}
@@ -47,12 +47,12 @@ Fue creado en 2006, en la Universidad de Cambridge, con el fin de fomentar la en
 Existen distintos modelos de Raspberry Pi, desde la Raspberry Pi 1 Modelo A hasta la Raspberry Pi 3 Modelo B \ref{types}.
 En nuestro proyecto hemos usado una Raspberry Pi 3 modelo B, con su sistema operativo oficial, Raspbian.
 
-Se ha decidido utilizar este microcontrolador en el proyecto debido a su facilidad de manejo gracias a que cuenta con un sistema operativo y por ser relativamente barato para realizar un prototipo. Además cuenta con un gran comunidad detrás que trabaja en el desarrollo de nuevas guías y librerías para facilitar el desarrollo. 
+Se ha decidido utilizar este microcontrolador en el proyecto debido a su facilidad de manejo gracias a que cuenta con un sistema operativo y por ser relativamente barato para realizar un prototipo. Además cuenta con un gran comunidad detrás que trabaja en el desarrollo de nuevas guías y librerías para facilitar el desarrollo. (\cite{ARP:RaspberryPi:2017})
 
 \begin{figure}[htb]
 	\begin{center}
 		\includegraphics[width=17cm,height=12cm]{figures/Cuadro_Tipos_Raspberry.png}
-		\caption{Cuadro comparativo de las especificaciones técnicas}
+		\caption{Cuadro comparativo de las especificaciones técnicas [Fuente: \href{www.wikipedia.org}{Wikipedia}]}
 	\end{center}
 
 	\label{types}
@@ -63,7 +63,7 @@ Se ha decidido utilizar este microcontrolador en el proyecto debido a su facilid
 
 A la Raspberry se le conectan dos sensores, uno de temperatura y humedad y un piranómetro del cual hablaremos más tarde. Ambos para recoger los datos meteorológicos que necesitamos para nuestro modelo.
 
-Para medir la temperatura y la humedad hemos utilizado un solo componente que recoge ambas muestras. El modelo escogido ha sido el sensor \textbf{DHT22}.
+Para medir la temperatura y la humedad hemos utilizado un solo componente que recoge ambas muestras. El modelo escogido ha sido el sensor \textbf{DHT22}. (\cite{ARP:Adafruit:2017})
 
 Algunas de las características de este sensor y en especial de este modelo (ya que tambien existe el modelo DHT11 de la misma marca) son que tiene una precisión de 0.5ºC para medir la temperatura, y entre un 2 y un 5 por ciento para la humedad. Ademas recogen dos muestras por segundo. Este sensor no es un sensor de alta precisión, pero es suficiente para nuestro proyecto, además de tener un precio muy económico. Ver imágen \ref{sensor}.
 
@@ -77,7 +77,7 @@ El envío de estos bits sucede de la siguiente forma: el sensor envía una seña
 	
 	\begin{center}
 		\includegraphics[width=15cm]{figures/DTH22comunicationdiagram.png}
-		\caption{Diagrama de comunicación del sensor DHT22}
+		\caption{Diagrama de comunicación del sensor DHT22 [Fuente: \href{https://cdn-shop.adafruit.com/datasheets/Digital+humidity+and+temperature+sensor+AM2302.pdf}{Adafruit}]}
 	\end{center}
 	
 	\label{DHT22comunication}
@@ -86,8 +86,8 @@ El envío de estos bits sucede de la siguiente forma: el sensor envía una seña
  \begin{figure}[htb]
 	
 	\begin{center}
-		\includegraphics[width=7cm,height=7cm]{figures/sensorTemperaturaHumedad.png}
-		\caption{Sensores de temperatura y humedad DHT11 y DHT22}
+		\includegraphics[width=10cm,height=7cm]{figures/sensorTemperaturaHumedad.png}
+		\caption{Sensores de temperatura y humedad DHT11 y DHT22 [Fuente: \href{https://cdn-shop.adafruit.com/datasheets/Digital+humidity+and+temperature+sensor+AM2302.pdf}{Adafruit}]}
 	\end{center}
 	
 	\label{sensor}
@@ -95,11 +95,11 @@ El envío de estos bits sucede de la siguiente forma: el sensor envía una seña
 
 \subsection{Piranómetro y ADC}
 \label{makereference2.3.3}
-Para recoger la cantidad de irradiación solar se utiliza un piranómetro. En este proyecto se ha utilizado el modelo \href{https://www.apogeeinstruments.co.uk/content/SP-212-215-manual.pdf}{SP-212}. Este sensor es analógico es decir, la señal que envía es un voltaje variable con el cual indica la cantidad de irradiación que recoge.
+Para recoger la cantidad de irradiación solar se utiliza un piranómetro. En este proyecto se ha utilizado el modelo \href{https://www.apogeeinstruments.co.uk/content/SP-212-215-manual.pdf}{SP-212}. Este sensor es analógico es decir, la señal que envía es un voltaje variable con el cual indica la cantidad de irradiación que recoge. (\cite{ARP:Apogee:2017}).
 
 Para poder leer esa información con un microcontrolador es necesario hacer una conversión a digital. Para ello se utiliza un conversor analógico-digital o por sus siglas en inglés \textbf{ADC}.
 
-El \textbf{ADC} utilizado en este proyecto ha sido el \href{https://cdn-shop.adafruit.com/datasheets/MCP3008.pdf}{MCP3008}. Es un conversor de 10 bits por lo que permite codificar entre 0 y 1024, suficiente para este proyecto. Se comunica con la Raspberry a través del puerto \textbf{SPI}.
+El \textbf{ADC} utilizado en este proyecto ha sido el \href{https://cdn-shop.adafruit.com/datasheets/MCP3008.pdf}{MCP3008}. Es un conversor de 10 bits por lo que permite codificar entre 0 y 1024, suficiente para este proyecto. Se comunica con la Raspberry a través del puerto \textbf{SPI}. (\cite{ARP:Adafruit:2017})
 
 \textbf{SPI} es un estándar de comunicación en serie, maestro/esclavo, regulado por un reloj. Incluye 4 señales: reloj (SCLK), salida de datos del maestro y entrada de datos al esclavo (MOSI), salida de datos del esclavo y entrada al maestro (MISO) y otra para Para seleccionar un esclavo, o para que el maestro le diga al esclavo que se active (SS/Select).
 
