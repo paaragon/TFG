@@ -9,41 +9,7 @@
 % | 9/14/06: Removed typos                                             |
 % +--------------------------------------------------------------------+
 
-% +--------------------------------------------------------------------+
-% | Your paper should contain the following sections, except where     |
-% | indicated as optional, in the order shown.  Also, all headings     |
-% | shown with an asterisk (*) must be centered and in uppercase       |
-% | letters:                                                           |
-% |                                                                    |
-% | Abstract Title Page (doctoral dissertations only)                  |
-% | ABSTRACT* (doctoral dissertations only)                            |
-% | Title Page                                                         |
-% | Copyright Page (Optional - only needed if copyrighting)            |
-% | ABSTRACT *                                                         |
-% | TABLE OF CONTENTS *                                                |
-% | LIST OF FIGURES *                                                  |
-% | LIST OF TABLES*                                                    |
-% | ACKNOWLEDGMENTS* (Optional)                                        |
-% | DEDICATION * (Optional)                                            |
-% | PREFACE * (Optional)                                               |
-% | Individual Chapters                                                |
-% | References and/or bibliography                                     |
-% | Appendices (as needed)                                             |
-% +--------------------------------------------------------------------+
-
-% +--------------------------------------------------------------------+
-% | The LaTex keyword \documentclass selects a particular class to     |
-% | associate with the document.  The current documentclass            |
-% | {class_diss} generates a Table of Contents that has leading dots   |
-% | only on chapter subheadings.  If you prefer a Table of Contents    |
-% | that has leading dots for all entries, replace {class_diss}        |
-% | with {Mydiss} in the command below.                                |
-% |                                                                    |
-% +--------------------------------------------------------------------+
-
 \documentclass[final, 12pt,oneside]{class_diss}
-
-
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -83,27 +49,6 @@
 \definecolor{  Pink}{rgb}{1.0, 0.5, 0.5}
 \definecolor{Maroon}{rgb}{0.8, 0.0, 0.0}
 
-% +--------------------------------------------------------------------+
-% | In the commands below, we use the 'natbib' package, and specify    |
-% | the 'sort&compress' option, which condenses                        |
-% | citations from (1,2,3,5,9,10,11) to (1-3,5,9-11).  The 'bibpunct'  |
-% | option selects various parameters for how the citation will be     |
-% | displayed.  In this case, only the comma (separation between       |
-% | citations) and the 's' (superscript) arguments are chosen.  The    |
-% | other curly braces deal with how to 'wrap' the citation (using     |
-% | parentheses, brackets, etc.) and are not needed for the chosen     |
-% | style.                                                             |
-% +--------------------------------------------------------------------+
-
-%\usepackage[sort&compress]{natbib}
-%\bibpunct{}{}{,}{s}{}{}
-%\usepackage{hypernat}
-
-% +--------------------------------------------------------------------+
-% | Lastly, the hyperref package allows one to hyperlink cross-        |
-% | references and figures in a LaTeX document.                        |
-% +--------------------------------------------------------------------+
-
 \usepackage[pdftex, plainpages=false, pdfpagelabels]{hyperref}
 
 \hypersetup{
@@ -118,7 +63,7 @@
     linkbordercolor={.7 .8 .8},
     breaklinks=true,
     pdfpagelabels=true,
-    }
+}
 
 % +--------------------------------------------------------------------+
 % | Page margins are set on 1 inch on all sides.                       |
@@ -132,29 +77,22 @@
 % +--------------------------------------------------------------------+
 % | The document finally begins here.                                  |
 % +--------------------------------------------------------------------+
-
 \begin{document}
-
 
   \setcounter{page}{-1}
 
-
 % +--------------------------------------------------------------------+
-% | Title Page -- Required for both Doctoral and Masters Students
+% | Title Page
 % +--------------------------------------------------------------------+
-
 \input{title.tex}
    \pdfbookmark[0]{Portada}{PDFPortadaPage}
 
 % +--------------------------------------------------------------------+
-% | Autorizacion Page -- Required for both Doctoral and Masters Students
+% | Authorizacion Page
 % +--------------------------------------------------------------------+
-
 \input{autorizacion.tex}
    \pdfbookmark[0]{Autorización}{PDFAutorizacionPage}
 
-
-   
    \input{resumen.tex}
    
    \pdfbookmark[0]{Resumen}{PDFResumenPage}
@@ -163,103 +101,31 @@
        \pdfbookmark[0]{Abstract}{PDFAbstractPage}
     \vfill
 
-
-% +--------------------------------------------------------------------+
-% | We use the following code to suppress page numbers and other
-% | style issues we do not want present on a given page.               |
-% +--------------------------------------------------------------------+
-
-%\thispagestyle{empty} Looks like it's ok to remove this line
 \newpage
 \pagenumbering{roman}
 
-% +--------------------------------------------------------------------+
-% | On the line below, set the number to represent the page number of
-% | the Table of Contents page.  For example, if the Table of Contents
-% | page is the 8th page of your document, enter 8 in the brackets.  This
-% | number may vary, depending on the length of your abstract.
-% |
-% | Numbers do not appear on the title and abstract pages, but they are
-% | included in the page count.  The Table of Contents page is the
-% | first page on which page numbers are displayed.
-% +--------------------------------------------------------------------+
-
 \setcounter{page}{1}
-
-% +--------------------------------------------------------------------+
-% | Here, we will generate our Table of Contents (TOC) entries.        |
-% | This adds the section to the TOC and then generates the indicated  |
-% | section.                                                           |
-% +--------------------------------------------------------------------+
 
 \phantomsection
 \addcontentsline{toc}{chapter}{Índice}
 
 \tableofcontents
-%\listoffigures
-%\listoftables
-
-%\hfill  Are these lines necessary?
-%\hfill
 
 % +--------------------------------------------------------------------+
 % | Acknowledgements Page
-% |
-% | If you choose not to have an Acknowledgements page, comment out
-% | or delete the following 3 lines.
 % +--------------------------------------------------------------------+
-
 \input{agradecimientos.tex}
 \phantomsection
 \addcontentsline{toc}{chapter}{Agradecimientos}
-
-% +--------------------------------------------------------------------+
-% | Dedication Page
-% |
-% | If you choose not to have a Dedication page, comment out
-% | or delete the following 3 lines.
-% +--------------------------------------------------------------------+
-
-\input{dedicatoria.tex}
-\phantomsection
-\addcontentsline{toc}{chapter}{Dedicatoria}
-
-% +--------------------------------------------------------------------+
-% | Preface Page
-% +--------------------------------------------------------------------+
-
-%\input{preface.tex}
-%\phantomsection
-%\addcontentsline{toc}{chapter}{Preface}
-
-% +--------------------------------------------------------------------+
-% | We use arabic (1, 2, 3...) page numbering starting from page 1.    |
-% | Note, however, that there are many pages where this is not the     |
-% | desired behavior - such as the Title page, or abstract.  In these  |
-% | cases, we can use \thispagestyle{empty} to suppress page numbers,  |
-% | and other general style issues that we've defined globally.        |
-% +--------------------------------------------------------------------+
 
 \newpage
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
 % +--------------------------------------------------------------------+
-% | Here is where we include individual sections of the thesis or
-% | dissertation.                                                      |
-% +--------------------------------------------------------------------+
-
-% +--------------------------------------------------------------------+
 % | Chapters
 % +--------------------------------------------------------------------+
-
 \input{chapter1.tex}
-
-% +--------------------------------------------------------------------+
-% | Uncomment the lines below to add additional chapters.  Name the
-% | files chapter2.tex for Chapter 2, chapter3.tex for Chapter 3, etc.
-% +--------------------------------------------------------------------+
-
 \input{chapter2.tex}
 \input{chapter3.tex}
 \input{chapter4.tex}
@@ -267,55 +133,12 @@
 \input{chapter6.tex}
 \input{chapter7.tex}
 
-% +-------------------------------------------------------------------------+
-% | References                                                              |
-% +-------------------------------------------------------------------------+
-
-% +-------------------------------------------------------------------------+
-% | In order for WinEDT to index references correctly, it has to know where |
-% | the file resides.  The following command is prefaced by %, and will be  |
-% | ignored completely by LaTeX.  However, WinEDT will use this line to     |
-% | access the external .bib bibliography file.  Also note that WinEDT can  |
-% | read file path names with either "\" or "/" - LaTeX, however, doesn't   |
-% | like "\", so it's easier to store a path name in the "Unix" style.      |
-% +-------------------------------------------------------------------------+
-
-%Included for Gather Purpose only.  Do NOT uncomment:
-%input "references.bib"
-
-% +--------------------------------------------------------------------+
-% | This template uses the BibTeX program to format references.  The
-% | 3 lines below create a separate Bibliography section and add
-% | an entry for "Bibliography" to the Table of Contents.  The actual
-% | data for your references (author, title, journal, date, etc.) are
-% | entered in the references.bib file.  See that file for information
-% | on how to enter references.
-% +--------------------------------------------------------------------+
-
-% +--------------------------------------------------------------------+
-% | The following command sets the bibliography style to American
-% | Institute of Physics (AIP).  Other styles are available in the
-% | styles directory.  To use a different style, replace "aip" with
-% | the filename of the style you want to use.
-% +--------------------------------------------------------------------+
-
 %\bibliographystyle{styles/plain}
 \bibliographystyle{styles/plain}
 
 %\bibdata{references}
 \bibliography{references}
 %\addcontentsline{toc}{chapter}{Bibliography}
-
-% +--------------------------------------------------------------------+
-% | Finally, we generate the appendix.  To add or delete appendices,
-% | add or remove the line
-% |
-% |     \input{appendixX.tex}
-% |
-% | where "X" is the letter designation of the Appendix (A, B, C, etc.)
-% | You should have one \input{appendixX.tex} line and a corresponding
-% | file appendixX.tex for each appendix.                                 |
-% +--------------------------------------------------------------------+
 
 \appendix
 \input{appendixA.tex}
