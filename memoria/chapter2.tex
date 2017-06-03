@@ -65,6 +65,8 @@ A la Raspberry se le conectan dos sensores, uno de temperatura y humedad y un pi
 
 Para medir la temperatura y la humedad hemos utilizado un solo componente que recoge ambas muestras. El modelo escogido ha sido el sensor \textbf{DHT22}. (\cite{ARP:Adafruit:2017})
 
+\cite{ARP:AppliedPredictiveModeling:2017}
+
 Algunas de las características de este sensor y en especial de este modelo (ya que tambien existe el modelo DHT11 de la misma marca) son que tiene una precisión de 0.5ºC para medir la temperatura, y entre un 2 y un 5 por ciento para la humedad. Ademas recogen dos muestras por segundo. Este sensor no es un sensor de alta precisión, pero es suficiente para nuestro proyecto, además de tener un precio muy económico. Ver imágen \ref{sensor}.
 
 La comunicación entre el sensor y la Raspberry se realiza a través de un pin \textbf{GPIO} (General Purpose Input/Output, Entrada/Salida de Propósito General) que es un pin de propósito general. Estos pines pueden ser de entrada o de salida, y reciben y envían valores binarios de un bit.
@@ -86,7 +88,7 @@ El envío de estos bits sucede de la siguiente forma: el sensor envía una seña
  \begin{figure}[htb]
 	
 	\begin{center}
-		\includegraphics[width=10cm,height=7cm]{figures/sensorTemperaturaHumedad.png}
+		\includegraphics[width=7cm]{figures/sensorTemperaturaHumedad.png}
 		\caption{Sensores de temperatura y humedad DHT11 y DHT22 [Fuente: \href{https://cdn-shop.adafruit.com/datasheets/Digital+humidity+and+temperature+sensor+AM2302.pdf}{Adafruit}]}
 	\end{center}
 	
@@ -143,10 +145,10 @@ Existen diferentes argumentos posibles para cambiar el modo de ejecución del no
 	
 	\begin{center}
 		\includegraphics[width=15cm,height=15cm]{figures/solar_project_node_diagram.png}
-		\caption{Diagrama del nodo}
+		\caption{Cableado del nodo}
 	\end{center}
 	
 	\label{node-diagram}
 \end{figure}
 
-%%Falta hablar de los logs que hace el nodo
+% TODO Falta hablar de los logs que hace el nodo

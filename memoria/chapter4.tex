@@ -24,8 +24,13 @@ Cuando hablamos de modelos predictivos nos estamos refiriendo al análisis que a
 	
 \section{Algoritmos utilizados}
 \label{makereference4.3}
-	\subsection{Regresión}
+	\subsection{Regresión Lineal}
 	\label{makereference4.3.1}
+
+	La \textbf{regresión lineal} es un modelo matemático que trata de hallar los coeficientes de una \textbf{combinación lineal} que mejor se ajusten a un conjunto de puntos dispersos conocidos a través del método de los \textbf{mínimos cuadrados}. Esto es, trazar una línea en el espacio que pase lo más próximo posible a todos los puntos.
+
+	Al conocer dicha función lineal, podremos \textbf{``predecir''} con cierto grado de exactitud, lo que pasará.
+
 	\begin{figure}[htb]
 		
 		\begin{center}
@@ -35,21 +40,47 @@ Cuando hablamos de modelos predictivos nos estamos refiriendo al análisis que a
 		
 		\label{regression}
 	\end{figure}
-
-	La \textbf{regresión lineal} es un modelo matemático que trata de hallar la \textbf{función lineal} que mejor se ajusta a un conjunto de puntos dispersos conocidos.
 	
-	Al conocer dicha función lineal, podremos \textbf{'predecir'} con un cierto grado de exactitud, lo que pasará.
-	
-	La línea recta que se puede ver en la gráfica \ref{regression}, muestra cómo la \textbf{regresión lineal} intenta dibujar una línea recta que minimice mejor la suma residual de cuadrados entre las respuestas observadas en el conjunto de datos, y las respuestas predichas por la aproximación lineal.
+	La recta que se puede ver en la gráfica \ref{regression}, muestra cómo la \textbf{regresión lineal} intenta dibujar una línea que minimice mejor la suma residual de cuadrados entre las respuestas observadas en el conjunto de datos, y las respuestas predichas por la aproximación lineal.
 	También se calculan los coeficientes, la suma residual de cuadrados y el puntaje de varianza.
-	
-	\subsection{Clasificación}
+
+	\subsection{SVR (Support Vector Regression)}
 	\label{makereference4.3.2}
+
+	SRV es una nueva versión de SVM para regresión. SVM es un algoritmo de aprendizaje supervisado de la familia de los \textbf{clasificadores}.
+
 	El término \textbf{clasificador} se utiliza en referencia al algoritmo utilizado para asignar un elemento entrante no etiquetado en una categoría concreta conocida. Dicho algoritmo, permite pues, ordenar o disponer por clases elementos entrantes, a partir de cierta información característica de estos.
+
+	En SVM los datos son etiquetados en distintas clases y el clasificador intentará construir un hiperplano o conjunto de hiperplanos dentro del conjunto de datos que mejor separe las clases unas de otras. Ver figura \ref{svm}.
+
+	\begin{figure}[htb]
+		
+		\begin{center}
+			\includegraphics[height=3.5in]{figures/svm.jpg}
+			\caption{SVM [Fuente: \href{www.wikipedia.org}{Wikipedia}]}
+		\end{center}
+		\label{svm}
+	\end{figure}
+
+	Las características más notables de los clasificadores SVM son:
+	\begin{itemize}
+		\item Proyectar previamente los datos a un espacio de dimensionalidad superior.
+		\item Buscar el hiperplano que tenga la máxima distancia con los puntos que estén más cerca de él mismo. Es decir, que dejen una mayor margen entre los datos.
+	\end{itemize}
+
+	La diferencia entre SVR y SVM es que SVR intenta hacer una regresión a partir de el clasificador. Para esto, realiza un mapeo no lineal de los datos del entrenamiento a un espacio de mayor dimensión, donde podremos realizar una regresión lineal. Ver figura \ref{svr}.
+
+	\begin{figure}[htb]
+		\begin{center}
+			\includegraphics[height=3.5in]{figures/svr.png}
+			\caption{SVR [Fuente: \href{http://scikit-learn.org/stable/auto_examples/svm/plot_svm_regression.html}{scikit learn}] }
+		\end{center}
+		\label{svr}
+	\end{figure}
 	
 	\subsection{Redes Neuronales}
 	\label{makereference4.3.3}
-	
+	.
 	\begin{figure}[htb]
 		
 		\begin{center}
@@ -64,8 +95,9 @@ Cuando hablamos de modelos predictivos nos estamos refiriendo al análisis que a
 	
 	A partir de X características se obtiene una función f(X).
 	
-\section{Protocolo del estudio}
+\section{Método del estudio}
 \label{makereference4.4}
 
 \section{Modelo escogido}
 \label{makereference4.5}
+%TODO explicar el modelo elegido
