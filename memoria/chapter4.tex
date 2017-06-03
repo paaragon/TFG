@@ -6,7 +6,8 @@
 \section{Introducción a los modelos predictivos}
 \label{makereference4.1}
 
- `` Cada día la gente se enfrenta a preguntas como: ¿Qué ruta debo tomar? ¿Debo cambiar de compañía telefónica? ¿Debo invertir mi dinero?
+%TODO HACER ESTO, PERO BIEN MAJA
+ ``Cada día la gente se enfrenta a preguntas como: ¿Qué ruta debo tomar? ¿Debo cambiar de compañía telefónica? ¿Debo invertir mi dinero?
  
 Lo que se quiere es conocer eventos futuros y sobre todo, conocerlos lo mejor posible.
 
@@ -16,8 +17,6 @@ Pero de todas maneras se está prediciendo a partir de la información y experie
 
 
 Cuando hablamos de modelos predictivos nos estamos refiriendo al análisis que agrupa una serie de técnicas para conseguir analizar datos reales tanto actuales como históricos y así conseguir predicciones. Con esta predicción podremos saber cuanto se acerca nuestra predicción a la realidad.
-
- 
 
 \section{Descripción de las librerías usadas}
 \label{makereference4.2}
@@ -91,23 +90,84 @@ Cuando hablamos de modelos predictivos nos estamos refiriendo al análisis que a
 	
 	\subsection{Redes Neuronales}
 	\label{makereference4.3.3}
-	.
+	Las redes neuronales son un algoritmo de aprendizaje supervisado de la familia de los \textbf{clasificadores}, al igual que SVR \ref{makereference4.3.2}.
+
+	Se basan en el principio del funcionamiento de las neuronas del cuerpo humano. Cada neurona recibe varias señales y propaga, en función de estas, otro resultado al resto de la red.
+
+	Las neuronas de estas redes, son llamadas \textbf{perceptrones}. Son unidades funcionales sin una función específica que buscan aplicar un peso a las señales recibidas y en base a ello, envía un señal a otra neurona.
+
 	\begin{figure}[htb]
-		
 		\begin{center}
-			\includegraphics[height=4.5in]{figures/neuronal_network.png}
+			\includegraphics[width=4.5in]{figures/neural_network.jpg}
 			\caption{Red neuronal [Fuente: \href{www.scikit-learn.org}{scikit-learn}]}
 		\end{center}
-		
 		\label{network}
 	\end{figure}
 
-	Las \textbf{redes neuronales} son un algoritmo de aprendizaje supervisado. Suelen consistir en varias capas ocultas donde la señal se propaga de adelante hacia atrás.
-	
-	A partir de X características se obtiene una función f(X).
-	
+	La distribución de las neuronas se realiza en distintas capas. La primera capa ``capa de entrada'' recibe los datos de entrada. La última capa proporciona los resultados de la \textbf{clasificación}, normalmente la clase a la que pertenecen los datos de entrada.
+
+	Las capas intermedias buscan aumentar la posibilidad de ajuste de los pesos. El ajuste de estos pesos se realiza de la siguiente forma:
+
+	\begin{itemize}
+		\item Cada neurona empieza con unos pesos aleatorios.
+		\item Se introducen datos aleatorio dentro del conjunto total de entrada.
+		\item La red genera un vector de datos de salida.
+		\item Esta salida se compara con el resultado esperado.
+		\item El \textbf{error} obtenido se propaga a la capa de neuronas anterior (\textbf{back-propagation}) y se usa para ajustar los pesos.
+		\item Se continua propagando el error hacia atrás ajustando los pesos de cada capa hasta alcanzar la \textbf{capa de entrada}.
+		\item Esto se repetirá con diferentes datos de entrenamiento.
+ 	\end{itemize}
+
+	Es tarea del desarrollador la elección del número de capas y de neuronas en cada capa.
+
 \section{Método del estudio}
 \label{makereference4.4}
+	\subsection{Grid Search}
+
+	\begin{figure}[htb]
+		\begin{center}
+			\includegraphics[width=4.5in]{figures/grid_search.jpeg}
+			\caption{Grid Search [Fuente: \href{www.scikit-learn.org}{scikit-learn}]}
+		\end{center}
+		\label{grid}
+	\end{figure}
+
+	Para optimizar la elección del modelo predictivo y sus parámetros, necesitamos estudiar el comportamiento que tiene un modelo con todos sus posibles parámetros teniendo así la certeza de que elegimos la mejor configuración.
+
+	Esta es una tarea que no se puede llevar a cabo, por lo que existen distintas maneras de abordar el problema. En respuesta a esto, surgen métodos de análisis más optimos, entre ellos encontramos \textbf{Grid Search}.
+
+	\textbf{Grid Search} es un método de estudio ya implementado al que se le expecifica los algoritmos a estudiar y rangos para los distintos parámetros de cada uno. 
+
+	Este método observa qué muestra del rango es la que obtiene un ``mejor resultado'' y vuelve a realizar el estudio ``haciendo zoom'' con centro en esta muestra.
+
+	\begin{figure}[htb]
+		\begin{center}
+			\includegraphics[width=4.5in]{figures/Cross-Validation.jpg}
+			\caption{Validación cruzada [Fuente: \href{www.scikit-learn.org}{scikit-learn}]}
+		\end{center}
+		\label{cross}
+	\end{figure}
+
+	Para calcular el mejor resultado se utiliza una técnica llamada ``K-Fold Cross-Validation''. Esta técnica divide los datos en ``k'' conjuntos. Uno de ellos es utilizado como datos de prueba y el resto como datos de entrenamiento. Se realiza un proceso de validación y se repite k veces con cada uno de los posibles subconjuntos.
+
+	Al realizar este proceso de validación con datos conocidos, puede conocer la precisión o ``accuracy'' que es capaz de obtener un modelo predictivo.
+
+	Una vez realizado el estudio con los distintos modelos y parámetros se puede observar cual es la mejor configuración para nuestros datos.
+	
+	Existen otros métodos de exploración del modelo predictivo como por ejemplo \textbf{Randomized Parameter Optimization}, que realiza el estudio probando con configuraciones aleatorias.
+
+	\subsection{Sistema de entrenamiento}
+	%TODO Referenciar SCIKIT
+	Para llevar a cabo la implementación de Grid Search, hemos utilizado las funciones proporcionadas por \textbf{scikit-learn}.
+	Esta librería ofrece una implementación de Grid Search a través de una función que nos permite abstraer el algoritmo de los modelos predictivos.
+
+	%TODO Añadir JSON tunned parameters
+	%TODO Referenciar JSON
+	Hemos desarrollado distintas baterías de prueba a través de ficheros en formato \textbf{JSON} que definen los distintos modelos y parametros que debe explorar Grid Search.
+	Estas baterias de prueba son procesadas por un algoritmo encargado de instanciar los distintos modelos y suministrárselos a Grid Search.
+	Los resultados obtenidos de cada prueba son almacenados en archivos con formato CSV para su posterior análisis.
+	%TODO Añadir foto CSV resultados
+	%TODO Describir archivos con parametros ajustados del modelo elegido
 
 \section{Modelo escogido}
 \label{makereference4.5}
