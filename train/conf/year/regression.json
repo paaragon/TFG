@@ -3,6 +3,7 @@
     "start": 20150101,
     "end": 20151231,
     "k": [2, 3, 4, 5],
+    "relative_target": [2, 3, 4, 5, 6, 7],
     "estimator": [{
             "module": "sklearn.linear_model",
             "class": "linear_model",
