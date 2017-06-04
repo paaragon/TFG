@@ -98,7 +98,7 @@ def test():
 
 if __name__ == "__main__":
 
-    test()
+    #test()
 
-    #mqttClient.set_on_message(mqtt_listen_function)
-    #mqttClient.listenToBroker(brokerIp, brokerPort, topic)
+    mqttClient.set_on_message(mqtt_listen_function)
+    mqttClient.listenToBroker(brokerIp, brokerPort, topic)
