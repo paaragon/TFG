@@ -126,7 +126,7 @@ Cuando hablamos de modelos predictivos nos estamos refiriendo al análisis que a
 
 	\begin{figure}[htb]
 		\begin{center}
-			\includegraphics[width=4.5in]{figures/grid_search.jpeg}
+			\includegraphics[width=4in]{figures/grid_search.png}
 			\caption{Grid Search [Fuente: \href{www.scikit-learn.org}{scikit-learn}]}
 		\end{center}
 		\label{grid}
@@ -140,6 +140,12 @@ Cuando hablamos de modelos predictivos nos estamos refiriendo al análisis que a
 
 	Este método observa qué muestra del rango es la que obtiene un ``mejor resultado'' y vuelve a realizar el estudio ``haciendo zoom'' con centro en esta muestra.
 
+	Para calcular el mejor resultado se utiliza una técnica llamada \textbf{``K-Fold Cross-Validation''}. Esta técnica divide los datos en ``k'' conjuntos. Uno de ellos es utilizado como datos de prueba y el resto como datos de entrenamiento. Se realiza un proceso de validación y se repite k veces con cada uno de los posibles subconjuntos. Ver figura \ref{cross}.
+
+	Al realizar este proceso de validación con datos conocidos, puede conocer la precisión o ``accuracy'' que es capaz de obtener un modelo predictivo.
+
+	Una vez realizado el estudio con los distintos modelos y parámetros se puede observar cual es la mejor configuración para nuestros datos.
+
 	\begin{figure}[htb]
 		\begin{center}
 			\includegraphics[width=4.5in]{figures/Cross-Validation.jpg}
@@ -147,27 +153,37 @@ Cuando hablamos de modelos predictivos nos estamos refiriendo al análisis que a
 		\end{center}
 		\label{cross}
 	\end{figure}
-
-	Para calcular el mejor resultado se utiliza una técnica llamada ``K-Fold Cross-Validation''. Esta técnica divide los datos en ``k'' conjuntos. Uno de ellos es utilizado como datos de prueba y el resto como datos de entrenamiento. Se realiza un proceso de validación y se repite k veces con cada uno de los posibles subconjuntos.
-
-	Al realizar este proceso de validación con datos conocidos, puede conocer la precisión o ``accuracy'' que es capaz de obtener un modelo predictivo.
-
-	Una vez realizado el estudio con los distintos modelos y parámetros se puede observar cual es la mejor configuración para nuestros datos.
 	
 	Existen otros métodos de exploración del modelo predictivo como por ejemplo \textbf{Randomized Parameter Optimization}, que realiza el estudio probando con configuraciones aleatorias.
 
 	\subsection{Sistema de entrenamiento}
-	%TODO Referenciar SCIKIT
-	Para llevar a cabo la implementación de Grid Search, hemos utilizado las funciones proporcionadas por \textbf{scikit-learn}.
-	Esta librería ofrece una implementación de Grid Search a través de una función que nos permite abstraer el algoritmo de los modelos predictivos.
+	
+	\begin{figure}[htb]
+		\begin{center}
+			\includegraphics[height=6.5in]{figures/json_conf.png}
+			\caption{Ejemplo JSON de prueba}
+		\end{center}
+		\label{json}
+	\end{figure}
 
-	%TODO Añadir JSON tunned parameters
-	%TODO Referenciar JSON
-	Hemos desarrollado distintas baterías de prueba a través de ficheros en formato \textbf{JSON} que definen los distintos modelos y parametros que debe explorar Grid Search.
-	Estas baterias de prueba son procesadas por un algoritmo encargado de instanciar los distintos modelos y suministrárselos a Grid Search.
-	Los resultados obtenidos de cada prueba son almacenados en archivos con formato CSV para su posterior análisis.
-	%TODO Añadir foto CSV resultados
-	%TODO Describir archivos con parametros ajustados del modelo elegido
+	Para llevar a cabo la implementación de Grid Search, hemos utilizado las funciones proporcionadas por \textbf{scikit-learn}.
+	Esta librería ofrece una implementación de Grid Search a través de una función que nos permite abstraer el algoritmo de los modelos predictivos. (\cite{ARP:Scikit:2017})
+
+	Hemos desarrollado distintas baterías de prueba a través de ficheros en formato \href{www.json.org/json-es.html}{JSON} (JavaScript Object Notation) que definen los distintos modelos y parametros que debe explorar Grid Search.
+	Estas baterias de prueba son procesadas por un algoritmo encargado de instanciar los distintos modelos y suministrárselos a Grid Search. Ver figura \ref{json}.
+
+	Los resultados obtenidos de cada prueba son almacenados en archivos con formato CSV para su posterior análisis. Ver figura \ref{csv}.
+
+	\begin{figure}[htb]
+		\begin{center}
+			\includegraphics[height=4.5in]{figures/resultados_grid_csv.png}
+			\caption{Ejemplo de resultados Grid Search}
+		\end{center}
+		\label{csv}
+	\end{figure}
+
+%TODO Añadir foto CSV resultados
+%TODO Describir archivos con parametros ajustados del modelo elegido
 
 \section{Modelo escogido}
 \label{makereference4.5}
