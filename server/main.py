@@ -64,6 +64,7 @@ def mqtt_listen_function(client, userdata, msg):
     }
 
     thingSpeakBridge.sendToThingSpeak(thingSpeakData)
+    thingSpeakBridge.sendToManuel(data['radiation'])
 
 # test for the day 20150101 recorded at 15:30
 def test():

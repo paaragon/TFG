@@ -1,8 +1,10 @@
 from lib.mqttClient import sendToBroker
 from lib.sensors import readDHT
 from lib.sensors import readDyn
+import time
 from time import localtime, strftime
 import sys
+import os
 import json
 import threading
 
@@ -21,6 +23,9 @@ def logData(data):
     csv += str(data['radiation']) + ','
     csv += '\n'
 
+    if not os.path.isdir('logs'):
+        os.makedirs('logs')
+
     pathName = "log-" + strftime("%d%B%Y") + ".csv"
     with open("logs/" + pathName, "a") as log:
         log.write(csv)
@@ -38,6 +43,9 @@ def sendData(data):
         message = time + " | failure"
 
     print message
+
+    if not os.path.isdir('logs/mqtt'):
+        os.makedirs('logs/mqtt')
 
     pathName = "mqttLog" + strftime("%d%B%Y") + ".csv"
     with open("logs/mqtt/" + pathName, "a") as log:
@@ -61,9 +69,9 @@ def test():
 
 def start(interval, mode):
 
-    mins = int(time.strftime("%M"))
+    mins = int(strftime("%M"))
     while ((mins % 10) != 0):
-        mins = int(time.strftime("%M"))
+        mins = int(strftime("%M"))
     print "Starting."
 
     while True:
@@ -71,7 +79,7 @@ def start(interval, mode):
         print "Data retrieved"
         logData(data)
         if mode == 1:
-            t = threading.Thread(target=sendData, args=(data))
+            t = threading.Thread(target=sendData, args=(data, ))
             t.start()
         time.sleep(interval)
 

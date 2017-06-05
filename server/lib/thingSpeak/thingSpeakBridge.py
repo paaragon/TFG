@@ -26,6 +26,35 @@ def sendToThingSpeak(data):
     except:
         print "connection failed"
 
+sendToManuel(radiation):
+    headers = {"Content-typZZe": "application/x-www-form-urlencoded",
+               "Accept": "text/plain"}
+
+    thingSpeakData = {
+        'field7': radiation,
+        'key': 'GSUF8ZCW1D0RO0MB'
+    }
+
+    params = urllib.urlencode(data)
+    conn = httplib.HTTPConnection("api.thingspeak.com:80")
+
+    try:
+
+        conn.request("POST", "/update", params, headers)
+        response = conn.getresponse()
+
+        print response.status, response.reason
+
+        data = response.read()
+
+        print data
+
+        conn.close()
+
+    except:
+        print "connection failed"
+
+
 
 if __name__ == "__main__":
 
