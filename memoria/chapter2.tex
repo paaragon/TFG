@@ -11,23 +11,12 @@ Se ha implementado con una \textbf{Raspberry Pi modelo 3} como placa programable
 
 La parte software del nodo ha sido implementada en \textbf{Python}.
 
-\section{Qué variables medir}
-\label{makereference2.2}
-%--- http://www.pveducation.org/pvcdrom/2-properties-sunlight/solar-radiation-earths-surface
-
-La \textbf{radiación solar} varía debido a diversos factores, como los efectos atmosféricos, las variaciones locales en la atmósfera como el vapor de agua, las nubes y la contaminación, otros como la latitud y la estación del año y la hora del día.
-
-%--- https://www.imn.ac.cr/documents/10179/27818/factores-influyen-radiac-UV.pdf/187e5ea7-7c11-4ed7-955b-4e35c2f0ebf1
-
-Por ejemplo, la \textbf{latitud} influye en la cantidad de radiación solar que llega a la superficie; por otro lado, la radiación disminuirá cuanta más cantidad de nubes y más alta sea la \textbf{humedad}. Al contrario pasará con la \textbf{temperatura}, cuanto más altas sean las temperaturas mayor será la radiación. Otro factor que influye a la hora de medir la radiación, es el tipo de \textbf{superficie}, porque la reflexión de los rayos varía según el tipo. En la nieve se refleja un 85 por ciento, al contrario del asfalto que solo un 2 por ciento.
-
-En este proyecto, se recogen solo muestras de radiación solar, temperatura y humedad por ser las más relevantes para nuestro modelo.
 
 \section{Elementos hardware utilizados}
-\label{makereference2.3}
+\label{makereference2.2}
 
 \subsection{Raspberry Pi 3 modelo}
-\label{makereference2.3.1}
+\label{makereference2.2.1}
 
 Raspberry Pi es un microcontrolador, un computador de placa reducida \ref{rasp}. Con él se pueden controlar distintos componentes electrónicos a través de los pines que expone y combinarlo con la potencia y versatilidad de un sistema operativo.
 
@@ -59,7 +48,7 @@ Se ha decidido utilizar este microcontrolador en el proyecto debido a su facilid
 \end{figure}
 
 \subsection{Sensor de temperatura y humedad}
-\label{makereference2.3.2}
+\label{makereference2.2.2}
 
 A la Raspberry se le conectan dos sensores, uno de temperatura y humedad y un piranómetro del cual hablaremos más tarde. Ambos para recoger los datos meteorológicos que necesitamos para nuestro modelo.
 
@@ -94,7 +83,7 @@ El envío de estos bits sucede de la siguiente forma: el sensor envía una seña
 \end{figure} 
 
 \subsection{Piranómetro y ADC}
-\label{makereference2.3.3}
+\label{makereference2.2.3}
 Para recoger la cantidad de irradiación solar se utiliza un piranómetro. En este proyecto se ha utilizado el modelo \href{https://www.apogeeinstruments.co.uk/content/SP-212-215-manual.pdf}{SP-212}. Este sensor es analógico es decir, la señal que envía es un voltaje variable con el cual indica la cantidad de irradiación que recoge. (\cite{ARP:Apogee:2017}).
 
 Para poder leer esa información con un microcontrolador es necesario hacer una conversión a digital. Para ello se utiliza un conversor analógico-digital o por sus siglas en inglés \textbf{ADC}.
