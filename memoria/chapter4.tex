@@ -35,36 +35,20 @@ Los modelos predictivos que se han utilizado han sido los siguientes:
 \end{itemize}
 
 
-\section{Descripción de las librerías usadas}
-\label{makereference4.2}
-	\subsection{Scikit-learn}
-	\label{makereference4.2.1}
-	Scikit-learn es una biblioteca de aprendizaje de software libre para el lenguaje de programación Python. Cuenta con varios algoritmos de clasificación, regresión y agrupación, incluyendo máquinas de vector de apoyo, bosques aleatorios, aumento de gradiente, k-medios y DBSCAN, y está diseñado para interoperar con las bibliotecas numéricas y científicas Python NumPy y SciPy. (\cite{ARP:Scikit:2017})
-	
-	\subsection{NumPy}
-	\label{makereference4.2.2}
-	NumPy es una extensión de Python, que le agrega mayor soporte para vectores y matrices, constituyendo una biblioteca de funciones matemáticas de alto nivel para operar con esos vectores o matrices. (\cite{ARP:Numpy:2017})
-	
-	\subsection{SciPy}
-	\label{makereference4.2.3}
-	SciPy es una biblioteca open source de herramientas y algoritmos matemáticos para Python. SciPy contiene módulos para optimización, álgebra lineal, integración, interpolación, funciones especiales, FFT, procesamiento de señales y de imagen, resolución de ODEs y otras tareas para la ciencia e ingeniería. (\cite{ARP:Scipy:2017})
-	
 \section{Algoritmos utilizados}
-\label{makereference4.3}
+\label{makereference4.2}
 	\subsection{Regresión Lineal}
-	\label{makereference4.3.1}
+	\label{makereference4.2.1}
 
 	La \textbf{regresión lineal} es un modelo matemático que trata de hallar los coeficientes de una \textbf{combinación lineal} que mejor se ajusten a un conjunto de puntos dispersos conocidos a través del método de los \textbf{mínimos cuadrados}. Esto es, trazar una línea en el espacio que pase lo más próximo posible a todos los puntos.
 
 	Al conocer dicha función lineal, podremos \textbf{``predecir''} con cierto grado de exactitud, lo que pasará.
 
 	\begin{figure}[htb]
-		
 		\begin{center}
 			\includegraphics[height=3.5in]{figures/regression.png}
 			\caption{Regresión lineal [Fuente: \href{www.wikipedia.org}{Wikipedia}]}
 		\end{center}
-		
 		\label{regression}
 	\end{figure}
 	
@@ -72,7 +56,7 @@ Los modelos predictivos que se han utilizado han sido los siguientes:
 	También se calculan los coeficientes, la suma residual de cuadrados y el puntaje de varianza.
 
 	\subsection{SVR (Support Vector Regression)}
-	\label{makereference4.3.2}
+	\label{makereference4.2.2}
 
 	SRV es una nueva versión de SVM para regresión. SVM es un algoritmo de aprendizaje supervisado de la familia de los \textbf{clasificadores}.
 
@@ -97,6 +81,9 @@ Los modelos predictivos que se han utilizado han sido los siguientes:
 
 	La diferencia entre SVR y SVM es que SVR intenta hacer una regresión a partir de el clasificador. Para esto, realiza un mapeo no lineal de los datos del entrenamiento a un espacio de mayor dimensión, donde podremos realizar una regresión lineal. Ver figura \ref{svr}.
 
+	SVR permite varios modos de predicción ``kernel'': linear, poly, rbf, sigmoid...
+	Este entrenamieto se ha llevado a cabo con los modos ``linear'' y ``rbf'' que, intuitivamente, pueden ser los que mas se acercan a nuestros datos reales.
+
 	\begin{figure}[htb]
 		\begin{center}
 			\includegraphics[height=3.5in]{figures/svr.png}
@@ -106,8 +93,8 @@ Los modelos predictivos que se han utilizado han sido los siguientes:
 	\end{figure}
 	
 	\subsection{Redes Neuronales}
-	\label{makereference4.3.3}
-	Las redes neuronales son un algoritmo de aprendizaje supervisado de la familia de los \textbf{clasificadores}, al igual que SVR \ref{makereference4.3.2}.
+	\label{makereference4.2.3}
+	Las redes neuronales son un algoritmo de aprendizaje supervisado de la familia de los \textbf{clasificadores}, al igual que SVR \ref{makereference4.2.2}.
 
 	Se basan en el principio del funcionamiento de las neuronas del cuerpo humano. Cada neurona recibe varias señales y propaga, en función de estas, otro resultado al resto de la red.
 
@@ -137,25 +124,31 @@ Los modelos predictivos que se han utilizado han sido los siguientes:
 
 	Es tarea del desarrollador la elección del número de capas y de neuronas en cada capa.
 
-\section{Método del estudio}
-\label{makereference4.4}
+\section{Método de estudio}
+\label{makereference4.3}
 	\subsection{Grid Search}
 
 	\begin{figure}[htb]
 		\begin{center}
-			\includegraphics[width=4.5in]{figures/grid_search.jpeg}
+			\includegraphics[width=4in]{figures/grid_search.png}
 			\caption{Grid Search [Fuente: \href{www.scikit-learn.org}{scikit-learn}]}
 		\end{center}
 		\label{grid}
 	\end{figure}
 
-	Para optimizar la elección del modelo predictivo y sus parámetros, necesitamos estudiar el comportamiento que tiene un modelo con todos sus posibles parámetros teniendo así la certeza de que elegimos la mejor configuración.
+	Para optimizar la elección del modelo predictivo y sus parámetros, necesitamos estudiar el comportamiento que tiene un modelo con todos sus posibles valores en cada parámetro, teniendo así la certeza de que elegimos la mejor configuración.
 
-	Esta es una tarea que no se puede llevar a cabo, por lo que existen distintas maneras de abordar el problema. En respuesta a esto, surgen métodos de análisis más optimos, entre ellos encontramos \textbf{Grid Search}.
+	Esta es una tarea que no se puede llevar a cabo debido a su complejidad computacional, por lo que existen distintas maneras de abordar el problema. En respuesta a esto, surgen métodos de análisis más optimos, entre ellos encontramos \textbf{Grid Search}.
 
-	\textbf{Grid Search} es un método de estudio ya implementado al que se le expecifica los algoritmos a estudiar y rangos para los distintos parámetros de cada uno. 
+	\textbf{Grid Search} es un método de estudio ya implementado al que se le especifica los algoritmos a estudiar y rangos para los distintos parámetros de cada uno. 
 
 	Este método observa qué muestra del rango es la que obtiene un ``mejor resultado'' y vuelve a realizar el estudio ``haciendo zoom'' con centro en esta muestra.
+
+	Para calcular el mejor resultado se utiliza una técnica llamada \textbf{``K-Fold Cross-Validation''}. Esta técnica divide los datos en ``k'' conjuntos. Uno de ellos es utilizado como datos de prueba y el resto como datos de entrenamiento. Se realiza un proceso de validación y se repite k veces con cada uno de los posibles subconjuntos. Ver figura \ref{cross}.
+
+	Al realizar este proceso de validación con datos conocidos, puede conocer la precisión o ``accuracy'' que es capaz de obtener un modelo predictivo.
+
+	Una vez realizado el estudio con los distintos modelos y parámetros se puede observar cual es la mejor configuración para nuestros datos.
 
 	\begin{figure}[htb]
 		\begin{center}
@@ -164,28 +157,53 @@ Los modelos predictivos que se han utilizado han sido los siguientes:
 		\end{center}
 		\label{cross}
 	\end{figure}
-
-	Para calcular el mejor resultado se utiliza una técnica llamada ``K-Fold Cross-Validation''. Esta técnica divide los datos en ``k'' conjuntos. Uno de ellos es utilizado como datos de prueba y el resto como datos de entrenamiento. Se realiza un proceso de validación y se repite k veces con cada uno de los posibles subconjuntos.
-
-	Al realizar este proceso de validación con datos conocidos, puede conocer la precisión o ``accuracy'' que es capaz de obtener un modelo predictivo.
-
-	Una vez realizado el estudio con los distintos modelos y parámetros se puede observar cual es la mejor configuración para nuestros datos.
 	
 	Existen otros métodos de exploración del modelo predictivo como por ejemplo \textbf{Randomized Parameter Optimization}, que realiza el estudio probando con configuraciones aleatorias.
 
 	\subsection{Sistema de entrenamiento}
-	%TODO Referenciar SCIKIT
-	Para llevar a cabo la implementación de Grid Search, hemos utilizado las funciones proporcionadas por \textbf{scikit-learn}.
+	
+	\begin{figure}[htb]
+		\begin{center}
+			\includegraphics[height=5.5in]{figures/json_conf.png}
+			\caption{Ejemplo JSON de prueba}
+		\end{center}
+		\label{json}
+	\end{figure}
+
+	Para llevar a cabo la implementación de Grid Search, hemos utilizado las funciones proporcionadas por \textbf{scikit-learn} (\cite{ARP:Scikit:2017}).
 	Esta librería ofrece una implementación de Grid Search a través de una función que nos permite abstraer el algoritmo de los modelos predictivos.
 
-	%TODO Añadir JSON tunned parameters
-	%TODO Referenciar JSON
-	Hemos desarrollado distintas baterías de prueba a través de ficheros en formato \textbf{JSON} que definen los distintos modelos y parametros que debe explorar Grid Search.
-	Estas baterias de prueba son procesadas por un algoritmo encargado de instanciar los distintos modelos y suministrárselos a Grid Search.
-	Los resultados obtenidos de cada prueba son almacenados en archivos con formato CSV para su posterior análisis.
-	%TODO Añadir foto CSV resultados
-	%TODO Describir archivos con parametros ajustados del modelo elegido
+	Hemos desarrollado distintas baterías de pruebas a través de ficheros en formato \href{www.json.org/json-es.html}{JSON} (JavaScript Object Notation) que definen los distintos modelos y parametros que debe explorar Grid Search.
+	Estas baterias de prueba son procesadas por un algoritmo encargado de instanciar los distintos modelos y suministrárselos a Grid Search. Ver figura \ref{json}.
 
-\section{Modelo escogido}
+	Los resultados obtenidos de cada prueba son almacenados en archivos con formato CSV para su posterior análisis. Ver figura \ref{csv}.	
+
+	\begin{figure}[htb]
+		\begin{center}
+			\includegraphics[width=17cm]{figures/resultados_grid_csv.png}
+			\caption{Ejemplo de resultados Grid Search}
+		\end{center}
+		\label{csv}
+	\end{figure}
+
+	Las columnas de los resultados son:
+	\begin{itemize}
+		\item \textbf{Modelo:} Nombre del algoritmo usado.
+		\item \textbf{k:} Número de muestras anteriores utilizadas para predecir.
+		\item \textbf{Distancia:} Número de muestras posteriores sobre la que se quiere encontrar la predicción.
+		\item \textbf{Media:} Valor entre 0 y 1 que indica la precisión de la predicción.
+		\item \textbf{Error:} Valor entre 0 y 1 que indica la desviación típica de esta predicción.
+		\item \textbf{Parámetros de la prueba:} Configuración de los posibles valores con los que se han obtenido la media y el error.
+	\end{itemize}
+
+	Una vez elegido el modelo predictivo y su configuración, podemos volver a entrenar el sistema guardando el resultado de este entrenamiento. De esta forma, en el momento de la predicción no necesitaremos volver a entrenar porque los parámetros del modelo están \textbf{ajustados}.
+
+\section{Descripción de las librerías usadas}
 \label{makereference4.5}
-%TODO explicar el modelo elegido
+	\subsection{Scikit-learn}
+	\label{makereference4.5.1}
+	Scikit-learn es una biblioteca de aprendizaje de software libre para el lenguaje de programación Python. Cuenta con varios algoritmos de clasificación, regresión y agrupación, incluyendo máquinas de vector de apoyo, bosques aleatorios y aumento de gradiente, y está diseñado para interoperar con las bibliotecas numéricas y científicas Python NumPy y SciPy. (\cite{ARP:Scikit:2017})
+	
+	\subsection{NumPy}
+	\label{makereference4.5.2}
+	NumPy es una extensión de Python, que le agrega mayor soporte para vectores y matrices, constituyendo una biblioteca de funciones matemáticas de alto nivel para operar con esos vectores o matrices. (\cite{ARP:Numpy:2017})
