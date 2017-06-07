@@ -1,7 +1,7 @@
 import httplib
 import urllib
 import time
-
+import paho.mqtt.publish as publish
 
 def sendToThingSpeak(data):
 
@@ -15,45 +15,57 @@ def sendToThingSpeak(data):
         conn.request("POST", "/update", params, headers)
         response = conn.getresponse()
 
-        print response.status, response.reason
+        print 'Result of conection: ', response.status, response.reason
 
         data = response.read()
 
-        print data
+        print 'Records in thingSpeak: ', data
 
         conn.close()
 
     except:
         print "connection failed"
 
-sendToManuel(radiation):
-    headers = {"Content-typZZe": "application/x-www-form-urlencoded",
-               "Accept": "text/plain"}
-
-    thingSpeakData = {
-        'field7': radiation,
-        'key': 'GSUF8ZCW1D0RO0MB'
-    }
-
-    params = urllib.urlencode(data)
-    conn = httplib.HTTPConnection("api.thingspeak.com:80")
-
+def sendToManuel(radiation):
+    channelID = "281569"
+    apiKey = "GSUF8ZCW1D0RO0MB"
+    mqttHost = "mqtt.thingspeak.com" 
+    tTransport = "tcp"
+    tPort = 1883
+    tTLS = None
+    topic = "channels/" + channelID + "/publish/" + apiKey
+    tPayload = "field7=" + str(radiation)
     try:
-
-        conn.request("POST", "/update", params, headers)
-        response = conn.getresponse()
-
-        print response.status, response.reason
-
-        data = response.read()
-
-        print data
-
-        conn.close()
-
+        publish.single(topic,payload=tPayload,hostname=mqttHost,port=tPort,tls=tTLS,transport=tTransport)
+        print "Send to Manuel Broker"
     except:
-        print "connection failed"
+        print "Error connecting to Manuel thingspeak"
+    #headers = {"Content-typZZe": "application/x-www-form-urlencoded",
+    #           "Accept": "text/plain"}
 
+    #thingSpeakData = {
+    #    'field7': radiation,
+    #    'key': 'GSUF8ZCW1D0RO0MB'
+    #}
+
+    #params = urllib.urlencode(data)
+    #conn = httplib.HTTPConnection("api.thingspeak.com:80")
+
+    #try:
+
+        #conn.request("POST", "/update", params, headers)
+        #response = conn.getresponse()
+
+        #print response.status, response.reason
+
+        #data = response.read()
+
+        #print data
+
+        #conn.close()
+
+    #except:
+    #    print "connection failed"
 
 
 if __name__ == "__main__":

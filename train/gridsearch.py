@@ -1,6 +1,7 @@
 from lib.SolarData import SolarData
 import json
 from sys import argv
+import numpy as np
 #from sklearn import linear_model
 #from sklearn import svm
 from sklearn.model_selection import train_test_split
@@ -17,6 +18,18 @@ def instanceModel(module_name, class_name, model_name):
     class_ = getattr(module, class_name)
     method = getattr(class_, model_name)
     return method()
+
+def y_Regression(y):
+    return y.values.ravel()
+
+def y_Mlp(y):
+    mappedY = []
+    for i in range(y.shape[0]):
+        # map 0 - 2000 => 0 - 100
+        map = int(((y.iloc[i] + 1) / 2) * 100)
+        mappedY.append(map)
+    
+    return np.array(mappedY,)
 
 if __name__ == "__main__":
 
@@ -57,13 +70,18 @@ if __name__ == "__main__":
                     print "X shape: ", X.shape
                     print "Y shape: ", y.shape
 
+                    if class_name == "neural_network":
+                        y = y_Mlp(y)
+                    else:
+                        y = y_Regression(y)
+                    
                     X_train, X_test, y_train, y_test = train_test_split(
                         X, y, test_size=0.3, random_state=0)
 
                     model = instanceModel(module_name, class_name, model_name)
 
-                    clf = GridSearchCV(model, tuned_parameters, cv=None, n_jobs=56)
-                    clf.fit(X_train, y_train.values.ravel())
+                    clf = GridSearchCV(model, tuned_parameters, cv=None)
+                    clf.fit(X_train, y_train)
 
                     means = clf.cv_results_['mean_test_score']
                     stds = clf.cv_results_['std_test_score']

@@ -8,7 +8,8 @@ import os
 import json
 import threading
 
-brokerIp = "192.168.1.135"
+#brokerIp = "192.168.1.135"
+brokerIp = "solarcasting.dacya.ucm.es"
 brokerPort = 1883
 topic = "solar"
 ubication = 1
@@ -68,10 +69,11 @@ def test():
 
 
 def start(interval, mode):
-
-    mins = int(strftime("%M"))
-    while ((mins % 10) != 0):
-        mins = int(strftime("%M"))
+    
+    print "Waiting till new minute comes..."
+    secs = int(strftime("%S"))
+    while ((secs % 10) != 0):
+        secs = int(strftime("%S"))
     print "Starting."
 
     while True:
@@ -81,7 +83,10 @@ def start(interval, mode):
         if mode == 1:
             t = threading.Thread(target=sendData, args=(data, ))
             t.start()
-        time.sleep(interval)
+        time.sleep(interval-2)
+  	secs = int(strftime("%S"))
+    	while ((secs % 10) != 0):
+        	secs = int(strftime("%S"))
 
 
 def help():

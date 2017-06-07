@@ -3,6 +3,7 @@ import time
 import pandas as pd
 import os
 from random import randint
+from datetime import datetime
 from lib.mqtt import mqttClient
 from lib.prediction import predict
 from lib.thingSpeak import thingSpeakBridge
@@ -35,12 +36,12 @@ def mqtt_listen_function(client, userdata, msg):
                                 data['radiation']
                             )[0]
 
-    print data['time']
-    print data['ubication']
-    print data['temperature']
-    print data['humidity']
-    print data['radiation']
-    print data['prediction']
+    print 'Time: ', data['time']
+    print 'Ubication: ', data['ubication']
+    print 'Temperature: ', data['temperature']
+    print 'Humidity: ', data['humidity']
+    print 'Radiation: ', data['radiation']
+    print 'Prediction: ', data['prediction']
 
     with open('data/records'+ str(date) +'.csv', 'a') as outfile:
         outfile.write("%s,%s,%i,%i,%i,%i\n" % (
