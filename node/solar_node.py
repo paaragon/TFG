@@ -30,6 +30,7 @@ def logData(data):
     pathName = "log-" + strftime("%d%B%Y") + ".csv"
     with open("logs/" + pathName, "a") as log:
         log.write(csv)
+        log.close()
 
 
 def sendData(data):
@@ -51,6 +52,7 @@ def sendData(data):
     pathName = "mqttLog" + strftime("%d%B%Y") + ".csv"
     with open("logs/mqtt/" + pathName, "a") as log:
         log.write(time + "," + message)
+        log.close()
 
 
 def getData():

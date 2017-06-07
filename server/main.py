@@ -52,6 +52,7 @@ def mqtt_listen_function(client, userdata, msg):
             data['radiation'],
             data['prediction']
         ))
+        outfile.close()
 
     # create dictionary to send to thingSpeak
     thingSpeakData = {

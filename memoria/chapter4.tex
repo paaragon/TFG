@@ -6,6 +6,7 @@
 \section{Introducción a los modelos predictivos}
 \label{makereference4.1}
 
+% TODO - No se que os parece esto, pero yo quitaría todas estas citas
  `` Cada día la gente se enfrenta a preguntas como: ¿Qué ruta debo tomar? ¿Debo cambiar de compañía telefónica? ¿Debo invertir mi dinero? ''
  
 `` Lo que se quiere es conocer eventos futuros y sobre todo, conocerlos lo mejor posible. ''
@@ -15,30 +16,85 @@
 `` Pero de todas maneras se está prediciendo a partir de la información y experiencia que tenemos y tomando decisiones a partir de estas predicciones. '' 
 
 
-Cuando hablamos de \textbf{modelos predictivos} nos estamos refiriendo al análisis que agrupa una serie de técnicas para conseguir \textbf{analizar datos reales} tanto actuales como históricos y así conseguir \textbf{predicciones}. Con esta predicción podremos saber cuanto se acerca nuestra predicción a la realidad.
+Cuando hablamos de \textbf{modelos predictivos} nos estamos refiriendo al análisis que agrupa una serie de técnicas para conseguir \textbf{analizar datos reales} tanto actuales como históricos y así conseguir \textbf{predicciones}. Con esta predicción podremos saber cuánto se acerca nuestra predicción a la realidad.
 
 Existen algunos conceptos clave a la hora de hablar de metodos predictivos:
 
-	\begin{itemize}
-	\item \textbf{Conjunto de entrenamiento:} es el conjunto de datos que se utiliza para desarrollar los modelos predictivos.
+\begin{itemize}
+	\item \textbf{Conjunto de entrenamiento:} son los datos que se utiliza para desarrollar los modelos predictivos.
 	\item \textbf{Conjunto de validación:} conjunto de datos utilizados para evaluar el rendimiento de dichos modelos.
 	\item \textbf{Predictores:} variables de entrada, utilizadas para la ecuación de predicción. 
 	\item \textbf{Resultado:} objetivo que se quiere predecir.
 \end{itemize}
 
-Los modelos predictivos que se han utilizado han sido los siguientes:
+Las fases para desarrollar este tipo de modelos son las siguientes:
+\begin{itemize}
+\item \textbf{Entrenamiento:} se selecciona un conjunto de datos (\textbf{conjunto de entrenamiento}) del que se conoce el valor real de la predicción que queremos realizar y se explora, en función del algoritmo seleccionado, para obtener un posible modelo.
 
-	\begin{itemize}
-	\item \textbf{Regresión Lineal} 
-	\item \textbf{SVR (Support Vector Regression)} 
-	\item \textbf{Redes Neuronales} 
+Cada modelo tiene una serie de variables que podemos definir previas al entrenamiento que influirán en el resultado. En esta fase, los factores que se buscan explorar son aquellos que, internamente, ajusta el propio algoritmo en función de los datos de entrada y los parámetros de entrada que definamos.
+
+\item \textbf{Validación:} se selecciona otro conjunto de datos distinto al anterior (\textbf{conjunto de validación}) del que también se conoce el valor real de la predicción y se aplica el modelo obtenido en el entrenamiento. Se comparan los datos proporcionados con el modelo con los datos reales y se sacan distintas métricas para conocer su efectividad. 
+
+En función del resultado obtenido en la validación, se pueden volver a repetir estos dos pasos cambiando el conjunto de datos o los parámetros de entrada del modelo hasta conseguir una predicción óptima.
+
+\item \textbf{Predicción:} una vez encontrado un modelo en la fase anterior que cumpla con los requisitos, se guarda ese modelo en algún formato recuperable para poder utilizarlo en cualquier momento sin tener que volver a entrenarlo.
 \end{itemize}
 
+Los algoritmos predictivos que se han estudiado han sido los siguientes:
+
+	\begin{itemize}
+	\item Regresión Lineal
+	\item SVR (Support Vector Regression)
+	\item Redes Neuronales
+\end{itemize}
+
+\section{Conjunto de datos}
+\label{makereference4.2}
+
+Para poder encontrar el modelo más adecuado para este problema se necesita una gran cantidad de datos con la que entrenar y validar. Estos datos han sido obtenidos de \href{http://www.inforiego.org/opencms/opencms}{InfoRiego}, una herramienta pensada para estudiar el consumo de agua en los cultivos y hacerlo más eficiente que proporciona la información meteorológica que necesaria para este proyecto.
+
+\textbf{InfoRiego} hace uso de la red de estaciones meteorológicas SIAR (proyecto de la Dirección General de Desarrollo Rural del Ministerio de Medio Ambiente y Medio Rural y Marino) y de las estaciones del ITACyL (Instituto Tecnológico Agrario de Castilla y León).
+
+Hay dos formas de obtener los datos de InfoRiego: a través de una API Rest o a través de FTP.
+
+Este proyecto realiza la consulta de datos a través del servidor FTP de inforiego. Este servidor proporciona acceso mediante HTTP por lo que se obtienen los archivos con la información meteorológica deseada a través de \textbf{WebScrapping}.
+
+\textbf{WebScrapping} es una técnica que recorre, a través de software, los elementos HTML de un sitio web pudiendo así obtener su información.
+
+Se ha creado un script en Python que, dados unos parámetros de consulta (fecha y hora de inicio, fecha y hora de fin y ubicación) obtiene, a través de WebScrapping, los archivos CSV almacenados en InfoRiego que cumplen con los parámetros y los combina en un solo archivo CSV con toda la información. Ver figura \ref{inforiego}
+
+\begin{figure}[htb]
+	\begin{center}
+		\includegraphics[width=14cm]{figures/inforiego.png}
+		\caption{Flujo de obtención de datos de InfoRiego}
+	\end{center}
+	\label{inforiego}
+\end{figure}
+
+Este archivo CSV resultante (o el que se requiera en cada momento), es el utilizado como conjunto de entrenamiento y validación. La automatización de esta tarea permite que la exploración del modelo se pueda realizar de forma automática, pudiendo realizar así muchas más pruebas.
+
+Este conjunto de datos debe sufrir una transformación más antes de poder ser utilizado en el entrenamiento. El entrenamiento y la validación necesitan dos elementos: los datos con los que se realiza la predicción y el resultado real que debe obtener. A estos dos elementos los llamaremos conjunto X y conjunto Y.
+
+Ambos conjuntos parten del mismo conjunto de datos generado anteriormente.
+
+El \textbf{conjunto X} tiene una serie de registros. Cada uno de ellos representa los datos necesarios para realizar una predicción. En este caso, son necesarias la \textbf{fecha}, \textbf{hora}, \textbf{temperatura}, \textbf{humedad} y \textbf{radiación} de varios instantes anteriores para realizar una predicción en un instante posterior.
+
+El número de instantes anteriores lo llamaremos \textbf{k} por lo que serán necesarias las ``k'' muestras anteriores de hora, temperatura, humedad y radiación (la fecha y la ubicación serán la misma para todos los instantes anteriores). Indicando varios instantes anteriores indicamos que cada predicción se realiza con una ``tendencia'' que se espera que el algoritmo puede ser capáz de inferir.
+
+Cada registro del \textbf{conjunto Y} indica la predicción que debe obtener cada registro en el mismo índice del \textbf{conjunto X}. Para obtener este valor, se recorre el conjunto X y se toma la radiación que ocurrió \textbf{n} instantes después en el conjunto de datos principal.
+
+\begin{figure}[htb]
+	\begin{center}
+		\includegraphics[width=14cm]{figures/datos_x_y.png}
+		\caption{Transformación de datos para entrenamiento}
+	\end{center}
+	\label{x_y}
+\end{figure}
 
 \section{Algoritmos utilizados}
-\label{makereference4.2}
+\label{makereference4.3}
 	\subsection{Regresión Lineal}
-	\label{makereference4.2.1}
+	\label{makereference4.3.1}
 
 	La \textbf{regresión lineal} es un modelo matemático que trata de hallar los coeficientes de una \textbf{combinación lineal} que mejor se ajusten a un conjunto de puntos dispersos conocidos a través del método de los \textbf{mínimos cuadrados}. Esto es, trazar una línea en el espacio que pase lo más próximo posible a todos los puntos.
 
@@ -56,7 +112,7 @@ Los modelos predictivos que se han utilizado han sido los siguientes:
 	También se calculan los coeficientes, la suma residual de cuadrados y el puntaje de varianza.
 
 	\subsection{SVR (Support Vector Regression)}
-	\label{makereference4.2.2}
+	\label{makereference4.3.2}
 
 	SRV es una nueva versión de SVM para regresión. SVM es un algoritmo de aprendizaje supervisado de la familia de los \textbf{clasificadores}.
 
@@ -93,8 +149,8 @@ Los modelos predictivos que se han utilizado han sido los siguientes:
 	\end{figure}
 	
 	\subsection{Redes Neuronales}
-	\label{makereference4.2.3}
-	Las redes neuronales son un algoritmo de aprendizaje supervisado de la familia de los \textbf{clasificadores}, al igual que SVR \ref{makereference4.2.2}.
+	\label{makereference4.3.3}
+	Las redes neuronales son un algoritmo de aprendizaje supervisado de la familia de los \textbf{clasificadores}, al igual que SVR \ref{makereference4.3.2}.
 
 	Se basan en el principio del funcionamiento de las neuronas del cuerpo humano. Cada neurona recibe varias señales y propaga, en función de estas, otro resultado al resto de la red.
 
@@ -125,7 +181,7 @@ Los modelos predictivos que se han utilizado han sido los siguientes:
 	Es tarea del desarrollador la elección del número de capas y de neuronas en cada capa.
 
 \section{Método de estudio}
-\label{makereference4.3}
+\label{makereference4.4}
 	\subsection{Grid Search}
 
 	\begin{figure}[htb]
