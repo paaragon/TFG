@@ -7,7 +7,7 @@
 \label{makereference2.1}
 Como hemos comentado anteriormente el \textbf{nodo} es quien recoge los datos meteorológicos escogidos y los envía al \textbf{servidor} de datos.
 
-Se ha implementado con una \textbf{Raspberry Pi modelo 3} como placa programable y los sensores DHT22 para la medición de la temperatura y humedad y un piranómetro SP-212 para medir la irradiación solar. Ver imagen \ref{node-diagram}
+Se ha implementado con una \textbf{Raspberry Pi 3} como placa programable y los sensores DHT22 para la medición de la temperatura y humedad y un piranómetro SP-212 para medir la irradiación solar. Ver imagen \ref{node-diagram}
 
 La parte software del nodo ha sido implementada en \textbf{Python}.
 
@@ -15,7 +15,7 @@ La parte software del nodo ha sido implementada en \textbf{Python}.
 \section{Elementos hardware utilizados}
 \label{makereference2.2}
 
-\subsection{Raspberry Pi 3 modelo}
+\subsection{Raspberry Pi 3}
 \label{makereference2.2.1}
 
 Raspberry Pi es un microcontrolador, un computador de placa reducida \ref{rasp}. Con él se pueden controlar distintos componentes electrónicos a través de los pines que expone y combinarlo con la potencia y versatilidad de un sistema operativo.
@@ -23,7 +23,7 @@ Raspberry Pi es un microcontrolador, un computador de placa reducida \ref{rasp}.
 \begin{figure}[htb]
 	\begin{center}
 		\includegraphics[height=5cm]{figures/Raspberry_Pi.jpg}
-		\caption{Raspberry Pi Modelo 2b [Fuente: \href{https://www.raspberrypi.org}{Raspberry Pi}]}
+		\caption{Raspberry Pi 3 [Fuente: \href{https://www.raspberrypi.org}{Raspberry Pi}]}
 	\end{center}
 	
 	\label{rasp}
@@ -98,6 +98,16 @@ Raspberry cuenta con unos pines para la comunicación a través de SPI lo que fa
 
 \section{Componentes software y librerías externas}
 \label{makereference2.4}
+
+\begin{figure}[htb]
+	\begin{center}
+		\includegraphics[width=15cm]{figures/diagrama_nodo.png}
+		\caption{SW nodo}
+	\end{center}
+	
+	\label{diagrama_sw_nodo}
+\end{figure}
+
 El software a través del cual controlar el nodo ha sido escrito en Python2.7. Su punto de entrada es el archivo ``solar\_node.py''.
 
 Se puede ejecutar a través de la consola de comandos con el comando ``python solar\_node.py''
@@ -127,15 +137,5 @@ Existen diferentes argumentos posibles para cambiar el modo de ejecución del no
 \item \textbf{Adafruit\_MCP3008:} comunicación a través de SPI con el ADC
 \item \textbf{paho-mqtt:} Paho ha sido creado para proporcionar implementaciones escalables de código abierto de \textbf{protocolos de mensajería} abiertos y estándar dirigidos a aplicaciones nuevas, existentes y emergentes para Machine to Machine (M2M) e Internet of Things (IoT). Esta librería proporciona la funcionalidad para la comunicación a través de MQTT. Este protocolo de comunicación será exlicado más adelante.
 \end{itemize}
-
-\begin{figure}[htb]
-	
-	\begin{center}
-		\includegraphics[width=15cm,height=15cm]{figures/solar_project_node_diagram.png}
-		\caption{Cableado del nodo}
-	\end{center}
-	
-	\label{node-diagram}
-\end{figure}
 
 % TODO Falta hablar de los logs que hace el nodo

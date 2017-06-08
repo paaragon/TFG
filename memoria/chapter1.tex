@@ -5,44 +5,34 @@
 
 Este proyecto tiene como \textbf{objetivo} predecir, a través de herramientas informáticas, \textbf{la radiación solar} en un punto teniendo en cuenta factores geográficos y meteorológicos.
 
-Se quiere medir la irradiación solar ya que a partir de esta variable y un modelo físico del panel solar, se puede estimar cuanta energía se va a generar. 
+Ya existen modelos teóricos para saber cual va a ser \textbf{la irradiación solar} en un lugar, en función la inclinación de los rayos solares a partir de la longitud, la latitud, el día del año y la hora del día. Estos modelos no tienen en cuenta los factores climáticos que tienen un gran peso en la disipación de la radiación.
 
-Ya existen modelos teóricos para saber cual va a ser \textbf{la irradiación solar} en un lugar, en función por ejemplo de si no hubiese nubes o algunas otras magnitudes. 
-
-Algunas de las\textbf{ magnitudes} que se puede utilizar para hacer nuestra estimación son:
-
-La \textbf{radiación solar} varía debido a diversos factores, como los efectos atmosféricos, las variaciones locales en la atmósfera como el vapor de agua, las nubes y la contaminación, otros como la latitud y la estación del año y la hora del día.
-
-Por ejemplo, la \textbf{latitud} influye en la cantidad de radiación solar que llega a la superficie; por otro lado, la radiación disminuirá cuanta más cantidad de nubes y más alta sea la \textbf{humedad}. Al contrario pasará con la \textbf{temperatura}, cuanto más altas sean las temperaturas mayor será la radiación. Otro factor que influye a la hora de medir la radiación, es el tipo de \textbf{superficie}, porque la reflexión de los rayos varía según el tipo. En la nieve se refleja un 85 por ciento, al contrario del asfalto que solo un 2 por ciento.
-
-Existen otras variables que están también relacionadas con la irradiación y con la eficiencia de los paneles energéticos. Estas variables son por ejemplo, \textbf{la temperatura y la humedad}, las cuales se han usado en este proyecto, debido a que son las que consideramos \textbf{más relevantes} y de las que hablaremos en el siguiente capitulo, de manera más detallada.
-
-
+En la figura \ref{modelo_verano} podemos observar una gráfica en la que aparecen distintos modelos teóricos de predicción de la radiación en el verano de 2015. La gráfica representa la radiación media de todo el verano durante las horas de un día. Se observa que se acercan a la radiación real. Este proyecto quiere acercar todavía más esta predicción añadiénlole factores que estos modelos no contemplan.
 
 \begin{figure}[htb]%t=top, b=bottom, h=here
-	
 	\begin{center}
-		\includegraphics[height=2.5in]{figures/verano2015.png}
+		\includegraphics[width=12cm]{figures/verano2015.png}
 		\caption{Modelo verano 2015}
 	\end{center}
-    
-    \label{figure1}
+    \label{modelo_verano}
 \end{figure}
+
+La \textbf{radiación solar} varía debido a diversos factores de las variaciones locales en la atmósfera como el \textbf{vapor de agua}, las \textbf{nubes} y la \textbf{contaminación}; también a otros como la \textbf{latitud} y \textbf{longitud}, el \textbf{día del año} y la \textbf{hora del día}.
+
+Por ejemplo, la \textbf{latitud} y \textbf{longitud} influyen en el grado de incisión de los rayos solares en la superficie y la radiación disminuirá cuanta más cantidad de nubes haya y más alta sea la \textbf{humedad}. Al contrario pasará con la \textbf{temperatura}, cuanto más altas sean las temperaturas indicará una mayor radiación. Otro factor que influye a la hora de medir la radiación, es el tipo de \textbf{superficie} donde se mida, ya que la reflexión de los rayos varía según el tipo. Como ejemplo, la nieve refleja un 85 por ciento de la radiación, al contrario del asfalto que solo un 2 por ciento.
+
+Para llevar a cabo esta predicción en este proyecto se han utilizado como variables atmosféricas la humedad, la temperatura y la propia radiación solar. La manera de resolver este problema han sido algoritmos de ``Machine Learning'' (explicados en el capítulo \ref{makereference4}).
 
 \section{Motivación}
 \label{makereference1.1}
 
-Hoy en día es cada vez más importante el uso de \textbf{las energías renovables} y así utilizar cada vez menos los combustibles fósiles.
-Además de la abundancia de estas energías y su gran aprovechamiento, la causa principal es que estas no producen gases de efecto invernadero que son los causantes del \textbf{cambio climático}, ni tampoco producen emisiones contaminantes. 
+Hoy en día es cada vez más importante el uso de \textbf{las energías renovables} y así utilizar cada vez menos los combustibles fósiles. Esto es debido a que estas no producen gases de efecto invernadero que son los causantes del \textbf{cambio climático}, ni tampoco producen emisiones contaminantes, son inagotables y no generan residuos difíciles de tratar.
 
-Adicionalmente de la ventaja más importante actualmente, que es su ayuda en contra del cambio climático, son inagotables o no generan residuos difíciles de tratar. 
-Aunque también tienen algunos inconvenientes como por ejemplo, el gran impacto visual que tienen y las grandes cantidades de terreno que se necesitan para poder conseguir una cantidad significante de energía. Además no siempre se obtiene la misma cantidad de energía. Depende, por ejemplo, de la cantidad de sol o de viento en ese momento.
+También tienen algunos inconvenientes como por ejemplo, el gran impacto visual que tienen y las grandes cantidades de terreno que se necesitan para poder conseguir una cantidad significante de energía. Además no siempre se obtiene la misma cantidad de energía. Depende, por ejemplo, de la cantidad de sol o de viento en ese momento.
 
-Este último inconveniente es el que hace que las compañías productoras y distribuidoras sean un poco reacias al uso de estas energías, debido a la incertidumbre de no saber de antemano \textbf{cuánto se va a producir}.
+Este último inconveniente es el que hace que las compañías productoras y distribuidoras sean reacias al uso de estas energías. Debido a la incertidumbre de \textbf{cuánta energía se va a producir}, es difícil desarrollar estrategias de compra de energía a otros productores y adecuación de su producción y capacidad de reserva.
 
-Es necesario una predicción de energía solar \textbf{precisa}, con distintos intervalos de tiempo, ya que cada vez es mayor el crecimiento del uso de las \textbf{energías renovables}. 
-Es verdad, que debido a algunos factores como las nubes o la contaminación, predecir la energía solar es \textbf{más difícil}.
-Pero esta predicción es realmente necesaria para poder tomar decisiones por parte de las empresas, para desarrollar estrategias de necesidad de comprar a otras y adecuar su producción y capacidad de reserva.
+En energías renovables como la eólica, los modelos predictivos disponibles actualmente son bastante precisos y su impulso es más fácil que otras como la energía solar la cual es más dificil de predecir.
 
 Se podría decir que todavía no existen modelos \textbf{realmente buenos} para predecir la energía solar. Hay algunas empresas como \href{https://aleasoft.com/es/}{Aleasoft}, que realizan estudios predictivos obteniendo previsiones horarias en tiempo real desde un día hasta diez días, pero sería necesario conocer la producción con un intervalo \textbf{de una o dos horas.}
 
@@ -59,17 +49,17 @@ Encargado de recoger los datos necesarios, está formado por distintos sensores 
 \label{makereference1.2.2}
 El \textbf{servidor de datos}, es el encargado de recibir, almacenar y distribuir la información obtenida por el \textbf{nodo}.
 
-\subsection{Servidor de cálculo}
+\subsection{Servidor de predicción}
 \label{makereference1.2.3}
 Tiene como función recoger la información almacenada del servidor de datos, procesarla para obtener la predicción y enviarla al \textbf{visualizador de datos}. Puede estar, o no, en la misma máquina que el servidor de datos.
 
 \subsection{Sistema de visualización}
 \label{makereference1.2.4}
-El sistema de visualización de datos elegido es ThingSpeak, una aplicación de código abierto que permite llevar un registro de los datos que se desean. Permite representarlos y estudiarlos.
+Muestra los resultados en forma de gráficas para facilitar su análisis.
 
 \begin{figure}[htb]
     \begin{center}
-        \includegraphics[height=2in]{figures/diagrama-sistema.png}
+        \includegraphics[width=15cm]{figures/diagrama-sistema.png}
         \caption{Diagrama de los componentes del sistema con sus protocolos de comunicación.}
     \end{center}
     \label{diagrama-sistema}
