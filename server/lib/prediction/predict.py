@@ -1,8 +1,6 @@
-import random
 import pandas as pd
 import json
 import os
-from datetime import datetime
 from sklearn.externals import joblib
 import numpy as np
 
