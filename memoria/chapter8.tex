@@ -3,5 +3,29 @@
 \chapter{Conclusiones}
 \label{makereference8}
 
-% TODO HACER CONCLUSIONES
-No se ha obtenido un modelo predictivo optimo, pero se ha dejado el terreno preparau para seguir guapamente.
+\section{Estado del proyecto}
+
+Los hitos que hemos conseguido desarrollar con éxito son:
+\begin{itemize}
+\item \textbf{Montar un sistema de recogida de datos}. Un nodo muy sencillo de replicar y que fácilmente podría trabajar en una red de estos. Gracias al protocolo MQTT que permite muchos ``publicadores'' y a que a la hora del entrenamiento se ha tenido en cuenta el identificador del nodo con el que se ha trabajado, se podría añadir al estudio los datos recogidos por múltiples nodos a lo largo de una extensión de terreno.
+
+\item \textbf{Sistema de entrenamiento de datos}. El software desarrollado para la obtención y tratamiento de los datos para el entrenamiento permite obtener conjuntos de datos de forma parametrizada. De esta forma, en una posible continuación del proyecto, sería muy sencillo generar sus propios conjuntos de datos para el entrenamiento. Además se han explorado ciertos modelos predictivos que, aún sin mucho éxito, no haría falta volver a estudiar con nuestros parámetros.
+
+\item \textbf{Sistema de predicción}. Aunque no se haya conseguido un modelo de predicción óptimo, sí se ha desarrollado el sistema que recibe los datos recogidos y utiliza el modelo elegido para realizar una predicción. Además, debido a la modularidad de nuestro sistema, es muy sencillo implementar nuevos modelos de predicción.
+\end{itemize}
+
+Cada uno de los componentes del sistema se ha desarrollado pensando en una posible futura sustitución o mejora. Asi, cada componente es autónomo y fácilmente reemplazable por otro que respete la interfaz de comunicación. Esto permite que las posibles carencias puedan ser solventadas sin la necesidad de alterar el resto de componentes.
+
+Este proyecto deja un margen de mejora sobre los requisitos inciales:
+\begin{itemize}
+\item \textbf{Modelo predictivo}. No se ha logrado obtener una predicción suficiente como para poder llevar este sistema a un entorno real. Una de las posibles mejoras sería estudiar otros modelos y parámetros.
+
+\item \textbf{Sistema de visualización}. Debido a la falta de tiempo para tomar muestras del nodo, no se ha podido pulir este componente. La información que muestra no aparece de una forma clara. Sin embargo, sí recibe y almacena los datos necesarios y en un futuro sólo sería necesario corregir el fragmento de código que transforma los datos crudos en gráficas representativas.
+\end{itemize}
+
+\section{Posibles ampliaciones}
+Desde un primer momento, se tenía como una posible ampliación formar una red de nodos para la recogida de muestras. Se ha empezado por desarrollar uno para no ampliar la complejidad del proyecto.
+
+Se intuye que dentro del modelo predictivo, podría ser interesante disponer de muestras desde distintos puntos de un territorio. Quizá esto podría permitir inferir al modelo predictivo cambios en las condiciones meteorológicas en un nodo a partir de las recogidas por otro.
+
+Por último, otra posible ampliación, sería estudiar el modelo de predicción \href{https://www.analyticsvidhya.com/blog/2016/02/time-series-forecasting-codes-python/}{ARIMA}. Que hace uso de regresión lineal teniendo en cuenta valores pasados.

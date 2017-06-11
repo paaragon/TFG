@@ -6,7 +6,6 @@
 \section{Introducción a los modelos predictivos}
 \label{makereference4.1}
 
-% TODO HABLAR DE NORMALIZACIÓN EN ALGÚN SITIO
 Cuando hablamos de \textbf{modelos predictivos} nos estamos refiriendo al análisis que agrupa una serie de técnicas para conseguir \textbf{analizar datos reales} tanto actuales como históricos y así conseguir \textbf{predicciones}. Con esta predicción podremos saber cuánto se acerca nuestra predicción a la realidad.
 
 Existen algunos conceptos clave a la hora de hablar de metodos predictivos:
@@ -62,9 +61,21 @@ Se ha creado un script en Python que, dados unos parámetros de consulta (fecha 
 	\label{inforiego}
 \end{figure}
 
-Este archivo CSV resultante (o el que se requiera en cada momento), es el utilizado como conjunto de entrenamiento y validación. La automatización de esta tarea permite que la exploración del modelo se pueda realizar de forma automática, pudiendo realizar así muchas más pruebas.
+Este archivo CSV resultante (o el que se requiera en cada momento), es el utilizado como conjunto de entrenamiento y validación. La automatización de esta tarea permite que la exploración del modelo se pueda realizar de forma cómoda, pudiendo realizar así muchas más pruebas.
 
-Este conjunto de datos debe sufrir una transformación más antes de poder ser utilizado en el entrenamiento. El entrenamiento y la validación necesitan dos elementos: los datos con los que se realiza la predicción y el resultado real que debe obtener. A estos dos elementos los llamaremos conjunto X y conjunto Y.
+Los datos proporcionados a cualquier modelo predictivo son previamente \textbf{normalizados}. Es importante que todos estén en la misma escala ya que, de no ser así, se puede interpretar que los datos en una mayor escala tienen un mayor peso dentro de la predicción.
+
+Para dicha normalización, son necesarios conocer el máximo, el mínimo y la media del conjunto de datos a normalizar. Estos datos serán almacenados para, posteriormente, poder invertir el proceso y obtener el valor inicial.
+
+\begin{figure}[htb]
+	\begin{center}
+		\includegraphics[width=15cm]{figures/normalizacion.png}
+		\caption{Fórmulas de normalización}
+	\end{center}
+	\label{normalizacion}
+\end{figure}
+
+Este conjunto de datos debe sufrir una transformación más antes de poder ser utilizado en el entrenamiento. El entrenamiento y la validación necesitan dos elementos: los datos con los que se realiza la predicción y el resultado real que debe obtener. A estos dos elementos los llamaremos conjunto X y conjunto Y. Ver figura \ref{x_y}.
 
 Ambos conjuntos parten del mismo conjunto de datos generado anteriormente.
 
