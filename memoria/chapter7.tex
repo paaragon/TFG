@@ -151,6 +151,11 @@ Los archivos necesarios para la instalación del software del servidor de cálcu
 
 \begin{itemize}
 	\item Introduce el directorio \textbf{server} en el servidor.
-	% TODO - revisar cuales son las variables necesarias
-	\item Cambia las variables \textbf{ThingSpeakKey} en solar\_server.py
+	\item Cambia las siguientes variables en ``main.py'':
+	\begin{itemize}
+	\item \textbf{brokerIP}: IP o nombre de dominio del broker MQTT.
+	\item \textbf{brokerPort}: Puerto del broker MQTT.
+	\item \textbf{topic}: Canal del broker MQTT al que escuchar.
+	\item \textbf{thingspeakKey}: Clave privada del usuario ThingSpeak.
+	\end{itemize}
 \end{itemize}

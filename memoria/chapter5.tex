@@ -25,6 +25,14 @@ Una vez obtenida la predicción esta es enviada, junto con el resto de datos que
 
 Existen distintos sistemas disponibles en el mercado (IoTDataViz, FreeBoard, IBMBlumix...), o incluso podríamos desarrollar uno propio, pero nos hemos decantado por \href{https://thingspeak.com/}{ThinkSpeak}.
 
+\begin{figure}[htb]
+	\begin{center}
+		\includegraphics[width=13cm]{figures/ts.png}
+		\caption{Gráfica ThingSpeak}
+	\end{center}
+	\label{ts}
+\end{figure}
+
 ThinkSpeak es una plataforma online orientada al ``Internet de las cosas'' (IoT) pensada para almacenar y realizar un seguimiento de los datos obtenidos por distintas aplicaciones.
 
 Una de sus principales ventajas es que los datos recibidos puedes ser procesados por scripts propios implementados en \href{https://es.mathworks.com/products/matlab.html}{MATLAB}. Permitiendo así una observación y manipulación de los datos más personalizada. También cuenta con la ventaja de ser \textbf{gratuita}.
@@ -33,7 +41,4 @@ Actualmente, la comunicación con ThinkSpeak se puede realizar nativamente a tra
 
 La manera que proporcionaba ThinkSpeak para esta comunicación era a través de \href{https://es.wikipedia.org/wiki/Hypertext_Transfer_Protocol}{HTTP} a través de una \textbf{API REST}. La ventaja que tiene esto, es que cualquier lenguaje que soporte manejo de peticiones HTTP, puede comunicarse con él, permitiéndonos así construir un sistema más modular.
 
-Para realizar el envío de datos a través de esta API, basta con realizar una petición \textbf{HTTP POST} que lleve en el ``body'' (cuerpo de la petición) un campo ``key'' con la clave proporcionada por el servicio y los datos que queremos visualizar. 
-
-% TODO Hablar de la configuración de la gráfica de TSpeak
-% TODO Añadir imagen de una gráfica 
+Para realizar el envío de datos a través de esta API, basta con realizar una petición \textbf{HTTP POST} que lleve en el ``body'' (cuerpo de la petición) un campo ``key'' con la clave proporcionada por el servicio y los datos que queremos visualizar.
