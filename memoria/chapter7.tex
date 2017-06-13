@@ -16,7 +16,7 @@ Para poner en funcionamiento el proyecto deberemos tener todos lo elementos que 
 \subsection{Requisitos}
 \label{makereference7.1.2}
 	\begin{itemize}
-		\item \textbf{Raspberry Pi 3 model B} con una distribución Linux (\href{https://www.raspberrypi.org/downloads/raspbian/}{Raspbian}).
+		\item Raspberry Pi 3 model B con una distribución Linux (\href{https://www.raspberrypi.org/downloads/raspbian/}{Raspbian}).
 		\item Conexión a Internet.
 		\item \href{https://www.adafruit.com/product/385}{Sensor DHT22}.
 		\item Conversor analógico-digital \href{https://www.adafruit.com/product/856}{MCP3008}.
@@ -28,23 +28,21 @@ El cableado de los componentes HW está descrito en la figura \ref{wiring}.
 \begin{figure}[htb]
 	\begin{center}
 		\includegraphics[width=12cm]{figures/solar_project_node_diagram.png}
-		\caption{Cableado del nodo}
+		\caption{Cableado del nodo \label{wiring}}
 	\end{center}
+\end{figure}
 
 Por defecto, Ubuntu arranca el servicio después de instalarlo. Si la distribución Lunix sobre la cual se instala no realiza esta acción por defecto, se deberá configurar debidamente para arrancarlo.
 
-En este proyecto se utiliza la configuración por defecto de Mosquitto. Para más información sobre su configuración, consultar \href{https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-the-mosquitto-mqtt-messaging-broker-on-ubuntu-16-04}{más información}.
-
-	\label{wiring}
-\end{figure}
+En este proyecto se utiliza la configuración por defecto de Mosquitto. Para más sobre su configuración, consultar \href{https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-the-mosquitto-mqtt-messaging-broker-on-ubuntu-16-04}{más información}.
 
 \subsection{Ficheros}
 \label{makereference7.1.3}
 Los archivos necesarios para la instalación del software del nodo se encuentran disponibles en \href{https://github.com/MrSlide22/TFG/node}{Github}.
 
 \begin{itemize}
-	\item Introduce el directorio \textbf{node} en tu Rapsberry Pi
-	\item Cambia las variables \textbf{brokerIp, brokerPort, topic, ubication} en solar\_node.py
+	\item Introduce el directorio ``node'' en tu Rapsberry Pi
+	\item Cambia las variables ``brokerIp'', ``brokerPort'', ``topic'', ``ubication''' en solar\_node.py
 \end{itemize}
 
 \subsection{Dependencias}
@@ -150,12 +148,12 @@ En este proyecto se utiliza la configuración por defecto de Mosquitto. Para má
 Los archivos necesarios para la instalación del software del servidor de cálculo se encuentran disponibles en \href{https://github.com/MrSlide22/TFG/server}{Github}.
 
 \begin{itemize}
-	\item Introduce el directorio \textbf{server} en el servidor.
+	\item Introduce el directorio ``server'' en el servidor.
 	\item Cambia las siguientes variables en ``main.py'':
 	\begin{itemize}
-	\item \textbf{brokerIP}: IP o nombre de dominio del broker MQTT.
-	\item \textbf{brokerPort}: Puerto del broker MQTT.
-	\item \textbf{topic}: Canal del broker MQTT al que escuchar.
-	\item \textbf{thingspeakKey}: Clave privada del usuario ThingSpeak.
+	\item brokerIP: IP o nombre de dominio del broker MQTT.
+	\item brokerPort: Puerto del broker MQTT.
+	\item topic: Canal del broker MQTT al que escuchar.
+	\item thingspeakKey: Clave privada del usuario ThingSpeak.
 	\end{itemize}
 \end{itemize}
