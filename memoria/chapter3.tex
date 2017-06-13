@@ -45,28 +45,27 @@ Los mensajes enviados por los dispositivos comunicantes pueden ser de todo tipo 
 
 \subsection{Seguridad}
 Los datos de IoT intercambiados pueden resultar muy críticos, por lo que es posible garantizar la seguridad de los intercambios en varios niveles:
+
 \begin{itemize}
 \item Transporte en SSL/TLS.
 \item Autenticación mediante certificados SSL/TLS.
 \item Autenticación mediante usuario y contraseña.
 \end{itemize}
 
-Este proyecto no utiliza ninguna de estas tres medidas de seguridad pero deberían implementarse en un futuro ya que el objetivo último de este proyecto sería para la ayuda a la toma de decisiones y no los datos no deberían poder verse afectados.
-
 \subsection{QoS}
 El protocolo MQTT define tres modos diferentes de asegurar la Calidad del Servicio (QoS, Quality of Service) que el publicador podrá definir según sus necesidades.
 
 Hay tres niveles posibles:
 \begin{itemize}
-\item QoS nivel 0 (At Most Once) se entregará como mucho una vez por lo que el mensaje no tiene garantías de recepción (el broker no informa al publicador de que ha recibido el mensaje).
+\item QoS nivel 0 (At Most Once) se entregará como mucho una vez, por lo que el mensaje no tiene garantías de recepción (el broker no informa al publicador de que ha recibido el mensaje).
 
 \item Qos nivel 1 (At Least Once) se entregará al menos una vez. El publicador lo transmitirá varias veces si es necesario, hasta que el broker le confirme que lo ha enviado a la red. Este es el nivel por defecto.
 
 \item QoS nivel 2 (Exactly Once) será obligatoriamente guardado por el emisor, que lo transmitirá siempre que el receptor no confirme su envío a la red.
 
-En este proyecto no se define todavía un nivel de servicio pero sería interesante estudiar cuál de los tres es el más correcto para utilizar.
-\end{itemize}
+En este proyecto se usa QoS nivel 1, que es el que tiene ``mosquitto'' por defecto.
 
+\end{itemize}
 \begin{figure}[htb]
 	\begin{center}
 		\includegraphics[height=8cm]{figures/mqtt-qos.jpg}
