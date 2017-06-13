@@ -5,9 +5,9 @@
 
 \section{Introducción}
 \label{makereference2.1}
-Como hemos comentado anteriormente el nodo es quien recoge los datos meteorológicos escogidos y los envía al servidor de datos.
+Como hemos comentado anteriormente, el nodo es quien recoge los datos meteorológicos escogidos y los envía al servidor de datos.
 
-Se ha implementado con una Raspberry Pi 3 como placa programable y los sensores DHT22 para la medición de la temperatura y humedad y un piranómetro SP-212 para medir la irradiación solar.
+Se ha implementado con una Raspberry Pi 3 como placa programable, los sensores DHT22 para la medición de la temperatura y humedad, y un piranómetro SP-212 para medir la irradiación solar.
 
 La parte software del nodo ha sido implementada en Python.
 
@@ -49,13 +49,13 @@ A la Raspberry se le conectan dos sensores, uno de temperatura y humedad y un pi
 
 Para medir la temperatura y la humedad hemos utilizado un solo componente que recoge ambas muestras. El modelo escogido ha sido el sensor DHT22. (\cite{ARP:Adafruit:2017})
 
-Algunas de las características de este sensor y en especial de este modelo (ya que tambien existe el modelo DHT11 de la misma marca) son que tiene una precisión de 0.5ºC para medir la temperatura, y entre un 2 y un 5 por ciento para la humedad. Ademas recogen dos muestras por segundo. Este sensor no es un sensor de alta precisión, pero es suficiente para nuestro proyecto, además de tener un precio muy económico. Ver figura \ref{sensor}.
+Algunas de las características de este sensor digital, y en especial de este modelo (ya que tambien existe el modelo DHT11 de la misma marca), son que tiene una precisión de 0.5ºC para medir la temperatura, y entre un 2 y un 5 por ciento para la humedad. Además recoge dos muestras por segundo. Ver figura \ref{sensor}.
 
-La comunicación entre el sensor y la Raspberry se realiza a través de un pin GPIO (General Purpose Input/Output, Entrada/Salida de Propósito General) que es un pin de propósito general. Estos pines pueden ser de entrada o de salida, y reciben y envían valores binarios de un bit.
+La comunicación entre el sensor y la Raspberry se realiza a través de un pin GPIO (General Purpose Input/Output, Entrada/Salida) que es un pin de propósito general. Estos pines pueden ser de entrada o de salida, y reciben y envían valores binarios de un bit.
 
 En el \href{https://cdn-shop.adafruit.com/datasheets/Digital+humidity+and+temperature+sensor+AM2302.pdf}{datasheet} del sensor viene definido el proceso de comunicación entre este y la Raspberry. Para ello, el microcontrolador (Raspberry en nuestro caso) envía una señal de arranque para que el sensor cambie del estado ``standby'' al estado ``running''. Al terminar de enviar dicha señal, el sensor envía una respuesta de 40 bits que contiene la información relativa a la humedad (16 bits), a la temperatura (16 bits) y un checksum (8 bits) para comprobar que se ha enviado correctamente. Ver imagen \ref{DHT22comunication}.
 
-El envío de estos bits sucede de la siguiente forma: el sensor envía una señal ``baja'' ("0") que indica el inicio de la transmisión de un bit. Seguidamente envía una señal ``alta'' (``1''). Si la transmisión de esta corriente dura más de $ 50 \mu $ s indica que se ha transmitido un 1, en caso contrario, se quiso transmitir un 0.
+El envío de estos bits sucede de la siguiente forma: el sensor envía una señal ``baja'' (``0'') que indica el inicio de la transmisión de un bit. Seguidamente envía una señal ``alta'' (``1''). Si la transmisión de esta corriente dura más de $ 50 \mu $ s indica que se ha transmitido un 1, en caso contrario, se quiso transmitir un 0.
 
 \begin{figure}[htb]
 	\begin{center}
@@ -73,15 +73,15 @@ El envío de estos bits sucede de la siguiente forma: el sensor envía una seña
 
 \subsection{Piranómetro y ADC}
 \label{makereference2.2.3}
-Para recoger la cantidad de irradiación solar se utiliza un piranómetro. En este proyecto se ha utilizado el modelo \href{https://www.apogeeinstruments.co.uk/content/SP-212-215-manual.pdf}{SP-212}. Este sensor es analógico es decir, la señal que envía es un voltaje variable con el cual indica la cantidad de irradiación que recoge. (\cite{ARP:Apogee:2017}).
+Para recoger la cantidad de irradiación solar se utiliza un piranómetro. En este proyecto se ha utilizado el modelo \href{https://www.apogeeinstruments.co.uk/content/SP-212-215-manual.pdf}{SP-212}. Este sensor es analógico, es decir, la señal que envía es un voltaje variable con el cual indica la cantidad de irradiación que recoge. (\cite{ARP:Apogee:2017}).
 
-Para poder leer esa información con un microcontrolador es necesario hacer una conversión a digital. Para ello se utiliza un conversor analógico-digital o por sus siglas en inglés ADC.
+Para poder leer esa información con un microcontrolador es necesario hacer una conversión a digital. Para ello se utiliza un conversor analógico-digital (ADC).
 
-El ADC utilizado en este proyecto ha sido el \href{https://cdn-shop.adafruit.com/datasheets/MCP3008.pdf}{MCP3008}. Es un conversor de 10 bits por lo que permite codificar entre 0 y 1024, suficiente para este proyecto. Se comunica con la Raspberry a través del puerto SPI. (\cite{ARP:Adafruit:2017})
+El ADC utilizado en este proyecto ha sido el \href{https://cdn-shop.adafruit.com/datasheets/MCP3008.pdf}{MCP3008}. Es un conversor de 10 bits por lo que permite codificar entre 0 y 1024. Se comunica con la Raspberry a través del puerto SPI. (\cite{ARP:Adafruit:2017})
 
-SPI es un estándar de comunicación en serie, maestro/esclavo, regulado por un reloj. Incluye 4 señales: reloj (SCLK), salida de datos del maestro y entrada de datos al esclavo (MOSI), salida de datos del esclavo y entrada al maestro (MISO) y otra para Para seleccionar un esclavo, o para que el maestro le diga al esclavo que se active (SS/Select).
+SPI es un estándar de comunicación en serie, maestro/esclavo, regulado por un reloj. Incluye 4 señales: reloj (SCLK), salida de datos del maestro y entrada de datos al esclavo (MOSI), salida de datos del esclavo y entrada al maestro (MISO) y otra para seleccionar un esclavo, o para que el maestro le diga al esclavo que se active (SS/Select).
 
-Con cada pulso de reloj el maestro envía un bit. Para que empiece la transmisión el Master baja la señal SS/Select a cero, con esto el Slave se activa y empieza la transmisión, con un pulso de reloj al mismo tiempo que el primer bit es leído.
+Con cada pulso de reloj el maestro envía un bit. Para que empiece la transmisión el maestro, baja la señal SS/Select a cero, con esto el esclavo se activa y empieza la transmisión, con un pulso de reloj al mismo tiempo que el primer bit es leído.
 
 Raspberry cuenta con unos pines para la comunicación a través de SPI lo que facilita el uso de este tipo de componentes.
 
@@ -109,7 +109,7 @@ Existen diferentes argumentos posibles para cambiar el modo de ejecución del no
 \item test: arranca el nodo para realizar una sola muestra. El fin de este argumento es comprobar el correcto funcionamiento del nodo.
 \item help: muestra la ayuda del comando con todas las opciones disponibles.
 \item m: (opcional) los datos recogidos por el nodo serán enviados al broker MQTT.
-\item i number: (opcional) especifica el intervalo de recogida de muestras de los sensores. 
+\item i [number]: (opcional) especifica el intervalo de recogida de muestras de los sensores. 
 \end{itemize}
 
 \subsection{Librerías externas}

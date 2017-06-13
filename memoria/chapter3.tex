@@ -5,13 +5,33 @@
 
 \section{Introducción}
 \label{makereference3.1}
-La información recogida por el nodo es almacenada en un servidor central (al que llamamos ``servidor de datos''). Este se encarga de recibir la información proporcionada por uno o varios clientes (el nodo en nuestro caso), almacenarla y distribuirla a quien la requiera.
+La información recogida por el nodo es almacenada en un servidor central (``servidor de datos''). Este se encarga de recibir la información proporcionada por uno o varios clientes (el nodo en nuestro caso), almacenarla y distribuirla a quién la requiera.
 
-La comunicación se realiza sobre el protocolo MQTT muy utilizado para la comunicación máquina a máquina. Como implementación de este protocolo utilizamos el servidor \href{https://mosquitto.org/}{mosquitto}.
+La comunicación se realiza sobre el protocolo MQTT, muy utilizado para la comunicación máquina a máquina. Como implementación de este protocolo utilizamos el servidor \href{https://mosquitto.org/}{mosquitto}.
+
+Existen varias alternativas a esta tecnología como por ejemplo:
+\begin{itemize}
+\item \href{https://en.wikipedia.org/wiki/Constrained_Application_Protocol}{CoAP} (Constrained Application Protocol) es un protocolo que está diseñado para la transferencia de documentos entre dispositivos restringidos. Dentro de sus ventajas podemos destacar que está destinado para su uso en dispositivos de Internet con recursos limitados, está diseñado para traducir fácilmente a HTTP.
+\item \href{https://www.amqp.org/}{AMQP} (Advanced Message Queuing Protocol) destaca por su orientación a la mensajería de negocios. Regula el comportamiento tanto del servidor como del cliente de la mensajería logrando que las implementaciones de diferentes proveedores sean interoperables. Esta es una de sus características más señaladas.
+\end{itemize}
+
+Al final nos decantamos por MQTT debido a sus ventajas frente a las alternativas expuestas:
+
+\begin{itemize}
+\item Sistema de suscripción. Esto permite poder tener muchos nodos sin un gran esfuerzo.
+\item Utiliza un ancho de banda mínimo. Tiene una cabecera fija de 2 bytes más una cabecera variable. De este variable, durante la suscripción y conexión se utilizan 12 bytes. La mayoría de publicaciones utilizan 2 bytes de cabeceras variables.
+\item Consume muy poca energía.
+\item Permite una gran fiabilidad si es necesario por la definición de la QoS (Calidad de Servicio).
+\item Es muy escalable.
+\end{itemize}
+
+Hemos implementado MQTT sobre la tecnología inalámbrica Wi-Fi. Debido a que el proyecto es un prototipo, no nos hemos preocupado por la optimización de recursos. De ser así, habríamos elegido otro tipo de tecnologías usadas en comunicaciones ``machine-to-machine'', como por ejemplo \href{https://www.lora-alliance.org/What-Is-LoRa/Technology}{LoRa}.
+
+ LoRa (Long Range) es una tecnología que ofrece un largo alcance, un bajo consumo de energía y una transmisión segura de datos. Entre sus ventajas cabe señalar que permite aplicaciones de seguimiento sin GPS, tiene un bajo coste y una alta capacidad, ideal para operadores de redes públicas.
 
 \section{MQTT}
 \label{makereference3.2}
-MQTT o lo que es lo mismo \textit{Message Queue Telemetry Transport} es un protocolo para la comunicación ``machine-to-machine'' de mensajería muy simple y ligero, orientado a conexión por TCP/IP. Está diseñado principalmente para dispositivos con poco ancho de banda y con latencia baja.
+MQTT o lo que es lo mismo \textit{Message Queue Telemetry Transport}, es un protocolo para la comunicación ``machine-to-machine'' de mensajería muy simple y ligero, orientado a conexión por TCP/IP. Está diseñado principalmente para dispositivos con poco ancho de banda y con latencia baja.
 
 MQTT es un servicio de publicación/suscripción TCP/IP sencillo y muy ligero. Se basa en el principio cliente/servidor y suscriptor/publicador.
 
@@ -19,7 +39,7 @@ El servidor, llamado broker, recopila los datos que los publicadores (``publishe
 
 Los publishers envían los mensajes a un canal llamado topic. Los suscriptores (``subscribers'') pueden leer esos mensajes. Los topics (o canales de información) pueden estar distribuidos jerárquicamente de forma que se puedan seleccionar exactamente las informaciones que se desean.
 
-La disposición jerárquica de estos ``topics'' está especialmente diseñada para facilitar la distribución de ``publishers'' y ``suscribers'' por grupos. De esta forma, si tuvieramos una instalación domótica podríamos distribuir los elementos a controlar en grupos jerárquicos.
+La disposición jerárquica de estos ``topics'' está especialmente diseñada para facilitar la distribución de publishers y subscribers por grupos. De esta forma, si tuvieramos una instalación domótica, podríamos distribuir los elementos a controlar en grupos jerárquicos.
 
 Los mensajes enviados por los dispositivos comunicantes pueden ser de todo tipo pero no pueden superar los 256 Mb.
 
@@ -42,7 +62,7 @@ Hay tres niveles posibles:
 
 \item Qos nivel 1 (At Least Once) se entregará al menos una vez. El publicador lo transmitirá varias veces si es necesario, hasta que el broker le confirme que lo ha enviado a la red. Este es el nivel por defecto.
 
-\item QoS nivel 2 (Exactly once) será obligatoriamente guardado por el emisor, que lo transmitirá siempre que el receptor no confirme su envío a la red.
+\item QoS nivel 2 (Exactly Once) será obligatoriamente guardado por el emisor, que lo transmitirá siempre que el receptor no confirme su envío a la red.
 
 En este proyecto no se define todavía un nivel de servicio pero sería interesante estudiar cuál de los tres es el más correcto para utilizar.
 \end{itemize}
@@ -53,20 +73,3 @@ En este proyecto no se define todavía un nivel de servicio pero sería interesa
 		\caption{Diagrama de los distintos niveles de calidad [Fuente: \href{https://image.slidesharecdn.com/0xwitjksqnqruoz4tnsi-signature-6a256d24caf5d1fcc6a3bf1d013dfe0e1fa99369a560d140998f50cbdbc6d127-poli-140828123252-phpapp02/95/mqtt-a-practical-protocol-for-the-internet-of-things-15-638.jpg?cb=1409229409}{SlideShare: MQTT - A practical protocol for the Internet of Thing}] \label{qos}}
 	\end{center}
 \end{figure}
-
-\subsection{Ventajas}
-\begin{itemize}  
-\item Utiliza un ancho de banda mínimo. Tiene una cabecera fija de 2 bytes más una cabecera variable. De este variable, durante la suscripción y conexión se utilizan 12 bytes. La mayoría de publicaciones utilizan 2 bytes de cabeceras variables.
-\item Consume muy poca energía.
-\item Permite una gran fiabilidad si es necesario por la definición de la QoS (Calidad de Servicio).
-\item Requiere pocos recursos.
-\end{itemize}
-
-\subsection{Alternativas a MQTT}
-Algunas de las alternativas que podemos encontrar a MQTT son las siguientes:
-
-\begin{itemize}  
-\item \href{https://www.lora-alliance.org/What-Is-LoRa/Technology}{LoRa} (Long Range) es una tecnología que ofrece un largo alcance, un bajo consumo de energía y una transmisión segura de datos. Entre sus ventajas cabe señalar que permite aplicaciones de seguimiento sin GPS, tiene un bajo coste y una alta capacidad, ideal para operadores de redes públicas.
-\item \href{https://en.wikipedia.org/wiki/Constrained_Application_Protocol}{CoAP} (Constrained Application Protocol) es un protocolo que está diseñado para la transferencia de documentos entre dispositivos restringidos. Dentro de sus ventajas podemos destacar que está destinado para su uso en dispositivos de Internet con recursos limitados, está diseñado para traducir fácilmente a HTTP.
-\item \href{https://www.amqp.org/}{AMQP} (Advanced Message Queuing Protocol) destaca por su orientación a la mensajería de negocios. Regula el comportamiento tanto del servidor como del cliente de la mensajería logrando que las implementaciones de diferentes proveedores sean interoperables. Esta es una de sus características más señaladas.
-\end{itemize}
