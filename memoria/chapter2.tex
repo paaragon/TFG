@@ -120,3 +120,8 @@ Existen diferentes argumentos posibles para cambiar el modo de ejecución del no
 \item Adafruit\_MCP3008: comunicación a través de SPI con el ADC
 \item paho-mqtt: Paho ha sido creado para proporcionar implementaciones escalables de código abierto de protocolos de mensajería abiertos y estándar dirigidos a aplicaciones nuevas, existentes y emergentes para Machine to Machine (M2M) e Internet of Things (IoT). Esta librería proporciona la funcionalidad para la comunicación a través de MQTT. Este protocolo de comunicación será exlicado más adelante.
 \end{itemize}
+
+\subsection{Comunicación}
+La comunicación del nodo con el resto del sistema se realiza a través del protocolo MQTT (explicado en el punto \ref{makereference3.2}) sobre la tecnología inalámbrica Wi-Fi. Debido a que el proyecto es un prototipo, y a que la Raspberry 3 incluye un módulo de Wi-Fi, no nos hemos preocupado por la optimización de recursos. De ser así, habríamos elegido otro tipo de tecnologías usadas en comunicaciones ``machine-to-machine'', que consumen menos recursos como por ejemplo \href{https://www.lora-alliance.org/What-Is-LoRa/Technology}{LoRa}.
+
+LoRa (Long Range) es una tecnología que ofrece un largo alcance, un bajo consumo de energía y una transmisión segura de datos. Entre sus ventajas cabe señalar que permite aplicaciones de seguimiento sin GPS, tiene un bajo coste y una alta capacidad, ideal para operadores de redes públicas.
