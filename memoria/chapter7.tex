@@ -1,159 +1,113 @@
 \cleardoublepage
 
-\chapter{Instalación y puesta en marcha}
+\chapter{Resultados}
 \label{makereference7}
 
-Para poner en funcionamiento el proyecto deberemos tener todos lo elementos que lo componen:
-\begin{itemize}
-\item Nodo.
-\item Servidor de datos.
-\item Servidor de cálculo. Puede estar alojado en la misma máquina que el servidor de datos.
-\item Sistema de visualización. En este caso, estar registrado en ThingSpeak y tener una clave de aplicación.
-\end{itemize}
+Los resultados de este apartado se basan en la exploración tipo Grid descrita en el apartado anterior. Los datos utilizados en esta exploración han sido los proporcionados por InfoRiego entre el 1 de enero de 2015 hasta el 31 de diciembre del 2015.
 
-\section{Nodo}
-\label{makereference7.1}
-\subsection{Requisitos}
-\label{makereference7.1.2}
-	\begin{itemize}
-		\item Raspberry Pi 3 model B con una distribución Linux (\href{https://www.raspberrypi.org/downloads/raspbian/}{Raspbian}).
-		\item Conexión a Internet.
-		\item \href{https://www.adafruit.com/product/385}{Sensor DHT22}.
-		\item Conversor analógico-digital \href{https://www.adafruit.com/product/856}{MCP3008}.
-		\item Piranómetro \href{https://www.apogeeinstruments.co.uk/content/SP-212-215-manual.pdf}{SP-212}.
-		\item SPI activo en la Raspberry con ``raspi-config''.
-	\end{itemize}
+Para llevar a cabo el entrenamiento anterior, y poder obtener una métrica con la que evaluarlo, es necesario realizar una división del conjunto de datos en dos para cada prueba. Un conjunto para entrenar el modelo y otro para comprobar la precisión de este. Es importante que estos dos conjuntos sean complementarios ya que el modelo entrenado no debe conocer ningún dato del conjunto de test o el entrenamiento se vería alterado por conocer de antemano los datos a predecir.
 
-El cableado de los componentes HW está descrito en la figura \ref{wiring}.
+El tamaño de cada conjunto es también un hecho relevante ya que con un conjunto de datos muy pequeño para el entrenamiento, la predicción sería dificilmente alcanzable con éxito y con un conjunto muy grande, habría pocos datos para probar que el modelo es fiable. Una división típica es dividir el conjunto de datos en 70/30, es decir, 70\% de los datos para entrenamiento y 30\% para comprobación. En este se ha utilizado una división 25/75 que es la utilizada por defecto por el g grid search de SciKitLean.
+
+Para poder analizar los resultados, la prueba anterior proporciona distintas métricas para medir la calidad del modelo. La implementación de GridSearch utilizada (librería de SciKitLearn) pretende dar una misma interfaz para utilizar esta técnica con distintos algoritmos, por lo tanto, los resultados que se obtienen con ellos también tienen una misma forma de nombrar las métricas para todos.
+
+Sin embargo, aunque en los ficheros de resultados aparezcan los mismos nombres para medir los resultados, el significado de estos es distinto dependiendo del modelo seleccionado. En los distintos apartados dedicados a cada uno de estos modelos se explicará el significado de sus métricas.
+
+Junto con las métricas de calidad del modelo entrenado aparecen los parámetros necesarios para obtener dicho modelo. Tanto los parámetros específicos de cada modelo como el número de instantes anteriores utilizados (``k'') o la distancia a la predicción.
+
+A la distancia a la predicción la llamaremos ``horizonte de predicción'' y especifica la diferencia entre la hora a la que se realiza la predicción y la hora a la que se quiere predecir entre el intervalo de medida (30 minutos para estos datos). Aunque se haya probado con varios horizontes, el que más nos interesa es ``2'' que indica una predicción a una hora.
+
+Se han rea1alizado tres conjuntos de pruebas, una por cada algoritmo predictivo estudiado. A continuación se analizan los resultados para cada uno de estos algoritmos.
+
+\section{Regresión Lineal}
+\label{makereference6.1}
+
 \begin{figure}[htb]
 	\begin{center}
-		\includegraphics[width=12cm]{figures/solar_project_node_diagram.png}
-		\caption{Cableado del nodo \label{wiring}}
+		\includegraphics[width=14cm]{figures/resultado_linear.png}
+		\caption{Resultado Regresión Lineal \label{resultado_linear}}
 	\end{center}
 \end{figure}
 
-Por defecto, Ubuntu arranca el servicio después de instalarlo. Si la distribución Lunix sobre la cual se instala no realiza esta acción por defecto, se deberá configurar debidamente para arrancarlo.
+De los resultados obtenidos para este algoritmo mostrados en la figura \ref{resultado_linear}, la columna ``mean'' nos indican el \(R^{2}\) obtenido. \(R^{2}\) es el coeficiente de correlación y, en regresión lineal, es el cuadrado del \textit{coeficiente de correlación de Pearson}. Se calcula dividiendo el cuadrado de la covarianza del conjunto de datos reales y los predichos entre el producto de los cuadrados de la desviación típica de cada conjunto. Expresa la calidad de la predicción del modelo entre 0 y 1.
 
-En este proyecto se utiliza la configuración por defecto de Mosquitto. Para más sobre su configuración, consultar \href{https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-the-mosquitto-mqtt-messaging-broker-on-ubuntu-16-04}{más información}.
+Los datos se muestran ordenador por la columna ``mean'' siendo así el primero de estos registros el que más coeficiente de correlación obtiene.
 
-\subsection{Ficheros}
-\label{makereference7.1.3}
-Los archivos necesarios para la instalación del software del nodo se encuentran disponibles en \href{https://github.com/MrSlide22/TFG/node}{Github}.
+\section{SVR}
+\label{makereference6.2}
 
-\begin{itemize}
-	\item Introduce el directorio ``node'' en tu Rapsberry Pi
-	\item Cambia las variables ``brokerIp'', ``brokerPort'', ``topic'', ``ubication''' en solar\_node.py
-\end{itemize}
+Para SVR se utiliza la misma métrica que la vista en el apartado anterior. Esto es porque ambas son regresiones y esta es muy utilizada en ese caso.
 
-\subsection{Dependencias}
-\label{makereference7.1.4}
-	\begin{itemize}
-		\item Actualizar
-\lstset{language=bash}
-\begin{lstlisting}[frame=single]
-$ sudo apt-get update
-$ sudo apt-get upgrade
-\end{lstlisting}
-		\item Python 2.7 (\cite{ARP:Python:2017})
-\begin{lstlisting}[frame=single]
-$ sudo apt-get install python2.7 build-essential 
-python-pip python-dev
-\end{lstlisting}
-		\item Paho (\cite{ARP:Paho:2017})
-\begin{lstlisting}[frame=single]
-$ pip install paho-mqtt
-\end{lstlisting}
-		\item WiringPi (\cite{ARP:Wiring:2017})
-\begin{lstlisting}[frame=single]
-$ pip install wiringpi2
-\end{lstlisting}
-		\item Adafruit\_DHT (\cite{ARP:Adafruit:2017})
-\begin{lstlisting}[frame=single]
-$ git clone 
-https://github.com/adafruit/Adafruit_Python_DHT.git
-$ cd Adafruit_Python_DHT
-$ sudo python setup.py install
-\end{lstlisting}
-		\item Adafruit\_GPIO
-\begin{lstlisting}[frame=single]
-$ git clone 
-https://github.com/adafruit/Adafruit_Python_GPIO.git
-$ cd Adafruit_Python_GPIO
-$ sudo python setup.py install
-\end{lstlisting}
-		\item Adafruit\_MCP3008
-\begin{lstlisting}[frame=single]
-$ git clone 
-https://github.com/adafruit/Adafruit_Python_MCP3008.git
-$ cd Adafruit_Python_MCP3008
-$ sudo python setup.py install
-\end{lstlisting}
-	\end{itemize}
+\section{Redes Neuronales}
+\label{makereference6.3}
 
-\subsection{Puesta en marcha del nodo}
-\label{makereference7.1.5}
-Para arrancar el nodo se deberá haber seguido todos los pasos anteriores. Posteriormente, desde un terminal de la Raspberry, ir a la carpeta donde se han guardado el código fuente y ejecutar el comando: 
+En este caso, la métrica utilizada para determinar la calidad del modelo ha sido ``accuracy'' (en español, exactitud). Es una métrica muy utilizada en clasificadores que indica el porcentaje de predicciones clasificadas correctamente.
 
-\lstset{language=bash}
-\begin{lstlisting}[frame=single]
-$ sudo python solar_node.py
-\end{lstlisting}
+Después de realizar la exploración de los parámetros de los distintos algoritmos de predicción explicados anteriormente (capítulo \ref{makereference4}), hemos obtenido varias métricas de cada uno de ellos.
 
-Se debe ser superusuario para poder ejecutar este comando.
-
-Para obtener más información sobre cómo utilizar el nodo ver Descripción del nodo o ejecutar:
-
-\lstset{language=bash}
-\begin{lstlisting}[frame=single]
-$ sudo python solar_node.py -h
-\end{lstlisting}
-
-\section{Servidor de datos}
-\label{makereference7.2}
-\subsection{Requisitos previos}
-\label{makereference7.3}
-\begin{itemize}
-\item Máquina con distribucion Linux instalada. Recomendable Debian, Fedora, OpenSUSE o Ubuntu.
-\item Conexión a internet.
-\item IP fija y opcionalmente, nombre de dominio.
-\end{itemize}
-
-La instalación de un broker MQTT es muy sencilla (una de sus principales ventajas). Para ello basta con instalar el demonio mosquitto a través del siguiente comando:
-
-Ejemplo de instalación en Ubuntu:
-\lstset{language=bash}
-\begin{lstlisting}[frame=single]
-$ sudo apt-get install mosquitto
-\end{lstlisting}
-
-Por defecto, Ubuntu arranca el servicio después de instalarlo. Si la distribución Lunix sobre la cual se instala no realiza esta acción por defecto, se deberá configurar debidamente para arrancarlo.
-
-En este proyecto se utiliza la configuración por defecto de Mosquitto. Para más información sobre su configuración, consultar \href{https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-the-mosquitto-mqtt-messaging-broker-on-ubuntu-16-04}{más información}.
-
-\section{Servidor de predicción}
-\label{makereference7.3}
-
-\subsection{Requisitos previos}
-\label{makereference7.3.1}
+Después de realizar la exploración de los parámetros de los distintos algoritmos de predicción explicados anteriormente (capítulo \ref{makereference5}), hemos obtenido varias métricas de cada uno de ellos.
 
 \begin{itemize}
-\item Máquina con distribución Linux.
-\item Python 2.7.
-\item Conexión a internet.
-\item IP fija y opcionalmente, nombre de dominio.
+	\item Media
+	\item Desviación estándar
 \end{itemize}
 
-\subsection{Instalación}
-\label{makereference7.3.2}
-Los archivos necesarios para la instalación del software del servidor de cálculo se encuentran disponibles en \href{https://github.com/MrSlide22/TFG/server}{Github}.
+Estas dos variables son las que nos dan la información necesaria para decantarnos por un modelo u otro. Buscamos aquella configuración de los parámetros que maximice la media y minimice el error.
+
+La primera prueba que se realizó fue con algoritmos de regresión lineal y SVR.
+
+De todos los resultados obtenidos, el que mayor media proporciona es un modelo realizado con Regresión Lineal, que obtiene una media de 0.910009 y un error de 0.003789. Su configuración es la siguiente:
 
 \begin{itemize}
-	\item Introduce el directorio ``server'' en el servidor.
-	\item Cambia las siguientes variables en ``main.py'':
-	\begin{itemize}
-	\item brokerIP: IP o nombre de dominio del broker MQTT.
-	\item brokerPort: Puerto del broker MQTT.
-	\item topic: Canal del broker MQTT al que escuchar.
-	\item thingspeakKey: Clave privada del usuario ThingSpeak.
-	\end{itemize}
+	\item k: 5
+	\item distancia: 2
+	\item copy\_X: ``true''
+	\item fit\_intercept: ``true''
 \end{itemize}
+
+Esta media no es suficiente para afirmar que el modelo predictivo funciona. Para ello necesitaríamos una media mayor. Intuitivamente, una regresión lineal nunca sería capaz de proporcionarnos una buena predicción, ya que nuestros datos no son lineales. Ver figura \ref{modelo_verano}.
+
+La segunda prueba se realizó con redes neuronales. Como este algoritmo es un clasificador ha sido necesario ``mapear'' las predicciones en distintas clases. Debido a que estos datos han sido normalizados, es sencillo clasificarlos en 100 clases [0, 100]. La intención de estas clases no es tanto acertar la cantidad de radiación sino proporcionar un rango en la que se encontrará.
+
+\begin{figure}[htb]
+	\begin{center}
+		\includegraphics[width=14cm]{figures/resultado_mlp.png}
+		\caption{Resultado redes neuronales \label{resultado_mlp}}
+	\end{center}
+\end{figure}
+
+Una vez realizadas las pruebas, se observa que la media es muy baja,0.539901 en el mejor caso. Descartamos utilizar estos modelos de redes neuronales en nuestro proyecto.
+
+Como futura vía de estudio se plantea volver a realizar este entrenamiento replanteando los parámetros y el ``mapeo'' de las clases.
+
+Finalmente, hemos elegido el modelo SVR con las configuraciones siguientes:
+
+\begin{itemize}
+	\item k: 4
+	\item distancia: 2
+	\item kernel: ``rbf''
+	\item C: 1000
+	\item gamma: 0.001
+\end{itemize}
+
+\begin{figure}[htb]
+	\begin{center}
+		\includegraphics[width=16cm]{figures/resultado_elegido.png}
+		\caption{Resultado elegido \label{resultado_elegido}}
+	\end{center}
+\end{figure}
+
+Aunque no es el modelo con más media ni menos error, es de los más equilibrados. Esta configuración obtiene una media de acierto de 0.901516, distanciándose en 0.008493 de la media máxima conseguida. Su error es de 0.000330. Además se intuye que SVR debería ser el modelo que mejor se ajuste. Por lo que en un futuro estudio que busque mejorar esta predicción, sería un buen punto de partida.
+
+\section{Calidad del código}
+\label{makereference7.1}
+
+Una vez acabado el código del proyecto, decidimos certificar su calidad mediante \href{https://www.codacy.com}{Codacy}.
+Codacy es una herramienta que proporciona nuestro controlador de versiones GitHub. Sencillamente revisa todas y cada una de las líneas del código, para hacerlo más sencillo, escalable y seguro. Genera un informe con los errores y te dice qué grado de calidad tiene, siendo A el más alto. (\cite{ARP:Codacy:2017})
+
+\begin{figure}[htb]
+	\begin{center}
+		\includegraphics[height=3.5in]{figures/codacy.png}
+		\caption{Informe de nuestro proyecto [Fuente: \href{https://www.codacy.com}{Codacy}] \label{codacy}}
+	\end{center}
+\end{figure}

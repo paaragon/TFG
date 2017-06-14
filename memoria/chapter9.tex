@@ -1,67 +1,31 @@
 \cleardoublepage
 
-\chapter{Trabajo del Alumno}
+\chapter{Conclusiones}
 \label{makereference9}
 
-\section{Pablo Aragón Moreno}
-\subsection{Investigación}
-\subsection{Desarrollo}
-\subsection{Documentación}
+\section{Estado del proyecto}
 
-
-\section{María Castañeda López}
-\subsection{Investigación}
-\subsection{Desarrollo}
-\subsection{Documentación}
-
-
-\section{Abel Coronado López}
-\subsection{Investigación}
-
-Durante la fase inicial del proyecto, Abel Coronado López se encargó de la investigación de las distintas tecnologías para desarrollar ``Machine Learning'' que se encontraban actualmente en el ``mercado'' y seleccionar cuál era la que mejor le venía al proyecto, y cuáles eran los motivos por los que había escogido la tecnología.
-
-En un principio, la tecnología a utilizar sería MATLAB, pero, después de la investigación previa, se descubrió que Python también tiene una gran potencia en este sector. Python cuenta con un gran abanico de librerías para trabajar con grandes cantidades de datos, análisis científico, inteligencia artificial... Cuenta también con distribuciones que ya incluyen gran cantidad de estas librerías para poder hacer uso de ellas sin necesidad de instalarlas una a una como ``Anaconda''. Además, junto con la facilidad de programar en este lenguaje y la experiencia previa de los componentes del grupo con él, hizo que esta fuera la elección final.
-
-Tras tener elegida la tecnología con la que desarrollar el proyecto, Abel Coronado López, investigó distintos algoritmos matemáticos para el ``Machine Learning'' y cómo poder implementarlos.
-
-Hizo uso de cursos online, como por ejemplo \href{https://www.udacity.com}{Udacity}, y se valió de tutoriales básicos de ``Machine Learning'' en \href{https://www.youtube.com}{YouTube} para coger una idea básica de este nuevo paradigma emergente.
-
-Con una idea más clara de los objetivos del proyecto y de cómo implementarlos, el alumno estudió pequeños problemas resueltos relacionados con la IA propuestos en Intenet:
-
+Los hitos que hemos conseguido desarrollar con éxito son:
 \begin{itemize}
-\item Desastre del Titanic
-\item Investigación de la diabetes
-\item Predicción del divorcio
+\item Montar un sistema de recogida de datos. Un nodo muy sencillo de replicar y que fácilmente podría trabajar en una red de estos. Gracias al protocolo MQTT que permite muchos ``publicadores'' y a que a la hora del entrenamiento se ha tenido en cuenta el identificador del nodo con el que se ha trabajado, se podría añadir al estudio los datos recogidos por múltiples nodos a lo largo de una extensión de terreno.
+
+\item Sistema de entrenamiento de datos. El software desarrollado para la obtención y tratamiento de los datos para el entrenamiento permite obtener conjuntos de datos de forma parametrizada. De esta forma, en una posible continuación del proyecto, sería muy sencillo generar sus propios conjuntos de datos para el entrenamiento. Además se han explorado ciertos modelos predictivos que, aún sin mucho éxito, no haría falta volver a estudiar con nuestros parámetros.
+
+\item Sistema de predicción. Aunque no se haya conseguido un modelo de predicción óptimo, sí se ha desarrollado el sistema que recibe los datos recogidos y utiliza el modelo elegido para realizar una predicción. Además, debido a la modularidad de nuestro sistema, es muy sencillo implementar nuevos modelos de predicción.
 \end{itemize}
 
-Cuando la fase de estudio de los algoritmos concluyó, el alumno, junto al resto de componentes del equipo, generó una lista de posibles algoritmos para utilizar en el proyecto: 
+Cada uno de los componentes del sistema se ha desarrollado pensando en una posible futura sustitución o mejora. Asi, cada componente es autónomo y fácilmente reemplazable por otro que respete la interfaz de comunicación. Esto permite que las posibles carencias puedan ser solventadas sin la necesidad de alterar el resto de componentes.
 
+Este proyecto deja un margen de mejora sobre los requisitos iniciales:
 \begin{itemize}
-\item Regresión Lineal
-\item SVM
-\item Clasificador
+\item Modelo predictivo. No se ha logrado obtener una predicción suficiente como para poder llevar este sistema a un entorno real. Una de las posibles mejoras sería estudiar otros modelos y parámetros.
+
+\item Sistema de visualización. Debido a la falta de tiempo para tomar muestras del nodo, no se ha podido pulir este componente. La información que muestra no aparece de una forma clara. Sin embargo, sí recibe y almacena los datos necesarios y en un futuro sólo sería necesario corregir el fragmento de código que transforma los datos crudos en gráficas representativas.
 \end{itemize}
 
-Esta lista iría cambiando según avanzara el proyecto debido a diversos factores:
+\section{Posibles ampliaciones}
+Desde un primer momento, se tenía como una posible ampliación formar una red de nodos para la recogida de muestras. Se ha empezado por desarrollar uno para no ampliar la complejidad del proyecto.
 
-\begin{itemize}
-\item Poca documentación
-\item Problemas de implementación
-\item Malos resultados
-\end{itemize}
+Se intuye que dentro del modelo predictivo, podría ser interesante disponer de muestras desde distintos puntos de un territorio. Quizá esto podría permitir inferir al modelo predictivo cambios en las condiciones meteorológicas en un nodo a partir de las recogidas por otro.
 
-En esta fase de investigación, se descubrió un método de estudio para automatizar las pruebas y hacer más viable la experimentación de modelos y parámetros usados en el ``Machine Learning'': Grid Search \ref{makereference4.3}.
-
-\subsection{Desarrollo}
-Con la fase de investigación finalizada, Abel Coronado López, junto con el resto de compañeros, empezaron con el desarrollo e implementación de estos algoritmos en el proyecto.
-
-Gracias a Grid Seach este trabajo fue mucho más viable y cómodo.
-
-Se desarrolló una plantilla que usa Grid Search para abstraer los modelos y parámetros a explorar. De esta manera, la fase de entrenamiento sería configurable mediante archivos ``JSON''. El alumno desarrolló dichos ficheros explicados previamente. Ver figura \ref{json}.
-
-Una vez finalizada la fase de entrenamiento con distintos modelos y configuraciones, el equipo eligió el algoritmo que mejor precisión de predicción tiene para nuestro contexto.
-
-\subsection{Documentación}
-Durante todos los procesos anteriormente descritos, el alumno Abel Coronado López documentó todo lo relacionado con las tecnologías investigadas y utilizadas por el sistema en una carpeta compartida por el equipo de desarrollo del proyecto, y en Github. Esta documentación consistía en comentar todo lo que se iba desarrollando e investigando, de forma que los demás compañeros, si querían introducirse en esa parte del sistema, únicamente tendrían que leer dónde y cómo se hizo.
-
-En la fase final del proyecto, el alumno ha documentado todo el sistema relacionado con la predicción para que este fuese introducido en la memoria del proyecto, también a aportado en otras secciones como la introducción, el nodo, etc...
+Por último, otra posible ampliación, sería estudiar el modelo de predicción \href{https://www.analyticsvidhya.com/blog/2016/02/time-series-forecasting-codes-python/}{ARIMA}. Que hace uso de regresión lineal teniendo en cuenta valores pasados.

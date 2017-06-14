@@ -1,111 +1,42 @@
 \cleardoublepage
 
-\chapter{Resultados}
+\chapter{Predicción y visualización}
 \label{makereference6}
 
-Los resultados de este apartado se basan en la exploración tipo Grid descrita en el apartado anterior. Los datos utilizados en esta exploración han sido los proporcionados por InfoRiego entre el 1 de enero de 2015 hasta el 31 de diciembre del 2015.
+\section{Servidor de predicción}
 
-Para llevar a cabo el entrenamiento anterior, y poder obtener una métrica con la que evaluarlo, es necesario realizar una división del conjunto de datos en dos para cada prueba. Un conjunto para entrenar el modelo y otro para comprobar la precisión de este. Es importante que estos dos conjuntos sean complementarios ya que el modelo entrenado no debe conocer ningún dato del conjunto de test o el entrenamiento se vería alterado por conocer de antemano los datos a predecir.
+Aunque este servidor sea un componente autónomo del sistema puede estar alojado en la misma máquina que el servidor de datos. Aún así, la comunicación con este se hará a través de un cliente MQTT \ref{makereference4.2} para facilitar la posibilidad de distribuir el sistema en otra topología.
 
-El tamaño de cada conjunto es también un hecho relevante ya que con un conjunto de datos muy pequeño para el entrenamiento, la predicción sería dificilmente alcanzable con éxito y con un conjunto muy grande, habría pocos datos para probar que el modelo es fiable. Una división típica es dividir el conjunto de datos en 70/30, es decir, 70\% de los datos para entrenamiento y 30\% para comprobación. En este se ha utilizado una división 25/75 que es la utilizada por defecto por el g grid search de SciKitLean.
+El cliente MQTT estará escuchando continuamente al ``broker'', y en el momento en el que reciba datos, los guardará en un registro diario. Ver figura \ref{log}.
 
-Para poder analizar los resultados, la prueba anterior proporciona distintas métricas para medir la calidad del modelo. La implementación de GridSearch utilizada (librería de SciKitLearn) pretende dar una misma interfaz para utilizar esta técnica con distintos algoritmos, por lo tanto, los resultados que se obtienen con ellos también tienen una misma forma de nombrar las métricas para todos.
+	\begin{figure}[htb]
+		\begin{center}
+			\includegraphics[width=13cm]{figures/log.png}
+			\caption{Log del servidor \label{log}}
+		\end{center}
+	\end{figure}
 
-Sin embargo, aunque en los ficheros de resultados aparezcan los mismos nombres para medir los resultados, el significado de estos es distinto dependiendo del modelo seleccionado. En los distintos apartados dedicados a cada uno de estos modelos se explicará el significado de sus métricas.
+El resultado del entrenamiento del modelo predictivo escogido durante la fase de entrenamiento, ha sido exportado y guardado en este servidor. De esta forma, a la hora de predecir recuperamos este entrenamiento y evitamos volver a realizarlo.
 
-Junto con las métricas de calidad del modelo entrenado aparecen los parámetros necesarios para obtener dicho modelo. Tanto los parámetros específicos de cada modelo como el número de instantes anteriores utilizados (``k'') o la distancia a la predicción.
+Una vez obtenida la predicción esta es enviada, junto con el resto de datos que recibió el servidor, a nuestro sistema de visualización. 
 
-A la distancia a la predicción la llamaremos ``horizonte de predicción'' y especifica la diferencia entre la hora a la que se realiza la predicción y la hora a la que se quiere predecir entre el intervalo de medida (30 minutos para estos datos). Aunque se haya probado con varios horizontes, el que más nos interesa es ``2'' que indica una predicción a una hora.
+\section{Sistema de visualización}
 
-Se han rea1alizado tres conjuntos de pruebas, una por cada algoritmo predictivo estudiado. A continuación se analizan los resultados para cada uno de estos algoritmos.
-
-\section{Regresión Lineal}
-\label{makereference6.1}
-
-\begin{figure}[htb]
-	\begin{center}
-		\includegraphics[width=14cm]{figures/resultado_linear.png}
-		\caption{Resultado Regresión Lineal \label{resultado_linear}}
-	\end{center}
-\end{figure}
-
-De los resultados obtenidos para este algoritmo mostrados en la figura \ref{resultado_linear}, la columna ``mean'' nos indican el \(R^{2}\) obtenido. \(R^{2}\) es el coeficiente de correlación y, en regresión lineal, es el cuadrado del \textit{coeficiente de correlación de Pearson}. Se calcula dividiendo el cuadrado de la covarianza del conjunto de datos reales y los predichos entre el producto de los cuadrados de la desviación típica de cada conjunto. Expresa la calidad de la predicción del modelo entre 0 y 1.
-
-Los datos se muestran ordenador por la columna ``mean'' siendo así el primero de estos registros el que más coeficiente de correlación obtiene.
-
-\section{SVR}
-\label{makereference6.2}
-
-Para SVR se utiliza la misma métrica que la vista en el apartado anterior. Esto es porque ambas son regresiones y esta es muy utilizada en ese caso.
-
-\section{Redes Neuronales}
-\label{makereference6.3}
-
-En este caso, la métrica utilizada para determinar la calidad del modelo ha sido ``accuracy'' (en español, exactitud). Es una métrica muy utilizada en clasificadores que indica el porcentaje de predicciones clasificadas correctamente.
-
-Después de realizar la exploración de los parámetros de los distintos algoritmos de predicción explicados anteriormente (capítulo \ref{makereference4}), hemos obtenido varias métricas de cada uno de ellos.
-
-\begin{itemize}
-	\item Media
-	\item Desviación estándar
-\end{itemize}
-
-Estas dos variables son las que nos dan la información necesaria para decantarnos por un modelo u otro. Buscamos aquella configuración de los parámetros que maximice la media y minimice el error.
-
-La primera prueba que se realizó fue con algoritmos de regresión lineal y SVR.
-
-De todos los resultados obtenidos, el que mayor media proporciona es un modelo realizado con Regresión Lineal, que obtiene una media de 0.910009 y un error de 0.003789. Su configuración es la siguiente:
-
-\begin{itemize}
-	\item k: 5
-	\item distancia: 2
-	\item copy\_X: ``true''
-	\item fit\_intercept: ``true''
-\end{itemize}
-
-Esta media no es suficiente para afirmar que el modelo predictivo funciona. Para ello necesitaríamos una media mayor. Intuitivamente, una regresión lineal nunca sería capaz de proporcionarnos una buena predicción, ya que nuestros datos no son lineales. Ver figura \ref{modelo_verano}.
-
-La segunda prueba se realizó con redes neuronales. Como este algoritmo es un clasificador ha sido necesario ``mapear'' las predicciones en distintas clases. Debido a que estos datos han sido normalizados, es sencillo clasificarlos en 100 clases [0, 100]. La intención de estas clases no es tanto acertar la cantidad de radiación sino proporcionar un rango en la que se encontrará.
+Existen distintos sistemas disponibles en el mercado (IoTDataViz, FreeBoard, IBMBlumix...), o incluso podríamos desarrollar uno propio, pero nos hemos decantado por \href{https://thingspeak.com/}{ThinkSpeak}.
 
 \begin{figure}[htb]
 	\begin{center}
-		\includegraphics[width=14cm]{figures/resultado_mlp.png}
-		\caption{Resultado redes neuronales \label{resultado_mlp}}
+		\includegraphics[width=13cm]{figures/ts.png}
+		\caption{Gráfica ThingSpeak \label{ts}}
 	\end{center}
 \end{figure}
 
-Una vez realizadas las pruebas, se observa que la media es muy baja,0.539901 en el mejor caso. Descartamos utilizar estos modelos de redes neuronales en nuestro proyecto.
+ThinkSpeak es una plataforma online orientada al ``Internet de las cosas'' (IoT) pensada para almacenar y realizar un seguimiento de los datos obtenidos por distintas aplicaciones.
 
-Como futura vía de estudio se plantea volver a realizar este entrenamiento replanteando los parámetros y el ``mapeo'' de las clases.
+Una de sus principales ventajas es que los datos recibidos puedes ser procesados por scripts propios implementados en \href{https://es.mathworks.com/products/matlab.html}{MATLAB}. Permitiendo así una observación y manipulación de los datos más personalizada. También cuenta con la ventaja de ser gratuita.
 
-Finalmente, hemos elegido el modelo SVR con las configuraciones siguientes:
+Actualmente, la comunicación con ThinkSpeak se puede realizar nativamente a través de MQTT, sin embargo en el momento de desarrollar la comunicación entre nuestro sistema y este, no contaba con esta característica.
 
-\begin{itemize}
-	\item k: 4
-	\item distancia: 2
-	\item kernel: ``rbf''
-	\item C: 1000
-	\item gamma: 0.001
-\end{itemize}
+La manera que proporcionaba ThinkSpeak para esta comunicación era a través de \href{https://es.wikipedia.org/wiki/Hypertext_Transfer_Protocol}{HTTP} a través de una API REST. La ventaja que tiene esto, es que cualquier lenguaje que soporte manejo de peticiones HTTP, puede comunicarse con él, permitiéndonos así construir un sistema más modular.
 
-\begin{figure}[htb]
-	\begin{center}
-		\includegraphics[width=16cm]{figures/resultado_elegido.png}
-		\caption{Resultado elegido \label{resultado_elegido}}
-	\end{center}
-\end{figure}
-
-Aunque no es el modelo con más media ni menos error, es de los más equilibrados. Esta configuración obtiene una media de acierto de 0.901516, distanciándose en 0.008493 de la media máxima conseguida. Su error es de 0.000330. Además se intuye que SVR debería ser el modelo que mejor se ajuste. Por lo que en un futuro estudio que busque mejorar esta predicción, sería un buen punto de partida.
-
-\section{Calidad del código}
-\label{makereference6.4}
-
-Una vez acabado el código del proyecto, decidimos certificar su calidad mediante \href{https://www.codacy.com}{Codacy}.
-Codacy es una herramienta que proporciona nuestro controlador de versiones GitHub. Sencillamente revisa todas y cada una de las líneas del código, para hacerlo más sencillo, escalable y seguro. Genera un informe con los errores y te dice qué grado de calidad tiene, siendo A el más alto. (\cite{ARP:Codacy:2017})
-
-\begin{figure}[htb]
-	\begin{center}
-		\includegraphics[height=3.5in]{figures/codacy.png}
-		\caption{Informe de nuestro proyecto [Fuente: \href{https://www.codacy.com}{Codacy}] \label{codacy}}
-	\end{center}
-\end{figure}
+Para realizar el envío de datos a través de esta API, basta con realizar una petición HTTP POST que lleve en el ``body'' (cuerpo de la petición) un campo ``key'' con la clave proporcionada por el servicio y los datos que queremos visualizar.

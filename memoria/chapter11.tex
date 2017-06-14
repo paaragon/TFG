@@ -1,0 +1,93 @@
+\cleardoublepage
+
+\chapter{Trabajo del Alumno}
+\label{makereference11}
+
+\section{Pablo Aragón Moreno}
+\subsection{Investigación}
+\subsection{Desarrollo}
+\subsection{Documentación}
+
+
+\section{María Castañeda López}
+\subsection{Investigación}
+
+Al comenzar el proyecto, Maria Castañeda López se estuvo informando de algunos protocolos para poder recoger, almacenar y visualizar los datos que provinieran del nodo(CoAP, MQTT o AMQP). En especial investigó MQTT, muy utilizado en la comunicación máquina a máquina, muy simple. Aunque María Castañeda López y sus compañeros se informaron sobre otras alternativas, MQTT y el servidor Mosquitto fue el elegido, principalmente porque este fue el recomendado por sus tutores. 
+
+Otra parte importante que Maria Castañeda López tuvo que investigar al principio del proyecto fue la manera en la que el nodo se comunicaba con MQTT. Como Raspberry 3 incluye un modulo de Wi-Fi, esta fue la tecnología que decidió utilizar. Se estudiaron otras alternativas como Lora pero aunque María Castañeda López y sus compañeros sabían  que la elegida no era la que menos recursos utilizaba y como era solo un prototipo decidimos no preocuparnos si era la opción más optima o no y preocuparnos más por su sencillez en la implementación.
+
+En la otra parte del protocolo MQTT teníamos el servidor de predicción cuya comunicación se decidió hacer también mediante el cliente MQTT y utilizar un módulo denominado Bridge para poder mandar los resultados de nuestra predicción al sistema de visualización.
+
+Con respecto al sistema de visualización María Castañeda López estudió los sistemas disponibles en este momento en el mercado como por ejemplo: FreeBoard o IoTDataViz o uno desarrollado por ellos mismos. Pero María Castañeda López y sus compañeros decidieron una vez más hacer caso a las recomendaciones de sus tutores y utilizar ThinkSpeak además de por ser gratuita y poder manipular los datos de una manera mas personalizada. 
+
+
+\subsection{Desarrollo}
+
+Una vez que Maria Castañeda López terminó el trabajo de investigación, ella y sus compañeros desarrollaron una serie de scripts.
+
+Uno de los scripts se encarga de la comunicación del Nodo con MQTT mediante la librería paho-mqtt, que facilitó mucho las cosas.
+Además María Castañeda López y sus compañeros decidieron crear dos logs, uno en el nodo y otro en el servidor de datos.
+
+El log del nodo almacena para no perder los datos, en forma de registros y en archivos diarios. Como el cliente MQTT está escuchando continuamente, en cuanto reciba los datos, los guardara en dicho log.
+
+Y por otro lado el log del servidor de datos guarda las conexión con este, para saber si la conexión se realizó con éxito o no.
+
+\subsection{Documentación}
+
+La alumna María Castañeda López, fue recopilando documentación sobre los protocolos y tecnologías investigadas para poder desarrollar su trabajo durante todo el proyecto. Y al igual que el resto de sus compañeros almacenó dicha información en una carpeta compartida por el equipo de desarrollo del proyecto y en Github. De está manera podían tener tanto ella como el resto de sus compañeros, la documentación, problemas, comentarios o dudas de manera fácil y directa. 
+
+María Castañeda López se ha encargado de redactar en este documento todo lo relacionado con su parte de la investigación y del desarrollo, además de aportar su ayuda junto a la del resto de sus compañeros en otros capítulos de este documento.
+
+
+
+
+\section{Abel Coronado López}
+\subsection{Investigación}
+
+Durante la fase inicial del proyecto, Abel Coronado López se encargó de la investigación de las distintas tecnologías para desarrollar ``Machine Learning'' que se encontraban actualmente en el ``mercado'' y seleccionar cuál era la que mejor le venía al proyecto, y cuáles eran los motivos por los que había escogido la tecnología.
+
+En un principio, la tecnología a utilizar sería MATLAB, pero, después de la investigación previa, se descubrió que Python también tiene una gran potencia en este sector. Python cuenta con un gran abanico de librerías para trabajar con grandes cantidades de datos, análisis científico, inteligencia artificial... Cuenta también con distribuciones que ya incluyen gran cantidad de estas librerías para poder hacer uso de ellas sin necesidad de instalarlas una a una como ``Anaconda''. Además, junto con la facilidad de programar en este lenguaje y la experiencia previa de los componentes del grupo con él, hizo que esta fuera la elección final.
+
+Tras tener elegida la tecnología con la que desarrollar el proyecto, Abel Coronado López, investigó distintos algoritmos matemáticos para el ``Machine Learning'' y cómo poder implementarlos.
+
+Hizo uso de cursos online, como por ejemplo \href{https://www.udacity.com}{Udacity}, y se valió de tutoriales básicos de ``Machine Learning'' en \href{https://www.youtube.com}{YouTube} para coger una idea básica de este nuevo paradigma emergente.
+
+Con una idea más clara de los objetivos del proyecto y de cómo implementarlos, el alumno estudió pequeños problemas resueltos relacionados con la IA propuestos en Intenet:
+
+\begin{itemize}
+\item Desastre del Titanic
+\item Investigación de la diabetes
+\item Predicción del divorcio
+\end{itemize}
+
+Cuando la fase de estudio de los algoritmos concluyó, el alumno, junto al resto de componentes del equipo, generó una lista de posibles algoritmos para utilizar en el proyecto: 
+
+\begin{itemize}
+\item Regresión Lineal
+\item SVM
+\item Clasificador
+\end{itemize}
+
+Esta lista iría cambiando según avanzara el proyecto debido a diversos factores:
+
+\begin{itemize}
+\item Poca documentación
+\item Problemas de implementación
+\item Malos resultados
+\end{itemize}
+
+En esta fase de investigación, se descubrió un método de estudio para automatizar las pruebas y hacer más viable la experimentación de modelos y parámetros usados en el ``Machine Learning'': Grid Search \ref{makereference5.3}.
+
+\subsection{Desarrollo}
+Con la fase de investigación finalizada, Abel Coronado López, junto con el resto de compañeros, empezaron con el desarrollo e implementación de estos algoritmos en el proyecto.
+
+Gracias a Grid Seach este trabajo fue mucho más viable y cómodo.
+
+Se desarrolló una plantilla que usa Grid Search para abstraer los modelos y parámetros a explorar. De esta manera, la fase de entrenamiento sería configurable mediante archivos ``JSON''. El alumno desarrolló dichos ficheros explicados previamente. Ver figura \ref{json}.
+
+Una vez finalizada la fase de entrenamiento con distintos modelos y configuraciones, el equipo eligió el algoritmo que mejor precisión de predicción tiene para nuestro contexto.
+
+\subsection{Documentación}
+Durante todos los procesos anteriormente descritos, el alumno Abel Coronado López documentó todo lo relacionado con las tecnologías investigadas y utilizadas por el sistema en una carpeta compartida por el equipo de desarrollo del proyecto, y en Github. Esta documentación consistía en comentar todo lo que se iba desarrollando e investigando, de forma que los demás compañeros, si querían introducirse en esa parte del sistema, únicamente tendrían que leer dónde y cómo se hizo.
+
+En la fase final del proyecto, el alumno ha documentado todo el sistema relacionado con la predicción para que este fuese introducido en la memoria del proyecto, también a aportado en otras secciones como la introducción, el nodo, etc...
