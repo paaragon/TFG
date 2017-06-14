@@ -3,6 +3,46 @@
 \chapter{Resultados}
 \label{makereference6}
 
+Los resultados de este apartado se basan en la exploración tipo Grid descrita en el apartado anterior. Los datos utilizados en esta exploración han sido los proporcionados por InfoRiego entre el 1 de enero de 2015 hasta el 31 de diciembre del 2015.
+
+Para llevar a cabo el entrenamiento anterior, y poder obtener una métrica con la que evaluarlo, es necesario realizar una división del conjunto de datos en dos para cada prueba. Un conjunto para entrenar el modelo y otro para comprobar la precisión de este. Es importante que estos dos conjuntos sean complementarios ya que el modelo entrenado no debe conocer ningún dato del conjunto de test o el entrenamiento se vería alterado por conocer de antemano los datos a predecir.
+
+El tamaño de cada conjunto es también un hecho relevante ya que con un conjunto de datos muy pequeño para el entrenamiento, la predicción sería dificilmente alcanzable con éxito y con un conjunto muy grande, habría pocos datos para probar que el modelo es fiable. Una división típica es dividir el conjunto de datos en 70/30, es decir, 70\% de los datos para entrenamiento y 30\% para comprobación. En este se ha utilizado una división 25/75 que es la utilizada por defecto por el g grid search de SciKitLean.
+
+Para poder analizar los resultados, la prueba anterior proporciona distintas métricas para medir la calidad del modelo. La implementación de GridSearch utilizada (librería de SciKitLearn) pretende dar una misma interfaz para utilizar esta técnica con distintos algoritmos, por lo tanto, los resultados que se obtienen con ellos también tienen una misma forma de nombrar las métricas para todos.
+
+Sin embargo, aunque en los ficheros de resultados aparezcan los mismos nombres para medir los resultados, el significado de estos es distinto dependiendo del modelo seleccionado. En los distintos apartados dedicados a cada uno de estos modelos se explicará el significado de sus métricas.
+
+Junto con las métricas de calidad del modelo entrenado aparecen los parámetros necesarios para obtener dicho modelo. Tanto los parámetros específicos de cada modelo como el número de instantes anteriores utilizados (``k'') o la distancia a la predicción.
+
+A la distancia a la predicción la llamaremos ``horizonte de predicción'' y especifica la diferencia entre la hora a la que se realiza la predicción y la hora a la que se quiere predecir entre el intervalo de medida (30 minutos para estos datos). Aunque se haya probado con varios horizontes, el que más nos interesa es ``2'' que indica una predicción a una hora.
+
+Se han rea1alizado tres conjuntos de pruebas, una por cada algoritmo predictivo estudiado. A continuación se analizan los resultados para cada uno de estos algoritmos.
+
+\section{Regresión Lineal}
+\label{makereference6.1}
+
+\begin{figure}[htb]
+	\begin{center}
+		\includegraphics[width=14cm]{figures/resultado_linear.png}
+		\caption{Resultado Regresión Lineal \label{resultado_linear}}
+	\end{center}
+\end{figure}
+
+De los resultados obtenidos para este algoritmo mostrados en la figura \ref{resultado_linear}, la columna ``mean'' nos indican el \(R^{2}\) obtenido. \(R^{2}\) es el coeficiente de correlación y, en regresión lineal, es el cuadrado del \textit{coeficiente de correlación de Pearson}. Se calcula dividiendo el cuadrado de la covarianza del conjunto de datos reales y los predichos entre el producto de los cuadrados de la desviación típica de cada conjunto. Expresa la calidad de la predicción del modelo entre 0 y 1.
+
+Los datos se muestran ordenador por la columna ``mean'' siendo así el primero de estos registros el que más coeficiente de correlación obtiene.
+
+\section{SVR}
+\label{makereference6.2}
+
+Para SVR se utiliza la misma métrica que la vista en el apartado anterior. Esto es porque ambas son regresiones y esta es muy utilizada en ese caso.
+
+\section{Redes Neuronales}
+\label{makereference6.3}
+
+En este caso, la métrica utilizada para determinar la calidad del modelo ha sido ``accuracy'' (en español, exactitud). Es una métrica muy utilizada en clasificadores que indica el porcentaje de predicciones clasificadas correctamente.
+
 Después de realizar la exploración de los parámetros de los distintos algoritmos de predicción explicados anteriormente (capítulo \ref{makereference4}), hemos obtenido varias métricas de cada uno de ellos.
 
 \begin{itemize}
@@ -58,7 +98,7 @@ Finalmente, hemos elegido el modelo SVR con las configuraciones siguientes:
 Aunque no es el modelo con más media ni menos error, es de los más equilibrados. Esta configuración obtiene una media de acierto de 0.901516, distanciándose en 0.008493 de la media máxima conseguida. Su error es de 0.000330. Además se intuye que SVR debería ser el modelo que mejor se ajuste. Por lo que en un futuro estudio que busque mejorar esta predicción, sería un buen punto de partida.
 
 \section{Calidad del código}
-\label{makereference6.3}
+\label{makereference6.4}
 
 Una vez acabado el código del proyecto, decidimos certificar su calidad mediante \href{https://www.codacy.com}{Codacy}.
 Codacy es una herramienta que proporciona nuestro controlador de versiones GitHub. Sencillamente revisa todas y cada una de las líneas del código, para hacerlo más sencillo, escalable y seguro. Genera un informe con los errores y te dice qué grado de calidad tiene, siendo A el más alto. (\cite{ARP:Codacy:2017})

@@ -61,8 +61,9 @@ def createCSVWithConditions(sourceFolder, destinationFolder=None, cond=dict(), v
         if len(csvFiles) == 0:
             i += 1
             print '\nNo csv Files found. Downloading.\n'
+            csvPath = os.path.join(destinationFolder, 'zipFiles')
             dm.generateCsv(
-                conditions['dateStart'], conditions['dateEnd'], '../data/zipFiles', sourceFolder)
+                conditions['dateStart'], conditions['dateEnd'], csvPath, sourceFolder)
 
     if len(csvFiles) == 0:
         print 'No csv Files found. Downloading FAILED.'
