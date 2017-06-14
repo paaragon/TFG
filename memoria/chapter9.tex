@@ -1,32 +1,31 @@
 \cleardoublepage
 
-\chapter{Conclusions}
+\chapter{Conclusiones}
 \label{makereference9}
 
-\section{Project status}
+\section{Estado del proyecto}
 
-The milestones we have successfully developed are:
+Los hitos que hemos conseguido desarrollar con éxito son:
 \begin{itemize}
-\item Set up a data collection system. A very simple node to replicate and it could easily work on a network of these. Thanks to the MQTT protocol that allows many publishers since at the time of the training, the identifier of the node with which it was worked was taken into account, the data collected by multiple nodes could be added to the study. An extension of land.
+\item Montar un sistema de recogida de datos. Un nodo muy sencillo de replicar y que fácilmente podría trabajar en una red de estos. Gracias al protocolo MQTT que permite muchos ``publicadores'' y a que a la hora del entrenamiento se ha tenido en cuenta el identificador del nodo con el que se ha trabajado, se podría añadir al estudio los datos recogidos por múltiples nodos a lo largo de una extensión de terreno.
 
-\item Data training system. The software developed for obtaining and processing data for training allows to obtain data sets in a parameterized way. In this way, in a possible continuation of the project, it would be very easy to generate their own data sets for training. In addition, we have explored certain predictive models that, even without much success, would not need to re-study with our parameters.
+\item Sistema de entrenamiento de datos. El software desarrollado para la obtención y tratamiento de los datos para el entrenamiento permite obtener conjuntos de datos de forma parametrizada. De esta forma, en una posible continuación del proyecto, sería muy sencillo generar sus propios conjuntos de datos para el entrenamiento. Además se han explorado ciertos modelos predictivos que, aún sin mucho éxito, no haría falta volver a estudiar con nuestros parámetros.
 
-\item Prediction system. Although an optimal prediction model has not been achieved, the system that receives the collected data has been developed and uses the model chosen to make a prediction. In addition, due to the modularity of our system, it is very easy to implement new prediction models.
+\item Sistema de predicción. Aunque no se haya conseguido un modelo de predicción óptimo, sí se ha desarrollado el sistema que recibe los datos recogidos y utiliza el modelo elegido para realizar una predicción. Además, debido a la modularidad de nuestro sistema, es muy sencillo implementar nuevos modelos de predicción.
 \end{itemize}
 
-Each of the components of the system has been developed with a possible future replacement or improvement. Thus, each component is autonomous and easily replaceable by another that respects the communication interface. This allows that the possible deficiencies can be solved without the necessity to alter the rest of components.
+Cada uno de los componentes del sistema se ha desarrollado pensando en una posible futura sustitución o mejora. Asi, cada componente es autónomo y fácilmente reemplazable por otro que respete la interfaz de comunicación. Esto permite que las posibles carencias puedan ser solventadas sin la necesidad de alterar el resto de componentes.
 
-This project leaves a margin of improvement over the initial requirements:
-
+Este proyecto deja un margen de mejora sobre los requisitos iniciales:
 \begin{itemize}
-\item Predictive model. It has not been possible to obtain a prediction sufficient to be able to take this system to a real environment. One of the possible improvements would be to study other models and parameters.
+\item Modelo predictivo. No se ha logrado obtener una predicción suficiente como para poder llevar este sistema a un entorno real. Una de las posibles mejoras sería estudiar otros modelos y parámetros.
 
-\item Display system. Due to the lack of time to sample the node, this component could not be polished. The information shown does not appear clearly. However, it does receive and store the necessary data and in the future it would only be necessary to correct the piece of code that transforms raw data into representative charts.
+\item Sistema de visualización. Debido a la falta de tiempo para tomar muestras del nodo, no se ha podido pulir este componente. La información que muestra no aparece de una forma clara. Sin embargo, sí recibe y almacena los datos necesarios y en un futuro sólo sería necesario corregir el fragmento de código que transforma los datos crudos en gráficas representativas.
 \end{itemize}
 
-\section{Possible extensions}
-From the outset, it was possible to form a network of nodes for the collection of samples. It has begun to develop one so as not to expand the complexity of the project.
+\section{Posibles ampliaciones}
+Desde un primer momento, se tenía como una posible ampliación formar una red de nodos para la recogida de muestras. Se ha empezado por desarrollar uno para no ampliar la complejidad del proyecto.
 
-It is intuited that within the predictive model, it could be interesting to have samples from different points of a territory. Perhaps this could allow to infer to the predictive model changes in the meteorological conditions in a node from those collected by another.
+Se intuye que dentro del modelo predictivo, podría ser interesante disponer de muestras desde distintos puntos de un territorio. Quizá esto podría permitir inferir al modelo predictivo cambios en las condiciones meteorológicas en un nodo a partir de las recogidas por otro.
 
-Finally, another possible extension would be to study the prediction model \href{https://www.analyticsvidhya.com/blog/2016/02/time-series-forecasting-codes-python/}{ARIMA}. It makes use of linear regression taking into account past values.
+Por último, otra posible ampliación, sería estudiar el modelo de predicción \href{https://www.analyticsvidhya.com/blog/2016/02/time-series-forecasting-codes-python/}{ARIMA}. Que hace uso de regresión lineal teniendo en cuenta valores pasados.

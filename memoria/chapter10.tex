@@ -1,67 +1,32 @@
 \cleardoublepage
 
-\chapter{Trabajo del Alumno}
+\chapter{Conclusions}
 \label{makereference10}
 
-\section{Pablo Aragón Moreno}
-\subsection{Investigación}
-\subsection{Desarrollo}
-\subsection{Documentación}
+\section{Project status}
 
-
-\section{María Castañeda López}
-\subsection{Investigación}
-\subsection{Desarrollo}
-\subsection{Documentación}
-
-
-\section{Abel Coronado López}
-\subsection{Investigación}
-
-Durante la fase inicial del proyecto, Abel Coronado López se encargó de la investigación de las distintas tecnologías para desarrollar ``Machine Learning'' que se encontraban actualmente en el ``mercado'' y seleccionar cuál era la que mejor le venía al proyecto, y cuáles eran los motivos por los que había escogido la tecnología.
-
-En un principio, la tecnología a utilizar sería MATLAB, pero, después de la investigación previa, se descubrió que Python también tiene una gran potencia en este sector. Python cuenta con un gran abanico de librerías para trabajar con grandes cantidades de datos, análisis científico, inteligencia artificial... Cuenta también con distribuciones que ya incluyen gran cantidad de estas librerías para poder hacer uso de ellas sin necesidad de instalarlas una a una como ``Anaconda''. Además, junto con la facilidad de programar en este lenguaje y la experiencia previa de los componentes del grupo con él, hizo que esta fuera la elección final.
-
-Tras tener elegida la tecnología con la que desarrollar el proyecto, Abel Coronado López, investigó distintos algoritmos matemáticos para el ``Machine Learning'' y cómo poder implementarlos.
-
-Hizo uso de cursos online, como por ejemplo \href{https://www.udacity.com}{Udacity}, y se valió de tutoriales básicos de ``Machine Learning'' en \href{https://www.youtube.com}{YouTube} para coger una idea básica de este nuevo paradigma emergente.
-
-Con una idea más clara de los objetivos del proyecto y de cómo implementarlos, el alumno estudió pequeños problemas resueltos relacionados con la IA propuestos en Intenet:
-
+The milestones we have successfully developed are:
 \begin{itemize}
-\item Desastre del Titanic
-\item Investigación de la diabetes
-\item Predicción del divorcio
+\item Set up a data collection system. A very simple node to replicate and it could easily work on a network of these. Thanks to the MQTT protocol that allows many publishers since at the time of the training, the identifier of the node with which it was worked was taken into account, the data collected by multiple nodes could be added to the study. An extension of land.
+
+\item Data training system. The software developed for obtaining and processing data for training allows to obtain data sets in a parameterized way. In this way, in a possible continuation of the project, it would be very easy to generate their own data sets for training. In addition, we have explored certain predictive models that, even without much success, would not need to re-study with our parameters.
+
+\item Prediction system. Although an optimal prediction model has not been achieved, the system that receives the collected data has been developed and uses the model chosen to make a prediction. In addition, due to the modularity of our system, it is very easy to implement new prediction models.
 \end{itemize}
 
-Cuando la fase de estudio de los algoritmos concluyó, el alumno, junto al resto de componentes del equipo, generó una lista de posibles algoritmos para utilizar en el proyecto: 
+Each of the components of the system has been developed with a possible future replacement or improvement. Thus, each component is autonomous and easily replaceable by another that respects the communication interface. This allows that the possible deficiencies can be solved without the necessity to alter the rest of components.
+
+This project leaves a margin of improvement over the initial requirements:
 
 \begin{itemize}
-\item Regresión Lineal
-\item SVM
-\item Clasificador
+\item Predictive model. It has not been possible to obtain a prediction sufficient to be able to take this system to a real environment. One of the possible improvements would be to study other models and parameters.
+
+\item Display system. Due to the lack of time to sample the node, this component could not be polished. The information shown does not appear clearly. However, it does receive and store the necessary data and in the future it would only be necessary to correct the piece of code that transforms raw data into representative charts.
 \end{itemize}
 
-Esta lista iría cambiando según avanzara el proyecto debido a diversos factores:
+\section{Possible extensions}
+From the outset, it was possible to form a network of nodes for the collection of samples. It has begun to develop one so as not to expand the complexity of the project.
 
-\begin{itemize}
-\item Poca documentación
-\item Problemas de implementación
-\item Malos resultados
-\end{itemize}
+It is intuited that within the predictive model, it could be interesting to have samples from different points of a territory. Perhaps this could allow to infer to the predictive model changes in the meteorological conditions in a node from those collected by another.
 
-En esta fase de investigación, se descubrió un método de estudio para automatizar las pruebas y hacer más viable la experimentación de modelos y parámetros usados en el ``Machine Learning'': Grid Search \ref{makereference4.3}.
-
-\subsection{Desarrollo}
-Con la fase de investigación finalizada, Abel Coronado López, junto con el resto de compañeros, empezaron con el desarrollo e implementación de estos algoritmos en el proyecto.
-
-Gracias a Grid Seach este trabajo fue mucho más viable y cómodo.
-
-Se desarrolló una plantilla que usa Grid Search para abstraer los modelos y parámetros a explorar. De esta manera, la fase de entrenamiento sería configurable mediante archivos ``JSON''. El alumno desarrolló dichos ficheros explicados previamente. Ver figura \ref{json}.
-
-Una vez finalizada la fase de entrenamiento con distintos modelos y configuraciones, el equipo eligió el algoritmo que mejor precisión de predicción tiene para nuestro contexto.
-
-\subsection{Documentación}
-Durante todos los procesos anteriormente descritos, el alumno Abel Coronado López documentó todo lo relacionado con las tecnologías investigadas y utilizadas por el sistema en una carpeta compartida por el equipo de desarrollo del proyecto, y en Github. Esta documentación consistía en comentar todo lo que se iba desarrollando e investigando, de forma que los demás compañeros, si querían introducirse en esa parte del sistema, únicamente tendrían que leer dónde y cómo se hizo.
-
-En la fase final del proyecto, el alumno ha documentado todo el sistema relacionado con la predicción para que este fuese introducido en la memoria del proyecto, también a aportado en otras secciones como la introducción, el nodo, etc...
+Finally, another possible extension would be to study the prediction model \href{https://www.analyticsvidhya.com/blog/2016/02/time-series-forecasting-codes-python/}{ARIMA}. It makes use of linear regression taking into account past values.

@@ -1,31 +1,159 @@
 \cleardoublepage
 
-\chapter{Conclusiones}
+\chapter{Instalación y puesta en marcha}
 \label{makereference8}
 
-\section{Estado del proyecto}
-
-Los hitos que hemos conseguido desarrollar con éxito son:
+Para poner en funcionamiento el proyecto deberemos tener todos lo elementos que lo componen:
 \begin{itemize}
-\item Montar un sistema de recogida de datos. Un nodo muy sencillo de replicar y que fácilmente podría trabajar en una red de estos. Gracias al protocolo MQTT que permite muchos ``publicadores'' y a que a la hora del entrenamiento se ha tenido en cuenta el identificador del nodo con el que se ha trabajado, se podría añadir al estudio los datos recogidos por múltiples nodos a lo largo de una extensión de terreno.
-
-\item Sistema de entrenamiento de datos. El software desarrollado para la obtención y tratamiento de los datos para el entrenamiento permite obtener conjuntos de datos de forma parametrizada. De esta forma, en una posible continuación del proyecto, sería muy sencillo generar sus propios conjuntos de datos para el entrenamiento. Además se han explorado ciertos modelos predictivos que, aún sin mucho éxito, no haría falta volver a estudiar con nuestros parámetros.
-
-\item Sistema de predicción. Aunque no se haya conseguido un modelo de predicción óptimo, sí se ha desarrollado el sistema que recibe los datos recogidos y utiliza el modelo elegido para realizar una predicción. Además, debido a la modularidad de nuestro sistema, es muy sencillo implementar nuevos modelos de predicción.
+\item Nodo.
+\item Servidor de datos.
+\item Servidor de cálculo. Puede estar alojado en la misma máquina que el servidor de datos.
+\item Sistema de visualización. En este caso, estar registrado en ThingSpeak y tener una clave de aplicación.
 \end{itemize}
 
-Cada uno de los componentes del sistema se ha desarrollado pensando en una posible futura sustitución o mejora. Asi, cada componente es autónomo y fácilmente reemplazable por otro que respete la interfaz de comunicación. Esto permite que las posibles carencias puedan ser solventadas sin la necesidad de alterar el resto de componentes.
+\section{Nodo}
+\label{makereference8.1}
+\subsection{Requisitos}
+\label{makereference8.1.2}
+	\begin{itemize}
+		\item Raspberry Pi 3 model B con una distribución Linux (\href{https://www.raspberrypi.org/downloads/raspbian/}{Raspbian}).
+		\item Conexión a Internet.
+		\item \href{https://www.adafruit.com/product/385}{Sensor DHT22}.
+		\item Conversor analógico-digital \href{https://www.adafruit.com/product/856}{MCP3008}.
+		\item Piranómetro \href{https://www.apogeeinstruments.co.uk/content/SP-212-215-manual.pdf}{SP-212}.
+		\item SPI activo en la Raspberry con ``raspi-config''.
+	\end{itemize}
 
-Este proyecto deja un margen de mejora sobre los requisitos iniciales:
+El cableado de los componentes HW está descrito en la figura \ref{wiring}.
+\begin{figure}[htb]
+	\begin{center}
+		\includegraphics[width=12cm]{figures/solar_project_node_diagram.png}
+		\caption{Cableado del nodo \label{wiring}}
+	\end{center}
+\end{figure}
+
+Por defecto, Ubuntu arranca el servicio después de instalarlo. Si la distribución Lunix sobre la cual se instala no realiza esta acción por defecto, se deberá configurar debidamente para arrancarlo.
+
+En este proyecto se utiliza la configuración por defecto de Mosquitto. Para más sobre su configuración, consultar \href{https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-the-mosquitto-mqtt-messaging-broker-on-ubuntu-16-04}{más información}.
+
+\subsection{Ficheros}
+\label{makereference8.1.3}
+Los archivos necesarios para la instalación del software del nodo se encuentran disponibles en \href{https://github.com/MrSlide22/TFG/node}{Github}.
+
 \begin{itemize}
-\item Modelo predictivo. No se ha logrado obtener una predicción suficiente como para poder llevar este sistema a un entorno real. Una de las posibles mejoras sería estudiar otros modelos y parámetros.
-
-\item Sistema de visualización. Debido a la falta de tiempo para tomar muestras del nodo, no se ha podido pulir este componente. La información que muestra no aparece de una forma clara. Sin embargo, sí recibe y almacena los datos necesarios y en un futuro sólo sería necesario corregir el fragmento de código que transforma los datos crudos en gráficas representativas.
+	\item Introduce el directorio ``node'' en tu Rapsberry Pi
+	\item Cambia las variables ``brokerIp'', ``brokerPort'', ``topic'', ``ubication''' en solar\_node.py
 \end{itemize}
 
-\section{Posibles ampliaciones}
-Desde un primer momento, se tenía como una posible ampliación formar una red de nodos para la recogida de muestras. Se ha empezado por desarrollar uno para no ampliar la complejidad del proyecto.
+\subsection{Dependencias}
+\label{makereference8.1.4}
+	\begin{itemize}
+		\item Actualizar
+\lstset{language=bash}
+\begin{lstlisting}[frame=single]
+$ sudo apt-get update
+$ sudo apt-get upgrade
+\end{lstlisting}
+		\item Python 2.7 (\cite{ARP:Python:2017})
+\begin{lstlisting}[frame=single]
+$ sudo apt-get install python2.7 build-essential 
+python-pip python-dev
+\end{lstlisting}
+		\item Paho (\cite{ARP:Paho:2017})
+\begin{lstlisting}[frame=single]
+$ pip install paho-mqtt
+\end{lstlisting}
+		\item WiringPi (\cite{ARP:Wiring:2017})
+\begin{lstlisting}[frame=single]
+$ pip install wiringpi2
+\end{lstlisting}
+		\item Adafruit\_DHT (\cite{ARP:Adafruit:2017})
+\begin{lstlisting}[frame=single]
+$ git clone 
+https://github.com/adafruit/Adafruit_Python_DHT.git
+$ cd Adafruit_Python_DHT
+$ sudo python setup.py install
+\end{lstlisting}
+		\item Adafruit\_GPIO
+\begin{lstlisting}[frame=single]
+$ git clone 
+https://github.com/adafruit/Adafruit_Python_GPIO.git
+$ cd Adafruit_Python_GPIO
+$ sudo python setup.py install
+\end{lstlisting}
+		\item Adafruit\_MCP3008
+\begin{lstlisting}[frame=single]
+$ git clone 
+https://github.com/adafruit/Adafruit_Python_MCP3008.git
+$ cd Adafruit_Python_MCP3008
+$ sudo python setup.py install
+\end{lstlisting}
+	\end{itemize}
 
-Se intuye que dentro del modelo predictivo, podría ser interesante disponer de muestras desde distintos puntos de un territorio. Quizá esto podría permitir inferir al modelo predictivo cambios en las condiciones meteorológicas en un nodo a partir de las recogidas por otro.
+\subsection{Puesta en marcha del nodo}
+\label{makereference8.1.5}
+Para arrancar el nodo se deberá haber seguido todos los pasos anteriores. Posteriormente, desde un terminal de la Raspberry, ir a la carpeta donde se han guardado el código fuente y ejecutar el comando: 
 
-Por último, otra posible ampliación, sería estudiar el modelo de predicción \href{https://www.analyticsvidhya.com/blog/2016/02/time-series-forecasting-codes-python/}{ARIMA}. Que hace uso de regresión lineal teniendo en cuenta valores pasados.
+\lstset{language=bash}
+\begin{lstlisting}[frame=single]
+$ sudo python solar_node.py
+\end{lstlisting}
+
+Se debe ser superusuario para poder ejecutar este comando.
+
+Para obtener más información sobre cómo utilizar el nodo ver Descripción del nodo o ejecutar:
+
+\lstset{language=bash}
+\begin{lstlisting}[frame=single]
+$ sudo python solar_node.py -h
+\end{lstlisting}
+
+\section{Servidor de datos}
+\label{makereference8.2}
+\subsection{Requisitos previos}
+\label{makereference8.3}
+\begin{itemize}
+\item Máquina con distribucion Linux instalada. Recomendable Debian, Fedora, OpenSUSE o Ubuntu.
+\item Conexión a internet.
+\item IP fija y opcionalmente, nombre de dominio.
+\end{itemize}
+
+La instalación de un broker MQTT es muy sencilla (una de sus principales ventajas). Para ello basta con instalar el demonio mosquitto a través del siguiente comando:
+
+Ejemplo de instalación en Ubuntu:
+\lstset{language=bash}
+\begin{lstlisting}[frame=single]
+$ sudo apt-get install mosquitto
+\end{lstlisting}
+
+Por defecto, Ubuntu arranca el servicio después de instalarlo. Si la distribución Lunix sobre la cual se instala no realiza esta acción por defecto, se deberá configurar debidamente para arrancarlo.
+
+En este proyecto se utiliza la configuración por defecto de Mosquitto. Para más información sobre su configuración, consultar \href{https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-the-mosquitto-mqtt-messaging-broker-on-ubuntu-16-04}{más información}.
+
+\section{Servidor de predicción}
+\label{makereference8.4}
+
+\subsection{Requisitos previos}
+\label{makereference8.4.1}
+
+\begin{itemize}
+\item Máquina con distribución Linux.
+\item Python 2.7.
+\item Conexión a internet.
+\item IP fija y opcionalmente, nombre de dominio.
+\end{itemize}
+
+\subsection{Instalación}
+\label{makereference8.4.2}
+Los archivos necesarios para la instalación del software del servidor de cálculo se encuentran disponibles en \href{https://github.com/MrSlide22/TFG/server}{Github}.
+
+\begin{itemize}
+	\item Introduce el directorio ``server'' en el servidor.
+	\item Cambia las siguientes variables en ``main.py'':
+	\begin{itemize}
+	\item brokerIP: IP o nombre de dominio del broker MQTT.
+	\item brokerPort: Puerto del broker MQTT.
+	\item topic: Canal del broker MQTT al que escuchar.
+	\item thingspeakKey: Clave privada del usuario ThingSpeak.
+	\end{itemize}
+\end{itemize}

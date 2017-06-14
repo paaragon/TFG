@@ -1,71 +1,42 @@
 \cleardoublepage
 
-\chapter{Resultados}
+\chapter{Predicción y visualización}
 \label{makereference6}
 
-Después de realizar la exploración de los parámetros de los distintos algoritmos de predicción explicados anteriormente (capítulo \ref{makereference4}), hemos obtenido varias métricas de cada uno de ellos.
+\section{Servidor de predicción}
 
-\begin{itemize}
-	\item Media
-	\item Desviación estándar
-\end{itemize}
+Aunque este servidor sea un componente autónomo del sistema puede estar alojado en la misma máquina que el servidor de datos. Aún así, la comunicación con este se hará a través de un cliente MQTT \ref{makereference4.2} para facilitar la posibilidad de distribuir el sistema en otra topología.
 
-Estas dos variables son las que nos dan la información necesaria para decantarnos por un modelo u otro. Buscamos aquella configuración de los parámetros que maximice la media y minimice el error.
+El cliente MQTT estará escuchando continuamente al ``broker'', y en el momento en el que reciba datos, los guardará en un registro diario. Ver figura \ref{log}.
 
-La primera prueba que se realizó fue con algoritmos de regresión lineal y SVR.
+	\begin{figure}[htb]
+		\begin{center}
+			\includegraphics[width=13cm]{figures/log.png}
+			\caption{Log del servidor \label{log}}
+		\end{center}
+	\end{figure}
 
-De todos los resultados obtenidos, el que mayor media proporciona es un modelo realizado con Regresión Lineal, que obtiene una media de 0.910009 y un error de 0.003789. Su configuración es la siguiente:
+El resultado del entrenamiento del modelo predictivo escogido durante la fase de entrenamiento, ha sido exportado y guardado en este servidor. De esta forma, a la hora de predecir recuperamos este entrenamiento y evitamos volver a realizarlo.
 
-\begin{itemize}
-	\item k: 5
-	\item distancia: 2
-	\item copy\_X: ``true''
-	\item fit\_intercept: ``true''
-\end{itemize}
+Una vez obtenida la predicción esta es enviada, junto con el resto de datos que recibió el servidor, a nuestro sistema de visualización. 
 
-Esta media no es suficiente para afirmar que el modelo predictivo funciona. Para ello necesitaríamos una media mayor. Intuitivamente, una regresión lineal nunca sería capaz de proporcionarnos una buena predicción, ya que nuestros datos no son lineales. Ver figura \ref{modelo_verano}.
+\section{Sistema de visualización}
 
-La segunda prueba se realizó con redes neuronales. Como este algoritmo es un clasificador ha sido necesario ``mapear'' las predicciones en distintas clases. Debido a que estos datos han sido normalizados, es sencillo clasificarlos en 100 clases [0, 100]. La intención de estas clases no es tanto acertar la cantidad de radiación sino proporcionar un rango en la que se encontrará.
+Existen distintos sistemas disponibles en el mercado (IoTDataViz, FreeBoard, IBMBlumix...), o incluso podríamos desarrollar uno propio, pero nos hemos decantado por \href{https://thingspeak.com/}{ThinkSpeak}.
 
 \begin{figure}[htb]
 	\begin{center}
-		\includegraphics[width=14cm]{figures/resultado_mlp.png}
-		\caption{Resultado redes neuronales \label{resultado_mlp}}
+		\includegraphics[width=13cm]{figures/ts.png}
+		\caption{Gráfica ThingSpeak \label{ts}}
 	\end{center}
 \end{figure}
 
-Una vez realizadas las pruebas, se observa que la media es muy baja,0.539901 en el mejor caso. Descartamos utilizar estos modelos de redes neuronales en nuestro proyecto.
+ThinkSpeak es una plataforma online orientada al ``Internet de las cosas'' (IoT) pensada para almacenar y realizar un seguimiento de los datos obtenidos por distintas aplicaciones.
 
-Como futura vía de estudio se plantea volver a realizar este entrenamiento replanteando los parámetros y el ``mapeo'' de las clases.
+Una de sus principales ventajas es que los datos recibidos puedes ser procesados por scripts propios implementados en \href{https://es.mathworks.com/products/matlab.html}{MATLAB}. Permitiendo así una observación y manipulación de los datos más personalizada. También cuenta con la ventaja de ser gratuita.
 
-Finalmente, hemos elegido el modelo SVR con las configuraciones siguientes:
+Actualmente, la comunicación con ThinkSpeak se puede realizar nativamente a través de MQTT, sin embargo en el momento de desarrollar la comunicación entre nuestro sistema y este, no contaba con esta característica.
 
-\begin{itemize}
-	\item k: 4
-	\item distancia: 2
-	\item kernel: ``rbf''
-	\item C: 1000
-	\item gamma: 0.001
-\end{itemize}
+La manera que proporcionaba ThinkSpeak para esta comunicación era a través de \href{https://es.wikipedia.org/wiki/Hypertext_Transfer_Protocol}{HTTP} a través de una API REST. La ventaja que tiene esto, es que cualquier lenguaje que soporte manejo de peticiones HTTP, puede comunicarse con él, permitiéndonos así construir un sistema más modular.
 
-\begin{figure}[htb]
-	\begin{center}
-		\includegraphics[width=16cm]{figures/resultado_elegido.png}
-		\caption{Resultado elegido \label{resultado_elegido}}
-	\end{center}
-\end{figure}
-
-Aunque no es el modelo con más media ni menos error, es de los más equilibrados. Esta configuración obtiene una media de acierto de 0.901516, distanciándose en 0.008493 de la media máxima conseguida. Su error es de 0.000330. Además se intuye que SVR debería ser el modelo que mejor se ajuste. Por lo que en un futuro estudio que busque mejorar esta predicción, sería un buen punto de partida.
-
-\section{Calidad del código}
-\label{makereference6.3}
-
-Una vez acabado el código del proyecto, decidimos certificar su calidad mediante \href{https://www.codacy.com}{Codacy}.
-Codacy es una herramienta que proporciona nuestro controlador de versiones GitHub. Sencillamente revisa todas y cada una de las líneas del código, para hacerlo más sencillo, escalable y seguro. Genera un informe con los errores y te dice qué grado de calidad tiene, siendo A el más alto. (\cite{ARP:Codacy:2017})
-
-\begin{figure}[htb]
-	\begin{center}
-		\includegraphics[height=3.5in]{figures/codacy.png}
-		\caption{Informe de nuestro proyecto [Fuente: \href{https://www.codacy.com}{Codacy}] \label{codacy}}
-	\end{center}
-\end{figure}
+Para realizar el envío de datos a través de esta API, basta con realizar una petición HTTP POST que lleve en el ``body'' (cuerpo de la petición) un campo ``key'' con la clave proporcionada por el servicio y los datos que queremos visualizar.
