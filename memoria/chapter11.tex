@@ -16,6 +16,7 @@ Pablo Aragón Moreno siguió con su investigación para la recogida de datos met
 \begin{itemize}
 \item DHT22: Sensor de temperatura y humedad.
 \item SP-212: Piranómetro.
+\item ADC MCP3008: Conversor analógico digital.
 \end{itemize}
 
 El alumno estudió los ``datasheets'' y documentación de los sensores para decantarse por una tecnología.
@@ -23,11 +24,13 @@ El alumno estudió los ``datasheets'' y documentación de los sensores para deca
 Debido a que los fabricantes de los sensores proporcionan librerías en Python para el fácil y cómodo manejo de los dispositivos, y debido a la predisposición de Pablo a elegir dicho lenguaje, la elección de la tecnología en este caso fue muy sencilla.
 
 \subsection{Desarrollo}
-Pablo Aragón Moreno comenzó a desarrollar los scripts en Python de recogida de datos de la web InfoRiego. El trabajo consistía en la recopilación de los datos en CSV y el tratamiento y clasificación en otros CSVs para así poder normalizar y generar los conjuntos de datos para el ``Machine Learning''. Esta labor facilitó mucho la tarea de Abel Coronado López para entrenar dichos datos y, más adelante, predecir.
+Pablo Aragón Moreno comenzó a desarrollar los scripts en Python de recogida de datos de la web InfoRiego.
+
+El trabajo consistía en la recopilación de los datos del servidor de InfoRiego, después descomprimirlos al formato original (CSV) y el tratamiento y clasificación en otros CSVs para así poder normalizar y generar los conjuntos de datos para el ``Machine Learning''. Esta labor facilitó mucho la tarea de Abel Coronado López para entrenar dichos datos y, más adelante, predecir.
+
+Este desarrollo del tratamiento de datos permitió que se pudiesen formar conjuntos de datos para el entrenamiento de forma parametrizada. Permite indicar qué intervalo de tiempo se requiere y el algoritmo se encarga de comprobar si ya está descargado y en caso contrario lo descarga y posteriormente generar el resto de conjuntos de datos a partir de este que se requieran para el entrenamiento también de forma parametrizada.
 
 Conseguido ese hito, el alumno implementó los algoritmos de recogida de datos meteorológicos del nodo. Para ello se valió de las librerías mencionadas anteriormente.
-
-Una vez hecha esta parte, Pablo Aragón Moreno implementó la opción de ir guardando esos datos en logs para evitar su pérdida y, así, solventar los problemas que pudiesen surgir en el desarrollo de María Castañeda López, la comunicación.
 
 \subsection{Documentación}
 Durante su desarrollo, Pablo Aragón Moreno fue documentando todo su trabajo, tanto en Drive, como en Github.
@@ -43,20 +46,20 @@ Al comenzar el proyecto, María Castañeda López se estuvo informando de alguno
 
 Otra parte importante que María Castañeda López tuvo que investigar al principio del proyecto, fue la manera en la que el nodo se comunicaba con MQTT. Como Raspberry 3 incluye un módulo de Wi-Fi, esta fue la tecnología que decidió utilizar. Se estudiaron otras alternativas como Lora, la cual utiliza menos recursos y es la más utilizada en sistemas ``machine-to-machine'', como nuestro proyecto. Al ser sólo un prototipo, decidieron no preocuparse por la optimización de recursos y optar por aprovechar el modulo Wi-Fi nativo en la Raspberry.
 
-La alumna decidió implementar MQTT en otra parte del sistema, el servidor de predicción. Para ello, se decidió desarrollar un módulo denominado ``Bridge'' para poder mandar los resultados de nuestra predicción al sistema de visualización.
+La alumna implementó la otra parte de la conexión MQTT, el servidor de predicción. Utiliando la funcionalidad del cliente MQTT implementado en el nodo, lo acopló al sistema del servidor.
 
-Respecto al sistema de visualización, María Castañeda López estudió los sistemas disponibles en este momento en el mercado, como por ejemplo: FreeBoard o IoTDataViz o, incluso, uno desarrollado por ellos mismos. Pero la alumna y sus compañeros decidieron una vez más, hacer caso a las recomendaciones de sus tutores y utilizar ThinkSpeak. Esta herramienta, además de ser gratuita, te permite la facilidad de manipular los datos de una manera más personalizada. 
+Respecto al sistema de visualización, María Castañeda López estudió los sistemas disponibles en este momento en el mercado, como por ejemplo: FreeBoard o IoTDataViz o, incluso, uno desarrollado por ellos mismos. Pero la alumna y sus compañeros decidieron una vez más, hacer caso a las recomendaciones de sus tutores y utilizar ThinkSpeak. Esta herramienta, además de ser gratuita, te permite la facilidad de manipular los datos de una manera más personalizada. Para comunicarse con ThingSpeak, se decidió desarrollar un módulo denominado ``Bridge'' para poder mandar los resultados de nuestra predicción al sistema de visualización. Este Bridge aprovecha la API HTTP que proporciona ThingSpeak para realizar la comunicación
 
 \subsection{Desarrollo}
 Una vez que María Castañeda López terminó el trabajo de investigación, ella y sus compañeros desarrollaron una serie de scripts relacionados con la comunicación entre los componentes del sistema.
 
 Uno de estos scripts se encarga de la comunicación MQTT del nodo con el servidor de datos mediante la ayuda de la librería paho-mqtt, que facilitó mucho las cosas.
 
-Además María Castañeda López y sus compañeros decidieron crear dos logs, uno en el nodo y otro en el servidor de datos, para, tener así, un método de registro de los eventos futuros.
+Además María Castañeda López y sus compañeros decidieron crear tres logs, dos en el nodo y otro en el servidor de predicción, para, tener así, un método de registro de los eventos futuros.
 
-En el log del nodo se almacenan datos en forma de registros y archivos diarios para prevenir su pérdida. Como el cliente MQTT está escuchando continuamente, en cuanto recibe los datos, los preservará en dicho log.
+En los logs del nodo se almacenan datos recogidos por el nodo en forma de registros diarios para prevenir su pérdida. Como el cliente MQTT está escuchando continuamente, en cuanto recibe los datos, los preservará en dicho log. También almacena el resultado de cada conexión con el broker permitiendo así conocer si la conexión falló en algún momento.
 
-Por otro lado, el log del servidor de datos guarda las conexiones con este, para tener constancia de si la conexión se realizó con éxito o no.
+Por otro lado, el log del servidor de predicción guarda todos los datos que recibe para poder utilizarlos en la predicción.
 
 \subsection{Documentación}
 
