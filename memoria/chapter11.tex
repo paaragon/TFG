@@ -5,9 +5,37 @@
 
 \section{Pablo Aragón Moreno}
 \subsection{Investigación}
-\subsection{Desarrollo}
-\subsection{Documentación}
+Tras la primera reunión con los directores acerca del proyecto, el alumno Pablo Aragón Moreno se asignó la investigación de la recogida y tratamiento de los datos, tanto de InfoRiego, como la de los datos meteorológicos del exterior.
 
+Investigó distintas tecnologías para dicho cometido: Ruby, Python, C... Para ello estudió estas posibilidades mediante su documentación, experiencia y opiniones en Internet.
+
+Ya que el algoritmo de predicción y el entrenamiento se iba a realizar en Python, Pablo Aragón Moreno decidió ser consistente con el proyecto y eligió dicho lenguaje. Además, Python es un lenguaje muy potente en lo que al WebScrapping se refiere, dado que tiene muchas librerías de tratamiento y obtención de grandes cantidades de datos.
+
+Pablo Aragón Moreno siguió con su investigación para la recogida de datos meteorológicos. La idea era desarrollar un módulo en la Raspberry que controle y orqueste la obtención de datos mediante dos sensores:
+
+\begin{itemize}
+\item DHT22: Sensor de temperatura y humedad.
+\item SP-212: Piranómetro.
+\end{itemize}
+
+El alumno estudió los ``datasheets'' y documentación de los sensores para decantarse por una tecnología.
+
+Debido a que los fabricantes de los sensores proporcionan librerías en Python para el fácil y cómodo manejo de los dispositivos, y debido a la predisposición de Pablo a elegir dicho lenguaje, la elección de la tecnología en este caso fue muy sencilla.
+
+\subsection{Desarrollo}
+Pablo Aragón Moreno comenzó a desarrollar los scripts en Python de recogida de datos de la web InfoRiego. El trabajo consistía en la recopilación de los datos en CSV y el tratamiento y clasificación en otros CSVs para así poder normalizar y generar los conjuntos de datos para el ``Machine Learning''. Esta labor facilitó mucho la tarea de Abel Coronado López para entrenar dichos datos y, más adelante, predecir.
+
+Conseguido ese hito, el alumno implementó los algoritmos de recogida de datos meteorológicos del nodo. Para ello se valió de las librerías mencionadas anteriormente.
+
+Una vez hecha esta parte, Pablo Aragón Moreno implementó la opción de ir guardando esos datos en logs para evitar su pérdida y, así, solventar los problemas que pudiesen surgir en el desarrollo de María Castañeda López, la comunicación.
+
+\subsection{Documentación}
+Durante su desarrollo, Pablo Aragón Moreno fue documentando todo su trabajo, tanto en Drive, como en Github.
+\begin{itemize}
+\item En Drive documentó todo aquello relacionado con la tecnología usada (links, trabajos...).
+\item En Github explicó cómo se instala el nodo: cableado, scripts de configuración... Entre otras cosas. 
+\end{itemize}
+La última fase del proyecto consistió en documentar toda su parte, tanto de investigación como de desarrollo, en la memoria final. A parte, ayudó a sus compañeros a desarrollar otras secciones... 
 
 \section{María Castañeda López}
 \subsection{Investigación}
