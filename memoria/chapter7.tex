@@ -21,13 +21,20 @@ Se han realizado tres conjuntos de pruebas, una por cada algoritmo predictivo es
 
 \section{Regresión Lineal}
 \label{makereference7.1}
-Los parámetros suministrados a GridSearch para realizar el entrenamiento con este modelo pueden verse en la figura \ref{json}.
+Los parámetros suministrados a GridSearch para realizar el entrenamiento con este modelo son los siguientes:
 
 \begin{itemize}
+\item Inicio: 01-01-2015
+\item Fin: 31-12-2015
 \item k: 2, 3, 4, 5
+\item Horizonte de predicción: 2, 3, 4, 5, 6, 7
 \item fit\_intercept: true, false
 \item copy\_X: true, false 
 \end{itemize}
+
+Grid serach estudiará los resultados para todas las combinaciones posibles.
+
+De los resultados obtenidos para este algoritmo mostrados en la figura \ref{resultado_linear}, la columna ``mean'' nos indican el \(R^{2}\) obtenido. \(R^{2}\) es el coeficiente de correlación y, en regresión lineal, es el cuadrado del \textit{coeficiente de correlación de Pearson}. Se calcula dividiendo el cuadrado de la covarianza del conjunto de datos reales y los predichos entre el producto de los cuadrados de la desviación típica de cada conjunto. Expresa la calidad de la predicción del modelo entre 0 y 1.
 
 \begin{figure}[htb]
 	\begin{center}
@@ -36,13 +43,13 @@ Los parámetros suministrados a GridSearch para realizar el entrenamiento con es
 	\end{center}
 \end{figure}
 
-De los resultados obtenidos para este algoritmo mostrados en la figura \ref{resultado_linear}, la columna ``mean'' nos indican el \(R^{2}\) obtenido. \(R^{2}\) es el coeficiente de correlación y, en regresión lineal, es el cuadrado del \textit{coeficiente de correlación de Pearson}. Se calcula dividiendo el cuadrado de la covarianza del conjunto de datos reales y los predichos entre el producto de los cuadrados de la desviación típica de cada conjunto. Expresa la calidad de la predicción del modelo entre 0 y 1.
-
-Los datos se muestran ordenados por la columna ``mean'' siendo así el primero de estos registros el que más coeficiente de correlación obtiene.
+Los datos se muestran ordenados por la columna ``mean'' siendo así el primero de estos registros el que más coeficiente de correlación obtiene con un coeficiente de correlación de 0.910009.
 
 Como se puede observar en la figura \ref{resultado_linear}, el modelo obtenido con mejor coeficiente de correlación tiene la siguiente configuración:
 
 \begin{itemize}
+\item Inicio: 01-01-2015
+\item Fin: 31-12-2015
 \item k: 5
 \item Horizonte: 2
 \item copy\_X: true
@@ -51,30 +58,14 @@ Como se puede observar en la figura \ref{resultado_linear}, el modelo obtenido c
 
 En el apéndice \ref{Appendix:Key1}, se muestran distintas gráficas con la radiación de este modelo durante varios días del año, la predicción que obtenemos con el modelo obtenido con mayor coeficiente de correlación y el modelo conservador.
 
-En la figura \ref{resultado_linear}, se puede observar la mejor configuración entre las proporcionadas a GridSearch con un ``mean'' de 0.910009 y un ``std'' de 0.003789:
+Este ``modelo conservador'' expresa una predicción de la radiación que toma como valor, la radiación que toma como predicción la radiación en el instante anterior.
 
-\begin{itemize}
-\item k: 5
-\item fit\_intercept: true
-\item copy\_X: true
-\end{itemize} 
+El objetivo de este proyecto es superar, como mínimo este modelo conservador.
 
 \section{SVR}
 \label{makereference7.2}
 
 Para la exploración del modelo SVR usamos las siguientes posibles configuraciones:
-
-\begin{itemize}
-	\item kernel: ``linear''
-	\begin{itemize}
-		\item C: 1, 10, 100, 1000
-	\end{itemize}
-	\item kernel: ``rbf''
-	\begin{itemize}
-		\item C: 1, 10, 100, 1000
-		\item gamma: 0.001, 0.0001
-	\end{itemize}
-\end{itemize}
 
 Esta configuración viene reflejada en la figura \ref{json}, al igual que regresión lineal.
 
