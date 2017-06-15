@@ -62,7 +62,13 @@ Este ``modelo conservador'' expresa una predicción de la radiación que toma co
 
 El objetivo de este proyecto es superar, como mínimo este modelo conservador.
 
-% TODO - Hablar sobre mean square error
+Junto a la leyenda de nuestro modelo y del modelo conservador, encontramos las siglas ``MAE'' (Mean Absolute Error). Que es la media de las diferencias entre una radiación real y su predicción real en valor absoluto. Esto nos permite conocer la media de fallo expresado en la misma unidad que la radiación (W / \(m^2\)).
+
+Como vistazo general, podemos observar que en todas las gráficas de resultados de regresión lineal, nuestro modelo obtiene un MAE mucho menor que el modelo conservador. Esto implica que nuestro modelo Regresión Lineal se ajusta mejor a la realidad.
+
+En los días de primavera obtenemos los mejores resultados, en especial en las horas centrales del día. Quizá esto se deba a que la temperatura a estas horas es más estable que en el amanecer o atardecer.
+
+Los días de verano e invierno, es dónde la diferencia de MAEs con respecto al modelo conservador es algo menor. Por lo que nuestra predicción sería levemente más acertada que dicho modelo.
 
 \section{SVR}
 \label{makereference7.2}
@@ -102,16 +108,11 @@ La figura \ref{resultado_svr} muestra el modelo obtenido con mejor coeficiente d
 
 En el capítulo \ref{Appendix:Key2} (Anexo: Gráficas SVR) podemos observar varias gráficas para distintos días del año con la predicción obtenida con este modelo frente a la radiación real y al modelo conservador.
 
-% TODO hay que interpretar la gráfica. ¿falla mucho el modelo? ¿falla más al amanecer/atardecer?¿falla más en verano? ¿se ve facilmente cuándo falla más? 
-%creo que falla más cuando más variaciones repentinas hay (cuando hay más picos hacia abajo)
+En los días de invierno, obtenemos un mejor MAE que el modelo conservador. Podemos observar que en las horas centrales del día es cuando mejor se ajusta, pero no tanto como primavera u otoño. Cuando peor se ajusta es en las primeras horas del día, en el amanecer.
 
-% Explicar que "MSE" es mean square error que significa el error medio al cuadrado. Es la media de las restas entre la prediccion y lo real al cuadrado. Para poder ver cuándo falla más y cuándo menos, se puede ver cuándo tiene menor MSE.
+En los días de las estaciones de primavera y otoño, nuestro modelo SVR obtiene una mayor diferencia respecto al MAE conservador, siendo mucho menor. Así podemos concluir, que en estas estaciones, quizá, es cuando mejor precisión obtenemos con nuestro modelo.
 
-% La unidad de medida del MSE es la misma que la de la predicción (W/m^2) y dice cuánta diferencia media (por arriba o por abajo porque es al cuadrado) hay con respecto a lo real
-
-% Para MLP está mal, tengo que utilizar otro score, luego lo cambio
-
-% Hacer esto para los tres modelos
+En los días de verano, podemos observar que nuestro modelo es cuando menor precisión tiene con respecto a la realidad. Siendo así, la única estación del año en la que el modelo conservador tiene un mejor MAE.
 
 \section{Redes Neuronales}
 \label{makereference7.3}
@@ -151,7 +152,7 @@ En la figura \ref{resultado_mlp} podemos ver los resultados del grid search para
 
 En el capítulo \ref{Appendix:Key3} tenemos distintas gráficas con la predicción realizada por este modelo, la radiación real y la predicción del modelo conservador para distintos días del año 2016.
 
-% TODO hablar de mean square error y gráficas
+Las conclusiones finales con nuestro modelo de redes neuronales es que hay que seguir investigando dicho modelo y sus parámetros. Obtenemos un ``accuracy'' o acierto del 0\%. Por lo que no hay mucho más que decir. 
 
 \section{Calidad del código}
 \label{makereference7.4}
