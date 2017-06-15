@@ -58,11 +58,10 @@ Como se puede observar en la figura \ref{resultado_linear}, el modelo obtenido c
 
 En el capítulo \ref{Appendix:Key1} (Anexo: Gráficas Regresión Lineal), se muestran distintas gráficas con la radiación de este modelo durante varios días del año, la predicción que obtenemos con el modelo obtenido con mayor coeficiente de correlación y el modelo conservador.
 
-Este ``modelo conservador'' expresa una predicción de la radiación que toma como valor, la radiación que toma como predicción la radiación en el instante anterior.
-
+Este ``modelo conservador'' expresa una predicción de la radiación que se realiza asumiendo que en el instante \emph{t+1} la radiación será la misma que la observada en el instante \emph{t}.
 El objetivo de este proyecto es superar, como mínimo este modelo conservador.
 
-Junto a la leyenda de nuestro modelo y del modelo conservador, encontramos las siglas ``MAE'' (Mean Absolute Error). Que es la media de las diferencias entre una radiación real y su predicción real en valor absoluto. Esto nos permite conocer la media de fallo expresado en la misma unidad que la radiación (W / \(m^2\)).
+Junto a la leyenda de nuestro modelo y del modelo conservador, encontramos las siglas ``MAE'' (Mean Absolute Error), que es la media de las diferencias entre una radiación real y su predicción  en valor absoluto. Esto nos permite conocer la media del error expresado en la misma unidad que la radiación (W / \(m^2\)).
 
 Como vistazo general, podemos observar que en todas las gráficas de resultados de regresión lineal, nuestro modelo obtiene un MAE mucho menor que el modelo conservador. Esto implica que nuestro modelo Regresión Lineal se ajusta mejor a la realidad.
 
