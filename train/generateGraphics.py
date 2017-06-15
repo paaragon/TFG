@@ -5,13 +5,16 @@ from lib.SolarData import SolarData
 from graphics import predict
 import os
 import json
+import sys
 
 # Graficas para el dia 15/06/2016
 normPath = 'graphics/train/reversenorm.json'
-def getPredict():
-    solarData = SolarData(20161015, 20161015)
 
-    df = pd.read_csv('data/csvWithCondition/2016101520161015.csv.orig')
+def getPredict(start, end, k, modelo):
+    solarData = SolarData(start, end)
+
+    df = pd.read_csv('data/csvWithCondition/' +
+                     str(start) + str(end) + '.csv.orig')
 
     radiacion = list()
 
@@ -19,7 +22,7 @@ def getPredict():
     for hora in horas:
         row = df.loc[df['hora'] == hora]
         index = row.index[0]
-        prediction = predict.getPrediction(df, row, index)
+        prediction = predict.getPrediction(df, row, index, start, k, modelo)
 
         radiacion.append(prediction)
         print prediction
@@ -30,10 +33,12 @@ def getPredict():
         hAux += h % 100 / 60.0
         newHoras.append(hAux)
 
-    return plt.plot(newHoras, radiacion, label='MLP')
+    return plt.plot(newHoras, radiacion, label=modelo)
+
 
 def mapRad(rad):
     return int(((rad + 1) / 2) * 100)
+
 
 def normalize(rad):
     with open(normPath) as openfile:
@@ -48,14 +53,18 @@ def normalize(rad):
 
     return (rad - mean) / (mx - mn)
 
-def getRealRadiation():
-    df = pd.read_csv('data/csvWithCondition/2016101520161015.csv.orig')
+
+def getRealRadiation(start, end, model):
+    df = pd.read_csv('data/csvWithCondition/' +
+                     str(start) + str(end) + '.csv.orig')
     radiacion = list()
 
     horas = df['hora'].unique()
     for hora in horas:
-        radiacion.append(df[df['hora'] == hora]['radiacion'].mean())
-        #radiacion.append(mapRad(normalize(df[df['hora'] == hora]['radiacion'].mean())))
+        if model != 'mlp':
+            radiacion.append(df[df['hora'] == hora]['radiacion'].mean())
+        else:
+            radiacion.append(mapRad(normalize(df[df['hora'] == hora]['radiacion'].mean())))
 
     newHoras = list()
     for h in horas:
@@ -63,10 +72,15 @@ def getRealRadiation():
         hAux += h % 100 / 60.0
         newHoras.append(hAux)
 
-    return plt.plot(newHoras, radiacion, label='15-01-206')
+    dia = str(start % 100)
+    mes = str(int(start % 10000) / 100)
+    ano = str(start / 10000)
+    return plt.plot(newHoras, radiacion, label='Radiacion ' + dia + '-' + mes + '-' + ano)
 
-def getConservador():
-    df = pd.read_csv('data/csvWithCondition/2016101520161015.csv.orig')
+
+def getConservador(start, end, model):
+    df = pd.read_csv('data/csvWithCondition/' +
+                     str(start) + str(end) + '.csv.orig')
     radiacion = list()
 
     horas = df['hora'].unique()
@@ -84,15 +98,28 @@ def getConservador():
 
     return plt.plot(newHoras, radiacion, label='Modelo conservador')
 
-def paintPlot():
-    plot1, = getConservador()
-    plot2, = getRealRadiation()
+
+def paintPlot(start, end, k, model):
+    plot1, = getPredict(start, end, k, model)
+    plot2, = getRealRadiation(start, end, model)
+    plot3, = getConservador(start, end, model)
     plt.xlabel('Hora (0:24)')
     plt.ylabel('Radiacion')
-    #plt.legend(handles=[plot1, plot2, plot3, plot4, plot5])
-    plt.legend(handles=[plot1, plot2])
-    plt.savefig('graphics/20161015_conservador.png')
+    plt.legend(handles=[plot1, plot2, plot3])
+    plt.savefig('graphics/' + model + '_' + str(start) + str(end) +  '.png')
     plt.show()
 
+
 if __name__ == "__main__":
-    paintPlot()
+
+    print len(sys.argv)
+    if len(sys.argv) < 5:
+        print "Es necesario especificar los parametros."
+        print "> start end k model"
+        exit()
+
+    start = int(sys.argv[1])
+    end = int(sys.argv[2])
+    k = int(sys.argv[3])
+    model = sys.argv[4]
+    paintPlot(start, end, k, model)
