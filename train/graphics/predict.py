@@ -5,16 +5,20 @@ import os
 from sklearn.externals import joblib
 import numpy as np
 
-k = 3
-step = 1 # registros hacia atras para cada k
-timeStep = 100 # cuanto tiempo hacia delante (una hora, HHMM)
-modelPath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'train/mlp.pkl')
-normPath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'train/reversenorm.json')
+step = 1  # registros hacia atras para cada k
+timeStep = 100  # cuanto tiempo hacia delante (una hora, HHMM)
+
 
 def mapRad(rad):
     return int(((rad + 1) / 2) * 100)
 
-def getPrediction(df, row, index):
+def getPrediction(df, row, index, start, k, model):
+
+    modelPath = os.path.join(os.path.dirname(
+        os.path.abspath(__file__)), 'train/' + str(model) + '.pkl')
+
+    normPath = os.path.join(os.path.dirname(
+        os.path.abspath(__file__)), 'train/reversenorm.json')
 
     if index < (k - 1) * step:
         print "No records enough."
@@ -23,48 +27,62 @@ def getPrediction(df, row, index):
     with open(normPath) as openfile:
         normData = json.load(openfile)
 
-    date2015 = 20151015
-    dateNorm = normalize(date2015, normData['fecha'][0], normData['fecha'][1], normData['fecha'][2])
+    date2015 = 20150000 + (start % 10000)
+    dateNorm = normalize(
+        date2015, normData['fecha'][0], normData['fecha'][1], normData['fecha'][2])
     predictData = [row['codigo'], dateNorm]
-    
+
     now = row['hora']
     for i in range(k - 1):
 
-        horaNorm = normalize(df.get_value(index, 'hora'), normData['hora'][0], normData['hora'][1], normData['hora'][2])
+        horaNorm = normalize(df.get_value(
+            index, 'hora'), normData['hora'][0], normData['hora'][1], normData['hora'][2])
         predictData.append(horaNorm)
 
-        tempNorm = normalize(df.get_value(index, 'temperatura'), normData['temperatura'][0], normData['temperatura'][1], normData['temperatura'][2])
+        tempNorm = normalize(df.get_value(index, 'temperatura'),
+                             normData['temperatura'][0], normData['temperatura'][1], normData['temperatura'][2])
         predictData.append(tempNorm)
 
-        humNorm = normalize(df.get_value(index, 'humedad'), normData['humedad'][0], normData['humedad'][1], normData['humedad'][2])
+        humNorm = normalize(df.get_value(
+            index, 'humedad'), normData['humedad'][0], normData['humedad'][1], normData['humedad'][2])
         predictData.append(humNorm)
 
-        #radNorm = normalize(df.get_value(index, 'radiacion'), normData['radiacion'][0], normData['radiacion'][1], normData['radiacion'][2])
-        rMapped = mapRad(df.get_value(index, 'radiacion')) 
-        #predictData.append(radNorm)
-        predictData.append(rMapped)
+        radNorm = normalize(df.get_value(index, 'radiacion'), normData['radiacion'][0], normData['radiacion'][1], normData['radiacion'][2])
+        
+        if model == 'mlp':
+            radNorm = mapRad(radNorm)
+        
+        predictData.append(radNorm)
 
         index -= step
+
+    predictData.append(normalize(
+        row['hora'], normData['hora'][0], normData['hora'][1], normData['hora'][2]))
+
+    predictData.append(normalize(row['temperatura'], normData['temperatura']
+                                 [0], normData['temperatura'][1], normData['temperatura'][2]))
+    predictData.append(normalize(
+        row['humedad'], normData['humedad'][0], normData['humedad'][1], normData['humedad'][2]))
+
+    radNorm = normalize(row['radiacion'], normData['radiacion'][0], normData['radiacion'][1], normData['radiacion'][2])
+    if model == 'mlp':
+        radNorm = mapRad(radNorm)
+
+    predictData.append(radNorm)
     
-    predictData.append(normalize(row['hora'], normData['hora'][0], normData['hora'][1], normData['hora'][2]))
-    predictData.append(normalize(row['temperatura'], normData['temperatura'][0], normData['temperatura'][1], normData['temperatura'][2]))
-    predictData.append(normalize(row['humedad'], normData['humedad'][0], normData['humedad'][1], normData['humedad'][2]))
-    #predictData.append(normalize(row['radiacion'], normData['radiacion'][0], normData['radiacion'][1], normData['radiacion'][2]))
-    
-    radMapped = mapRad(row['radiacion'])
-    print radMapped
-    predictData.append(radMapped)
-    predictData.append(normalize(row['hora'] + timeStep, normData['hora'][0], normData['hora'][1], normData['hora'][2]))
+    predictData.append(normalize(
+        row['hora'] + timeStep, normData['hora'][0], normData['hora'][1], normData['hora'][2]))
 
     model = joblib.load(modelPath)
 
     prediction = model.predict(np.array(predictData).reshape(1, -1))
-    #predDenorm = denormalize(prediction, normData['radiacion'][0], normData['radiacion'][1], normData['radiacion'][2])
 
-    print '----prediccion: ', prediction
+    if model != 'mlp':
+        predDenorm = denormalize(prediction, normData['radiacion'][0], normData['radiacion'][1], normData['radiacion'][2])
+        return predDenorm[0]
+    else:
+        return prediction
 
-    #return predDenorm[0]
-    return prediction
 
 def normalize(data, mean, mx, mn):
 

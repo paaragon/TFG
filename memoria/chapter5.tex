@@ -8,21 +8,23 @@
 
 Cuando hablamos de modelos predictivos nos estamos refiriendo al análisis que agrupa una serie de técnicas para conseguir analizar datos reales tanto actuales como históricos y, así, conseguir predicciones. Con esta predicción podremos saber cuánto se acerca nuestro modelo a la realidad.
 
-Para conseguir esto, necesitamos que nuestro sistema, a partir de los datos pasados, ``aprenda'' y pueda deducir el futuro. A este tipo de modelos se les denomina de ``aprendizaje supervisado''.
-
 Existen algunos conceptos clave a la hora de hablar de metodos predictivos:
 \begin{itemize}
-	\item Conjunto de entrenamiento: son los datos que se utiliza para desarrollar los modelos predictivos.
-	\item Conjunto de validación: conjunto de datos utilizados para evaluar el rendimiento de dichos modelos.
+	\item Conjunto de entrenamiento: son los datos a partir de los cuales se desarrollan los modelos predictivos.
+	\item Conjunto de validación: datos utilizados para evaluar el rendimiento de dichos modelos.
 	\item Predictores: variables de entrada, utilizadas para la ecuación de predicción. 
 	\item Resultado: objetivo que se quiere predecir.
 \end{itemize}
 
 Las fases para desarrollar este tipo de modelos son las siguientes:
 \begin{itemize}
-\item Entrenamiento: se selecciona un conjunto de datos (conjunto de entrenamiento) del que se conoce el valor real de la predicción que queremos realizar y se explora, en función del algoritmo seleccionado, para obtener un posible modelo.
+\item Entrenamiento: para predecir con estas técnicas primero se debe ``entrenar'' el sitema. Esto se puede realizar de dos formas, proporcionando al entrenamiento los resultados ya conocidos de las predicciones (aprendizaje supervisado) o no (aprendizaje no supervisado). Más adelante se explicará en qué consiste este entrenamiento.
 
-Cada modelo tiene una serie de variables que podemos definir previas al entrenamiento que influirán en el resultado. En esta fase, los factores que se buscan explorar son aquellos que, internamente, ajusta el propio algoritmo en función de los datos de entrada y los parámetros de entrada que definamos.
+En este proyecto se utilizan algoritmos de aprendizaje supervisado.
+
+Para realizar un ``entrenamiento supervisado'' se selecciona un conjunto de datos (conjunto de entrenamiento) del que se conoce el valor real de la predicción que queremos realizar y se explora, en función del algoritmo seleccionado, variando los parámetros internos del algoritmo para obtener un posible modelo.
+
+Cada modelo tiene una serie de variables que podemos definir previas al entrenamiento que influirán en el resultado. En esta fase, los factores que se buscan explorar son aquellos que, internamente, ajusta el propio algoritmo en función de los datos de entrada y los parámetros que definamos.
 
 \item Validación: se selecciona otro conjunto de datos distinto al anterior (conjunto de validación) del que también se conoce el valor real de la predicción y se aplica el modelo obtenido en el entrenamiento. Se comparan los datos proporcionados con el modelo con los datos reales y se sacan distintas métricas para conocer su efectividad. 
 
@@ -61,7 +63,7 @@ Se ha creado un script en Python que, dados unos parámetros de consulta (fecha 
 	\end{center}
 \end{figure}
 
-Este archivo CSV resultante (o el que se requiera en cada momento), es el utilizado como conjunto de entrenamiento y validación. La automatización de esta tarea permite que la exploración del modelo se pueda realizar de forma cómoda, pudiendo realizar así muchas más pruebas.
+Este archivo CSV resultante (o el que se requiera en cada momento), es el utilizado como conjunto de entrenamiento y validación. La automatización de esta tarea permite que la exploración del modelo se pueda realizar de forma sencilla, pudiendo realizar así muchas más pruebas.
 
 Los datos proporcionados a cualquier modelo predictivo son previamente normalizados. Es importante que todos estén en la misma escala ya que, de no ser así, se puede interpretar que los datos en una mayor escala tienen un mayor peso dentro de la predicción.
 
@@ -74,13 +76,15 @@ Para dicha normalización, son necesarios conocer el máximo, el mínimo y la me
 	\end{center}
 \end{figure}
 
-Este conjunto de datos debe sufrir una transformación más antes de poder ser utilizado en el entrenamiento. El entrenamiento y la validación necesitan dos elementos: los datos con los que se realiza la predicción y el resultado real que debe obtener. A estos dos elementos los llamaremos conjunto X y conjunto Y. Ver figura \ref{x_y}.
+Este conjunto de datos debe sufrir una transformación más antes de poder ser utilizado en el entrenamiento. El entrenamiento y la validación necesitan dos elementos cada uno: los datos con los que se realiza la predicción y el resultado real que debe obtener. A estos dos elementos los llamaremos conjunto X y conjunto Y. Ver figura \ref{x_y}.
 
 Ambos conjuntos parten del mismo conjunto de datos generado anteriormente.
 
 El conjunto X tiene una serie de registros. Cada uno de ellos representa los datos necesarios para realizar una predicción. En este caso, son necesarias la fecha, hora, temperatura, humedad y radiación de varios instantes anteriores para realizar una predicción en un instante posterior.
 
-El número de instantes anteriores lo llamaremos ``k'' por lo que serán necesarias las ``k'' muestras anteriores de hora, temperatura, humedad y radiación (la fecha y la ubicación serán la misma para todos los instantes anteriores). Indicando varios instantes anteriores indicamos que cada predicción se realiza con una ``tendencia'' que se espera que el algoritmo puede ser capáz de inferir.
+El número de instantes anteriores lo llamaremos, de aquí en adelante, ``k'' por lo que serán necesarias las ``k'' muestras anteriores de hora, temperatura, humedad y radiación (la fecha y la ubicación serán la misma para todos los instantes anteriores). Indicando varios instantes anteriores conseguimos que cada predicción se realize con una ``tendencia'' que se espera que el algoritmo puede ser capáz de inferir.
+
+Al instante posterior al momento de realizar la predicción se llama ``horizonte de predicción'' y es el instante de tiempo para el que se quiere conocer la predicción.
 
 Cada registro del conjunto Y indica la predicción que debe obtener cada registro en el mismo índice del conjunto X. Para obtener este valor, se recorre el conjunto X y se toma la radiación que ocurrió ``n'' instantes después en el conjunto de datos principal.
 
@@ -108,7 +112,8 @@ Cada registro del conjunto Y indica la predicción que debe obtener cada registr
 	\end{figure}
 	
 	La recta que se puede ver en la gráfica \ref{regression}, muestra cómo la regresión lineal intenta dibujar una línea que minimice mejor la suma residual de cuadrados entre las respuestas observadas en el conjunto de datos, y las respuestas predichas por la aproximación lineal.
-	También se calculan los coeficientes, la suma residual de cuadrados y el puntaje de varianza.
+
+	En este proyecto, la regresión lineal explorará nuestros datos con las predicciones ya conocidas buscando una regresión que más ajuste la predicción a los datos reales.
 
 	\subsection{SVR (Support Vector Regression)}
 	\label{makereference5.3.2}
@@ -132,7 +137,7 @@ Cada registro del conjunto Y indica la predicción que debe obtener cada registr
 		\item Buscar el hiperplano que tenga la máxima distancia con los puntos que estén más cerca de él mismo. Es decir, que dejen una mayor margen entre los datos.
 	\end{itemize}
 
-	La diferencia entre SVR y SVM es que SVR intenta hacer una regresión a partir de el clasificador. Para esto, realiza un mapeo no lineal de los datos del entrenamiento a un espacio de mayor dimensión, donde podremos realizar una regresión lineal. Ver figura \ref{svr}.
+	La diferencia entre SVR y SVM es que SVR intenta hacer una regresión a partir del clasificador. Para esto, realiza un mapeo no lineal de los datos del entrenamiento a un espacio de mayor dimensión, donde podremos realizar una regresión lineal. Ver figura \ref{svr}.
 
 	SVR permite varios modos de predicción ``kernel'': linear, poly, rbf, sigmoid...
 	Este entrenamieto se ha llevado a cabo con los modos ``linear'' y ``rbf'' que, intuitivamente, pueden ser los que mas se acercan a nuestros datos reales.
@@ -175,6 +180,15 @@ Cada registro del conjunto Y indica la predicción que debe obtener cada registr
 
 	Es tarea del desarrollador la elección del número de capas y de neuronas en cada capa.
 
+	La diferencia más importante entre este algorítmo y los dos anteriores es que no es una regresión si no un clasificador. Esto implica que cada radiación que se introduzca en el modelo debe estar etiquetada en una clase. Para etiquetar la radiación en distintas clases se ha seguido el siguiente procedimiento:
+
+	\begin{itemize}
+		\item Recordemos que, como está indicado en el capítulo anterior (capítulo \ref{makereference4}), los datos del conjunto de datos han sido normalizdos entre -1 y 1. Esto facilita la tarea ya que conocemos el máximo y el mínimo de nuestro conjunto de datos.
+		\item Se definen 100 clases, y se etiqueta la radiación en una de ellas.
+		\item Para equiquetar, se utiliza la siguiente fórmula: ``f(x) = (x + 1) / 2 * 100'' y se conserva solo la parte entera del resuldato.
+		\item Esto transforma los datos de [-1, 1] a [0, 1] y al multiplicarlo por 100 se obtiene la clase deseada. 
+	\end{itemize}
+
 \section{Método de estudio}
 \label{makereference5.4}
 	\subsection{Grid Search}
@@ -194,9 +208,9 @@ Cada registro del conjunto Y indica la predicción que debe obtener cada registr
 
 	Este método observa qué muestra del rango es la que obtiene un ``mejor resultado'' y vuelve a realizar el estudio ``haciendo zoom'' con centro en esta muestra.
 
-	Para calcular el mejor resultado se utiliza una técnica llamada ``K-Fold Cross-Validation''. Esta técnica divide los datos en ``k'' conjuntos. Uno de ellos es utilizado como datos de prueba y el resto como datos de entrenamiento. Se realiza un proceso de validación y se repite k veces con cada uno de los posibles subconjuntos. Ver figura \ref{cross}.
+	Para calcular el mejor resultado se utiliza una técnica llamada ``K-Fold Cross-Validation''. Esta técnica divide los datos en ``k'' conjuntos (no confundir esta ``k'' con la k que se utiliza para especificar los instantes de tiempo anteriores de cada predicción). Uno de ellos es utilizado como datos de prueba y el resto como datos de entrenamiento. Se realiza un proceso de validación y se repite k veces con cada uno de los posibles subconjuntos. Ver figura \ref{cross}.
 
-	Al realizar este proceso de validación con datos conocidos, puede conocer la precisión o ``accuracy'' que es capaz de obtener un modelo predictivo.
+	Al realizar este proceso de validación con datos conocidos, puede conocer la calidad del modelo predictivo con distintas métricas. En este proyecto se utilizan las métricas ``\(R^2\)'' y ``accuracy'' que serán explicadas en el apartado de resultados.
 
 	Una vez realizado el estudio con los distintos modelos y parámetros se puede observar cual es la mejor configuración para nuestros datos.
 

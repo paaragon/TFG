@@ -1,4 +1,4 @@
-Modelo	k	distancia	Media	Error	Parámetros de la prueba	
+Modelo	k	Horizonte	Media	Error	Parámetros de la prueba	
 MLPClassifier	3	2	0.571703	0.015103	{u'solver': u'lbfgs', u'random_state': 2, u'hidden_layer_sizes': [5, 4]}	{u'solver': u'lbfgs', u'random_state': 2, u'hidden_layer_sizes': [5, 4]}
 MLPClassifier	4	2	0.566903	0.006241	{u'solver': u'lbfgs', u'random_state': 2, u'hidden_layer_sizes': [5, 4]}	{u'solver': u'lbfgs', u'random_state': 2, u'hidden_layer_sizes': [5, 4]}
 MLPClassifier	3	2	0.560672	0.014781	{u'solver': u'lbfgs', u'random_state': 1, u'hidden_layer_sizes': [5, 2]}	{u'solver': u'lbfgs', u'random_state': 2, u'hidden_layer_sizes': [5, 4]}

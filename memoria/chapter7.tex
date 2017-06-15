@@ -7,9 +7,9 @@ Los resultados de este apartado se basan en la exploración tipo Grid descrita e
 
 Para llevar a cabo el entrenamiento anterior, y poder obtener una métrica con la que evaluarlo, es necesario realizar una división del conjunto de datos en dos para cada prueba. Un conjunto para entrenar el modelo y otro para comprobar la precisión de este. Es importante que estos dos conjuntos sean complementarios ya que el modelo entrenado no debe conocer ningún dato del conjunto de test o el entrenamiento se vería alterado por conocer de antemano los datos a predecir.
 
-El tamaño de cada conjunto es también un hecho relevante ya que con un conjunto de datos muy pequeño para el entrenamiento, la predicción sería dificilmente alcanzable con éxito y con un conjunto muy grande, habría pocos datos para probar que el modelo es fiable. Una división típica es dividir el conjunto de datos en 70/30, es decir, 70\% de los datos para entrenamiento y 30\% para comprobación. En este se ha utilizado una división 25/75 que es la utilizada por defecto por el g grid search de SciKitLean.
+El tamaño de cada conjunto es también un hecho relevante ya que con un conjunto de datos muy pequeño para el entrenamiento, la predicción sería dificilmente alcanzable con éxito y con un conjunto muy grande, habría pocos datos para probar que el modelo es fiable. Una división típica es dividir el conjunto de datos en 70/30, es decir, 70\% de los datos para entrenamiento y 30\% para comprobación. En este se ha utilizado una división 25/75 que es la utilizada por defecto por el grid search de SciKitLean.
 
-Para poder analizar los resultados, la prueba anterior proporciona distintas métricas para medir la calidad del modelo. La implementación de GridSearch utilizada (librería de SciKitLearn) pretende dar una misma interfaz para utilizar esta técnica con distintos algoritmos, por lo tanto, los resultados que se obtienen con ellos también tienen una misma forma de nombrar las métricas para todos.
+Para poder analizar los resultados, la prueba anterior proporciona distintas métricas para medir la calidad del modelo. La implementación de GridSearch utilizada (librería de scikit-learn) pretende dar una misma interfaz para utilizar esta técnica con distintos algoritmos, por lo tanto, los resultados que se obtienen con ellos también tienen una misma forma de nombrar las métricas para todos.
 
 Sin embargo, aunque en los ficheros de resultados aparezcan los mismos nombres para medir los resultados, el significado de estos es distinto dependiendo del modelo seleccionado. En los distintos apartados dedicados a cada uno de estos modelos se explicará el significado de sus métricas.
 
@@ -31,7 +31,18 @@ Se han rea1alizado tres conjuntos de pruebas, una por cada algoritmo predictivo 
 
 De los resultados obtenidos para este algoritmo mostrados en la figura \ref{resultado_linear}, la columna ``mean'' nos indican el \(R^{2}\) obtenido. \(R^{2}\) es el coeficiente de correlación y, en regresión lineal, es el cuadrado del \textit{coeficiente de correlación de Pearson}. Se calcula dividiendo el cuadrado de la covarianza del conjunto de datos reales y los predichos entre el producto de los cuadrados de la desviación típica de cada conjunto. Expresa la calidad de la predicción del modelo entre 0 y 1.
 
-Los datos se muestran ordenador por la columna ``mean'' siendo así el primero de estos registros el que más coeficiente de correlación obtiene.
+Los datos se muestran ordenados por la columna ``mean'' siendo así el primero de estos registros el que más coeficiente de correlación obtiene.
+
+Como se puede observar en la figura \ref{resultado_linear}, el modelo obtenido con mejor coeficiente de correlación tiene la siguiente configuración:
+
+\begin{itemize}
+\item k: 5
+\item Horizonte: 2
+\item copy\_X: true
+\item fit\_intercept: True
+\end{itemize}
+
+En el apéndice \ref{Appendix:Key1}, se muestran distintas gráficas con la radiación de este modelo durante varios días del año, la predicción que obtenemos con el modelo obtenido con mayor coeficiente de correlación y el modelo conservador.
 
 \section{SVR}
 \label{makereference6.2}
