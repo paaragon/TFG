@@ -180,13 +180,13 @@ Cada registro del conjunto Y indica la predicción que debe obtener cada registr
 
 	Es tarea del desarrollador la elección del número de capas y de neuronas en cada capa.
 
-	La diferencia más importante entre este algorítmo y los dos anteriores es que no es una regresión si no un clasificador. Esto implica que cada radiación que se introduzca en el modelo debe estar etiquetada en una clase. Para etiquetar la radiación en distintas clases se ha seguido el siguiente procedimiento:
+	La diferencia más importante entre este algorítmo y los dos anteriores es que no es una regresión, si no un clasificador. Esto implica que cada radiación que se introduzca en el modelo debe estar etiquetada en una clase. Para etiquetar la radiación en distintas clases se ha seguido el siguiente procedimiento:
 
 	\begin{itemize}
-		\item Recordemos que, como está indicado en el capítulo anterior (capítulo \ref{makereference4}), los datos del conjunto de datos han sido normalizdos entre -1 y 1. Esto facilita la tarea ya que conocemos el máximo y el mínimo de nuestro conjunto de datos.
+		\item Recordemos que, como está indicado en el capítulo anterior (capítulo \ref{makereference4}), los datos del conjunto de datos han sido normalizados entre -1 y 1. Esto facilita la tarea ya que conocemos el máximo y el mínimo de nuestro conjunto.
 		\item Se definen 100 clases, y se etiqueta la radiación en una de ellas.
-		\item Para equiquetar, se utiliza la siguiente fórmula: ``f(x) = (x + 1) / 2 * 100'' y se conserva solo la parte entera del resuldato.
-		\item Esto transforma los datos de [-1, 1] a [0, 1] y al multiplicarlo por 100 se obtiene la clase deseada. 
+		\item Para etiquetar, se utiliza la siguiente fórmula: ``f(x) = (x + 1) / 2 * 100'' y se conserva solo la parte entera del resultado.
+		\item Esto transforma los datos de [-1, 1] a [0, 1] y, al multiplicarlo por 100, se obtiene la clase deseada. 
 	\end{itemize}
 
 \section{Método de estudio}
