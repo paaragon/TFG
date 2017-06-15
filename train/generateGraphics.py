@@ -7,9 +7,11 @@ import os
 import json
 import sys
 from sklearn.metrics import mean_absolute_error
+from sklearn.metrics import accuracy_score
 
 # Graficas para el dia 15/06/2016
 normPath = 'graphics/train/reversenorm.json'
+
 
 def getPredict(start, end, k, modelo, real):
     solarData = SolarData(start, end)
@@ -33,9 +35,12 @@ def getPredict(start, end, k, modelo, real):
         hAux += h % 100 / 60.0
         newHoras.append(hAux)
 
-    print radiacion
-    mse = round(mean_absolute_error(radiacion, real), 2)
-    return plt.plot(newHoras, radiacion, label='modelo. MSE = ' + str(mse))
+    if modelo != 'mlp':
+        mse = round(mean_absolute_error(radiacion, real), 2)
+        return plt.plot(newHoras, radiacion, label='modelo. MAE = ' + str(mse))
+    else:
+        mse = round(accuracy_score(real, radiacion, normalize=False), 2)
+        return plt.plot(newHoras, radiacion, label='modelo. ACC = ' + str(mse))
 
 
 def mapRad(rad):
@@ -57,8 +62,7 @@ def normalize(rad):
 
 
 def getRealRadiation(start, end, model):
-    df = pd.read_csv('data/csvWithCondition/' +
-                     str(start) + str(end) + '.csv.orig')
+    df = pd.read_csv('data/csvWithCondition/' + str(start) + str(end) + '.csv.orig')
     radiacion = list()
 
     horas = df['hora'].unique()
@@ -66,7 +70,7 @@ def getRealRadiation(start, end, model):
         if model != 'mlp':
             radiacion.append(df[df['hora'] == hora]['radiacion'].mean())
         else:
-            radiacion.append(mapRad(normalize(df[df['hora'] == hora]['radiacion'].mean())))
+            radiacion.append(mapRad(normalize(df[df['hora'] == hora]['radiacion']).mean()))
 
     newHoras = list()
     for h in horas:
@@ -77,6 +81,7 @@ def getRealRadiation(start, end, model):
     dia = str(start % 100)
     mes = str(int(start % 10000) / 100)
     ano = str(start / 10000)
+
     return plt.plot(newHoras, radiacion, label='Radiacion ' + dia + '-' + mes + '-' + ano), radiacion
 
 
@@ -87,8 +92,12 @@ def getConservador(start, end, model, real):
 
     horas = df['hora'].unique()
     for hora in horas:
-        if hora <= 2300:
-            radiacion.append(df[df['hora'] == hora + 100]['radiacion'].mean())
+        if hora >= 200:
+            if model != 'mlp':
+                radiacion.append(df[df['hora'] == hora - 100]['radiacion'])
+            else:
+                radiacion.append(
+                    mapRad(normalize(df[df['hora'] == hora - 100]['radiacion'])))
         else:
             radiacion.append(0)
 
@@ -98,8 +107,12 @@ def getConservador(start, end, model, real):
         hAux += h % 100 / 60.0
         newHoras.append(hAux)
 
-    mse = round(mean_absolute_error(radiacion, real), 2)
-    return plt.plot(newHoras, radiacion, label='Cons. MSE = ' + str(mse))
+    if model != 'mlp':
+        mse = round(mean_absolute_error(real, radiacion), 2)
+        return plt.plot(newHoras, radiacion, label='Cons. MAE = ' + str(mse))
+    else:
+        mse = round(accuracy_score(real, radiacion, normalize=False), 2)
+        return plt.plot(newHoras, radiacion, label='Cons. ACC = ' + str(mse))
 
 
 def paintPlot(start, end, k, model):
@@ -110,7 +123,7 @@ def paintPlot(start, end, k, model):
     plt.xlabel('Hora (0:24)')
     plt.ylabel('Radiacion')
     plt.legend(handles=[plot1, plot2, plot3])
-    plt.savefig('graphics/' + model + '_' + str(start) + str(end) +  '.png')
+    plt.savefig('graphics/' + model + '_' + str(start) + str(end) + '.png')
     plt.show()
 
 
@@ -126,4 +139,5 @@ if __name__ == "__main__":
     end = int(sys.argv[2])
     k = int(sys.argv[3])
     model = sys.argv[4]
+    print model
     paintPlot(start, end, k, model)

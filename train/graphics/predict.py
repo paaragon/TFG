@@ -12,10 +12,10 @@ timeStep = 100  # cuanto tiempo hacia delante (una hora, HHMM)
 def mapRad(rad):
     return int(((rad + 1) / 2) * 100)
 
-def getPrediction(df, row, index, start, k, model):
+def getPrediction(df, row, index, start, k, modelo):
 
     modelPath = os.path.join(os.path.dirname(
-        os.path.abspath(__file__)), 'train/' + str(model) + '.pkl')
+        os.path.abspath(__file__)), 'train/' + str(modelo) + '.pkl')
 
     normPath = os.path.join(os.path.dirname(
         os.path.abspath(__file__)), 'train/reversenorm.json')
@@ -52,7 +52,7 @@ def getPrediction(df, row, index, start, k, model):
 
         radNorm = normalize(df.get_value(index, 'radiacion'), normData['radiacion'][0], normData['radiacion'][1], normData['radiacion'][2])
         
-        if model == 'mlp':
+        if modelo == 'mlp':
             radNorm = mapRad(radNorm)
         
         predictData.append(radNorm)
@@ -68,7 +68,7 @@ def getPrediction(df, row, index, start, k, model):
         row['humedad'], normData['humedad'][0], normData['humedad'][1], normData['humedad'][2]))
 
     radNorm = normalize(row['radiacion'], normData['radiacion'][0], normData['radiacion'][1], normData['radiacion'][2])
-    if model == 'mlp':
+    if modelo == 'mlp':
         radNorm = mapRad(radNorm)
 
     predictData.append(radNorm)
@@ -80,11 +80,11 @@ def getPrediction(df, row, index, start, k, model):
 
     prediction = model.predict(np.array(predictData).reshape(1, -1))
 
-    if model != 'mlp':
+    if modelo != 'mlp':
         predDenorm = denormalize(prediction, normData['radiacion'][0], normData['radiacion'][1], normData['radiacion'][2])
         return predDenorm[0]
     else:
-        return prediction[0]
+        return prediction
 
 
 def normalize(data, mean, mx, mn):
