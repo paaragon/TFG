@@ -15,12 +15,19 @@ Sin embargo, aunque en los ficheros de resultados aparezcan los mismos nombres p
 
 Junto con las métricas de calidad del modelo entrenado aparecen los parámetros necesarios para obtener dicho modelo. Tanto los parámetros específicos de cada modelo como el número de instantes anteriores utilizados (``k'') o la distancia a la predicción.
 
-A la distancia a la predicción la llamaremos ``horizonte de predicción'' y especifica la diferencia entre la hora a la que se realiza la predicción y la hora a la que se quiere predecir entre el intervalo de medida (30 minutos para estos datos). Aunque se haya probado con varios horizontes, el que más nos interesa es ``2'' que indica una predicción a una hora.
+A la distancia a la predicción la llamaremos ``horizonte de predicción'' y especifica la diferencia entre la hora a la que se realiza la predicción y la hora a la que se quiere predecir entre el intervalo de medida (30 minutos para estos datos). Aunque se haya probado con varios horizontes, el que más nos interesa es ``2'', que indica una predicción a una hora.
 
-Se han rea1alizado tres conjuntos de pruebas, una por cada algoritmo predictivo estudiado. A continuación se analizan los resultados para cada uno de estos algoritmos.
+Se han realizado tres conjuntos de pruebas, una por cada algoritmo predictivo estudiado. A continuación se analizan los resultados para cada uno de estos algoritmos.
 
 \section{Regresión Lineal}
-\label{makereference6.1}
+\label{makereference7.1}
+Los parámetros suministrados a GridSearch para realizar el entrenamiento con este modelo pueden verse en la figura \ref{json}.
+
+\begin{itemize}
+\item k: 2, 3, 4, 5
+\item fit\_intercept: true, false
+\item copy\_X: true, false 
+\end{itemize}
 
 \begin{figure}[htb]
 	\begin{center}
@@ -44,17 +51,60 @@ Como se puede observar en la figura \ref{resultado_linear}, el modelo obtenido c
 
 En el apéndice \ref{Appendix:Key1}, se muestran distintas gráficas con la radiación de este modelo durante varios días del año, la predicción que obtenemos con el modelo obtenido con mayor coeficiente de correlación y el modelo conservador.
 
+En la figura \ref{resultado_linear}, se puede observar la mejor configuración entre las proporcionadas a GridSearch con un ``mean'' de 0.910009 y un ``std'' de 0.003789:
+
+\begin{itemize}
+\item k: 5
+\item fit\_intercept: true
+\item copy\_X: true
+\end{itemize} 
+
 \section{SVR}
-\label{makereference6.2}
+\label{makereference7.2}
+
+Para la exploración del modelo SVR usamos las siguientes posibles configuraciones:
+
+\begin{itemize}
+	\item kernel: ``linear''
+	\begin{itemize}
+		\item C: 1, 10, 100, 1000
+	\end{itemize}
+	\item kernel: ``rbf''
+	\begin{itemize}
+		\item C: 1, 10, 100, 1000
+		\item gamma: 0.001, 0.0001
+	\end{itemize}
+\end{itemize}
+
+Esta configuración viene reflejada en la figura \ref{json}, al igual que regresión lineal.
 
 Para SVR se utiliza la misma métrica que la vista en el apartado anterior. Esto es porque ambas son regresiones y esta es muy utilizada en ese caso.
 
 \section{Redes Neuronales}
-\label{makereference6.3}
+\label{makereference7.3}
+
+En la figura \ref{json_mlp} se puede observar los parámetros a explorar que usa GridSearch para determinar qué configuración del modelo de redes neuronales es mejor para nuestro proyecto:
+
+\begin{itemize}
+\item k: 2, 3, 4, 5
+\item solver: ``lbfgs'', ``sgd''
+\item hidden\_layer\_sizes:
+	\begin{itemize}
+	\item 5, 2
+	\item 5, 3
+	\item 5, 4
+	\end{itemize}
+\item random\_state: 1, 2
+\end{itemize}
+
+\begin{figure}[htb]
+	\begin{center}
+		\includegraphics[width=12cm]{figures/json_mlp.png}
+		\caption{Archivo de configuración para la exploración de redes neuronales \label{json_mlp}}
+	\end{center}
+\end{figure}
 
 En este caso, la métrica utilizada para determinar la calidad del modelo ha sido ``accuracy'' (en español, exactitud). Es una métrica muy utilizada en clasificadores que indica el porcentaje de predicciones clasificadas correctamente.
-
-Después de realizar la exploración de los parámetros de los distintos algoritmos de predicción explicados anteriormente (capítulo \ref{makereference4}), hemos obtenido varias métricas de cada uno de ellos.
 
 Después de realizar la exploración de los parámetros de los distintos algoritmos de predicción explicados anteriormente (capítulo \ref{makereference5}), hemos obtenido varias métricas de cada uno de ellos.
 
@@ -111,7 +161,7 @@ Finalmente, hemos elegido el modelo SVR con las configuraciones siguientes:
 Aunque no es el modelo con más media ni menos error, es de los más equilibrados. Esta configuración obtiene una media de acierto de 0.901516, distanciándose en 0.008493 de la media máxima conseguida. Su error es de 0.000330. Además se intuye que SVR debería ser el modelo que mejor se ajuste. Por lo que en un futuro estudio que busque mejorar esta predicción, sería un buen punto de partida.
 
 \section{Calidad del código}
-\label{makereference7.1}
+\label{makereference7.4}
 
 Una vez acabado el código del proyecto, decidimos certificar su calidad mediante \href{https://www.codacy.com}{Codacy}.
 Codacy es una herramienta que proporciona nuestro controlador de versiones GitHub. Sencillamente revisa todas y cada una de las líneas del código, para hacerlo más sencillo, escalable y seguro. Genera un informe con los errores y te dice qué grado de calidad tiene, siendo A el más alto. (\cite{ARP:Codacy:2017})
