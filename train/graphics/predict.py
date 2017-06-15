@@ -32,6 +32,9 @@ def getPrediction(df, row, index, start, k, model):
         date2015, normData['fecha'][0], normData['fecha'][1], normData['fecha'][2])
     predictData = [row['codigo'], dateNorm]
 
+    if row['radiacion'].item() == 0.0:
+        return 0
+
     now = row['hora']
     for i in range(k - 1):
 
@@ -81,7 +84,7 @@ def getPrediction(df, row, index, start, k, model):
         predDenorm = denormalize(prediction, normData['radiacion'][0], normData['radiacion'][1], normData['radiacion'][2])
         return predDenorm[0]
     else:
-        return prediction
+        return prediction[0]
 
 
 def normalize(data, mean, mx, mn):

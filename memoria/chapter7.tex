@@ -56,20 +56,58 @@ Como se puede observar en la figura \ref{resultado_linear}, el modelo obtenido c
 \item fit\_intercept: True
 \end{itemize}
 
-En el anexo \ref{Appendix:Key1} de Regresión Lineal, se muestran distintas gráficas con la radiación de este modelo durante varios días del año, la predicción que obtenemos con el modelo obtenido con mayor coeficiente de correlación y el modelo conservador.
+En el capítulo \ref{Appendix:Key1} (Anexo: Gráficas Regresión Lineal), se muestran distintas gráficas con la radiación de este modelo durante varios días del año, la predicción que obtenemos con el modelo obtenido con mayor coeficiente de correlación y el modelo conservador.
 
 Este ``modelo conservador'' expresa una predicción de la radiación que toma como valor, la radiación que toma como predicción la radiación en el instante anterior.
 
 El objetivo de este proyecto es superar, como mínimo este modelo conservador.
 
+% TODO - Hablar sobre mean square error
+
 \section{SVR}
 \label{makereference7.2}
 
-Para la exploración del modelo SVR usamos las siguientes posibles configuraciones:
+Para la exploración del modelo SVR usamos los siguientes parámetros:
 
-Esta configuración viene reflejada en la figura \ref{json}, al igual que regresión lineal.
+\begin{itemize}
+\item Inicio: 01-01-2015
+\item Fin: 31-12-2015
+\item k: 2, 3, 4, 5
+\item Horizonte de predicción: 2, 3, 4, 5, 6, 7
+\item C: 1, 10, 100, 1000
+\item gamma: 0.001, 0.0001
+\item kernel: linear, rbf 
+\end{itemize}
 
-Para SVR se utiliza la misma métrica que la vista en el apartado anterior. Esto es porque ambas son regresiones y esta es muy utilizada en ese caso.
+En los resultados de la exploración mostrados en la figura \ref{resultado_svr}, la columna ``mean'' utiliza la misma métrica que la vista en el apartado anterior. Esto es porque ambas son regresiones y esta es muy utilizada en ese caso.
+
+\begin{figure}[htb]
+	\begin{center}
+		\includegraphics[width=14cm]{figures/resultado_svr.png}
+		\caption{Resultado Regresión Lineal \label{resultado_svr}}
+	\end{center}
+\end{figure}
+
+La figura \ref{resultado_svr} muestra el modelo obtenido con mejor coeficiente de correlación (0.905100) y su configuración:
+
+\begin{itemize}
+\item Inicio: 01-01-2015
+\item Fin: 31-12-2015
+\item k: 5
+\item Horizonte de predicción: 2
+\item C: 1000
+\item gamma: 0.0001
+\item kernel: rbf 
+\end{itemize}
+
+En el capítulo \ref{Appendix:Key2} (Anexo: Gráficas SVR) podemos observar varias gráficas para distintos días del año con la predicción obtenida con este modelo frente a la radiación real y al modelo conservador.
+
+% TODO hay que interpretar la gráfica. ¿falla mucho el modelo? ¿falla más al amanecer/atardecer?¿falla más en verano? ¿se ve facilmente cuándo falla más? 
+%creo que falla más cuando más variaciones repentinas hay (cuando hay más picos hacia abajo)
+
+% Explicar que "MSE" es mean square error que significa el error medio al cuadrado. Es la media de las restas entre la prediccion y lo real al cuadrado. Para poder ver cuándo falla más y cuándo menos, se puede ver cuándo tiene menor MSE.
+
+% Hacer esto para los tres modelos
 
 \section{Redes Neuronales}
 \label{makereference7.3}
@@ -77,49 +115,16 @@ Para SVR se utiliza la misma métrica que la vista en el apartado anterior. Esto
 En la figura \ref{json_mlp} se puede observar los parámetros a explorar que usa GridSearch para determinar qué configuración del modelo de redes neuronales es mejor para nuestro proyecto:
 
 \begin{itemize}
+\item Inicio: 01-01-2015
+\item Fin: 31-12-2015
 \item k: 2, 3, 4, 5
-\item solver: ``lbfgs'', ``sgd''
-\item hidden\_layer\_sizes:
-	\begin{itemize}
-	\item 5, 2
-	\item 5, 3
-	\item 5, 4
-	\end{itemize}
-\item random\_state: 1, 2
+\item Horizonte de predicción: 2, 3, 4, 5, 6, 7
+\item solver: lbfgs, sgd
+\item hidden\_layers: (5, 2), (5, 3), (5, 4)
+\item ramdon\_state: 1, 2
 \end{itemize}
-
-\begin{figure}[htb]
-	\begin{center}
-		\includegraphics[width=12cm]{figures/json_mlp.png}
-		\caption{Archivo de configuración para la exploración de redes neuronales \label{json_mlp}}
-	\end{center}
-\end{figure}
 
 En este caso, la métrica utilizada para determinar la calidad del modelo ha sido ``accuracy'' (en español, exactitud). Es una métrica muy utilizada en clasificadores que indica el porcentaje de predicciones clasificadas correctamente.
-
-Después de realizar la exploración de los parámetros de los distintos algoritmos de predicción explicados anteriormente (capítulo \ref{makereference5}), hemos obtenido varias métricas de cada uno de ellos.
-
-\begin{itemize}
-	\item Media
-	\item Desviación estándar
-\end{itemize}
-
-Estas dos variables son las que nos dan la información necesaria para decantarnos por un modelo u otro. Buscamos aquella configuración de los parámetros que maximice la media y minimice el error.
-
-La primera prueba que se realizó fue con algoritmos de regresión lineal y SVR.
-
-De todos los resultados obtenidos, el que mayor media proporciona es un modelo realizado con Regresión Lineal, que obtiene una media de 0.910009 y un error de 0.003789. Su configuración es la siguiente:
-
-\begin{itemize}
-	\item k: 5
-	\item distancia: 2
-	\item copy\_X: ``true''
-	\item fit\_intercept: ``true''
-\end{itemize}
-
-Esta media no es suficiente para afirmar que el modelo predictivo funciona. Para ello necesitaríamos una media mayor. Intuitivamente, una regresión lineal nunca sería capaz de proporcionarnos una buena predicción, ya que nuestros datos no son lineales. Ver figura \ref{modelo_verano}.
-
-La segunda prueba se realizó con redes neuronales. Como este algoritmo es un clasificador ha sido necesario ``mapear'' las predicciones en distintas clases. Debido a que estos datos han sido normalizados, es sencillo clasificarlos en 100 clases [0, 100]. La intención de estas clases no es tanto acertar la cantidad de radiación sino proporcionar un rango en la que se encontrará.
 
 \begin{figure}[htb]
 	\begin{center}
@@ -128,28 +133,21 @@ La segunda prueba se realizó con redes neuronales. Como este algoritmo es un cl
 	\end{center}
 \end{figure}
 
-Una vez realizadas las pruebas, se observa que la media es muy baja,0.539901 en el mejor caso. Descartamos utilizar estos modelos de redes neuronales en nuestro proyecto.
-
-Como futura vía de estudio se plantea volver a realizar este entrenamiento replanteando los parámetros y el ``mapeo'' de las clases.
-
-Finalmente, hemos elegido el modelo SVR con las configuraciones siguientes:
+En la figura \ref{resultado_mlp} podemos ver los resultados del grid search para Redes Neuronales. La configuración del modelo con mayor ``accuracy'' obtenido es la siguiente:
 
 \begin{itemize}
-	\item k: 4
-	\item distancia: 2
-	\item kernel: ``rbf''
-	\item C: 1000
-	\item gamma: 0.001
+\item Inicio: 01-01-2015
+\item Fin: 31-12-2015
+\item k: 3
+\item Horizonte de predicción: 2
+\item solver: lbfgs
+\item hidden\_layers: (5, 4)
+\item ramdon\_state: 2
 \end{itemize}
 
-\begin{figure}[htb]
-	\begin{center}
-		\includegraphics[width=16cm]{figures/resultado_elegido.png}
-		\caption{Resultado elegido \label{resultado_elegido}}
-	\end{center}
-\end{figure}
+En el capítulo \ref{Appendix:Key3} tenemos distintas gráficas con la predicción realizada por este modelo, la radiación real y la predicción del modelo conservador para distintos días del año 2016.
 
-Aunque no es el modelo con más media ni menos error, es de los más equilibrados. Esta configuración obtiene una media de acierto de 0.901516, distanciándose en 0.008493 de la media máxima conseguida. Su error es de 0.000330. Además se intuye que SVR debería ser el modelo que mejor se ajuste. Por lo que en un futuro estudio que busque mejorar esta predicción, sería un buen punto de partida.
+% TODO hablar de mean square error y gráficas
 
 \section{Calidad del código}
 \label{makereference7.4}

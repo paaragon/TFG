@@ -6,11 +6,12 @@ from graphics import predict
 import os
 import json
 import sys
+from sklearn.metrics import mean_absolute_error
 
 # Graficas para el dia 15/06/2016
 normPath = 'graphics/train/reversenorm.json'
 
-def getPredict(start, end, k, modelo):
+def getPredict(start, end, k, modelo, real):
     solarData = SolarData(start, end)
 
     df = pd.read_csv('data/csvWithCondition/' +
@@ -25,7 +26,6 @@ def getPredict(start, end, k, modelo):
         prediction = predict.getPrediction(df, row, index, start, k, modelo)
 
         radiacion.append(prediction)
-        print prediction
 
     newHoras = list()
     for h in horas:
@@ -33,7 +33,9 @@ def getPredict(start, end, k, modelo):
         hAux += h % 100 / 60.0
         newHoras.append(hAux)
 
-    return plt.plot(newHoras, radiacion, label=modelo)
+    print radiacion
+    mse = round(mean_absolute_error(radiacion, real), 2)
+    return plt.plot(newHoras, radiacion, label='modelo. MSE = ' + str(mse))
 
 
 def mapRad(rad):
@@ -75,10 +77,10 @@ def getRealRadiation(start, end, model):
     dia = str(start % 100)
     mes = str(int(start % 10000) / 100)
     ano = str(start / 10000)
-    return plt.plot(newHoras, radiacion, label='Radiacion ' + dia + '-' + mes + '-' + ano)
+    return plt.plot(newHoras, radiacion, label='Radiacion ' + dia + '-' + mes + '-' + ano), radiacion
 
 
-def getConservador(start, end, model):
+def getConservador(start, end, model, real):
     df = pd.read_csv('data/csvWithCondition/' +
                      str(start) + str(end) + '.csv.orig')
     radiacion = list()
@@ -96,13 +98,15 @@ def getConservador(start, end, model):
         hAux += h % 100 / 60.0
         newHoras.append(hAux)
 
-    return plt.plot(newHoras, radiacion, label='Modelo conservador')
+    mse = round(mean_absolute_error(radiacion, real), 2)
+    return plt.plot(newHoras, radiacion, label='Cons. MSE = ' + str(mse))
 
 
 def paintPlot(start, end, k, model):
-    plot1, = getPredict(start, end, k, model)
-    plot2, = getRealRadiation(start, end, model)
-    plot3, = getConservador(start, end, model)
+    real = getRealRadiation(start, end, model)
+    plot2, = real[0]
+    plot3, = getConservador(start, end, model, real[1])
+    plot1, = getPredict(start, end, k, model, real[1])
     plt.xlabel('Hora (0:24)')
     plt.ylabel('Radiacion')
     plt.legend(handles=[plot1, plot2, plot3])
