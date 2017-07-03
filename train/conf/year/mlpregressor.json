@@ -1,0 +1,23 @@
+{
+    "id": "MLPClassifier1",
+    "startDate": 20150101,
+    "endDate": 20151231,
+    "startHour": 800,
+    "endHour": 2000,
+    "k": [4],
+    "relative_target": [2],
+    "estimator": [{
+        "module": "sklearn.neural_network",
+        "class": "neural_network",
+        "model": "MLPRegressor",
+        "parameters": [{
+            "solver": ["lbfgs", "sgd"],
+            "activation": ["identity", "logistic", "tanh", "relu"],
+            "hidden_layer_sizes": [
+                [100],
+                [100, 100]
+            ],
+            "random_state": [1, 2]
+        }]
+    }]
+}

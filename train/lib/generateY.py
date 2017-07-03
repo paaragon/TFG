@@ -37,6 +37,8 @@ def generateYDF(csvFilePath=None, xFilePath=None, destinationcsvPath=None, df=No
             print 'Appending row ', index, '/', str(len(dfX)) + '. ' + str(perc) + '%'
             percentage = perc
 
+        print df[(df['hora'] == value)], index, value
+
         rad = df[(df['hora'] == value) &\
                  (df['fecha'] == dfX['fecha'].loc[index])]['radiacion'].values[0]
             
