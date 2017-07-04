@@ -72,7 +72,7 @@ class GridSearch(object):
                     print "X shape: ", x_set.shape
                     print "Y shape: ", y_set.shape
 
-                    if class_name == "neural_network":
+                    if model_name == "MLPClassifier":
                         y_set = self.y_mlp(y_set)
                     else:
                         y_set = self.y_regression(y_set)

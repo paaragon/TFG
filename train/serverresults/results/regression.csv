@@ -1,0 +1,384 @@
+LinearRegression;2;2;0.890677;0.006171;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;2;0.890677;0.006171;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;2;0.890677;0.006171;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;2;0.890677;0.006171;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;3;0.821155;0.009924;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;3;0.821155;0.009924;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;3;0.821155;0.009924;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;3;0.821155;0.009924;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;4;0.753222;0.013023;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;4;0.753222;0.013023;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;4;0.753222;0.013023;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;4;0.753222;0.013023;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;5;0.675211;0.014926;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;5;0.675211;0.014926;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;5;0.675211;0.014926;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;5;0.675211;0.014926;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;6;0.606603;0.011524;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;6;0.606603;0.011524;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;6;0.606603;0.011524;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;6;0.606603;0.011524;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;7;0.545909;0.016615;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;7;0.545909;0.016615;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;7;0.545909;0.016615;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;2;7;0.545909;0.016615;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+SVR;2;2;0.876517;0.004481;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;2;0.876804;0.005569;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;2;0.876772;0.005611;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;2;0.876812;0.005682;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;2;0.846135;0.005000;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;2;0.553581;0.012491;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;2;0.871696;0.004285;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;2;0.845766;0.005003;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;2;0.879759;0.003703;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;2;0.870288;0.004362;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;2;0.891267;0.003285;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;2;0.876282;0.003896;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;3;0.813220;0.012752;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;3;0.813276;0.012369;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;3;0.813282;0.012374;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;3;0.813138;0.012687;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;3;0.757681;0.008249;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;3;0.443985;0.007682;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;3;0.809809;0.007487;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;3;0.756972;0.008178;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;3;0.827605;0.011857;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;3;0.806532;0.007123;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;3;0.861576;0.010750;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;3;0.816603;0.011711;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;4;0.745814;0.019519;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;4;0.745181;0.020302;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;4;0.745165;0.020132;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;4;0.745071;0.020106;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;4;0.657065;0.009547;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;4;0.341544;0.019252;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;4;0.737846;0.009983;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;4;0.656224;0.009199;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;4;0.771994;0.016167;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;4;0.732502;0.009729;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;4;0.831136;0.011899;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;4;0.752043;0.017574;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;5;0.663516;0.020224;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;5;0.662774;0.019800;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;5;0.662782;0.019114;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;5;0.662674;0.019508;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;5;0.544341;0.015628;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;5;0.250963;0.022574;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;5;0.648302;0.015511;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;5;0.543428;0.015757;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;5;0.700503;0.018669;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;5;0.641373;0.015858;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;5;0.788071;0.015594;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;5;0.672726;0.020152;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;6;0.592081;0.021751;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;6;0.591344;0.021379;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;6;0.591352;0.021390;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;6;0.591184;0.021610;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;6;0.450808;0.012800;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;6;0.187669;0.024456;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;6;0.565296;0.010394;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;6;0.449493;0.012859;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;6;0.635436;0.019441;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;6;0.558364;0.010530;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;6;0.749106;0.014430;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;6;0.599494;0.020342;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;7;0.530684;0.028592;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;7;0.530510;0.028309;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;7;0.530704;0.027701;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;7;0.530824;0.027215;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;7;0.374505;0.011782;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;7;0.137936;0.020450;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;7;0.492902;0.012156;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;7;0.373569;0.011513;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;7;0.575545;0.025012;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;7;0.484662;0.012078;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;7;0.704988;0.019544;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;2;7;0.535527;0.026105;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+LinearRegression;3;2;0.898350;0.008953;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;2;0.898350;0.008953;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;2;0.898350;0.008953;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;2;0.898350;0.008953;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;3;0.843823;0.011491;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;3;0.843823;0.011491;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;3;0.843823;0.011491;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;3;0.843823;0.011491;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;4;0.782886;0.011355;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;4;0.782886;0.011355;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;4;0.782886;0.011355;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;4;0.782886;0.011355;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;5;0.717252;0.011882;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;5;0.717252;0.011882;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;5;0.717252;0.011882;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;5;0.717252;0.011882;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;6;0.654947;0.023008;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;6;0.654947;0.023008;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;6;0.654947;0.023008;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;6;0.654947;0.023008;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;7;0.611564;0.003166;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;7;0.611564;0.003166;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;7;0.611564;0.003166;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;3;7;0.611564;0.003166;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+SVR;3;2;0.887144;0.008614;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;2;0.887257;0.009053;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;2;0.887271;0.009240;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;2;0.887104;0.008976;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;2;0.843187;0.007070;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;2;0.599060;0.003717;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;2;0.878956;0.007372;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;2;0.842630;0.007072;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;2;0.885278;0.008420;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;2;0.878824;0.007229;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;2;0.894271;0.007889;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;2;0.885983;0.007826;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;3;0.837831;0.011036;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;3;0.837893;0.010595;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;3;0.837880;0.010662;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;3;0.838023;0.010597;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;3;0.766706;0.007875;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;3;0.487358;0.018232;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;3;0.837669;0.009439;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;3;0.765575;0.008212;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;3;0.849074;0.010854;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;3;0.835590;0.010126;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;3;0.872254;0.008022;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;3;0.840580;0.012487;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;4;0.776352;0.015293;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;4;0.776149;0.014980;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;4;0.776066;0.014992;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;4;0.775896;0.015275;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;4;0.672831;0.013587;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;4;0.380801;0.018997;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;4;0.779955;0.012433;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;4;0.671403;0.013867;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;4;0.798266;0.012413;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;4;0.776008;0.012474;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;4;0.847177;0.009073;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;4;0.781118;0.014584;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;5;0.704907;0.021454;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;5;0.703970;0.021843;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;5;0.703937;0.021430;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;5;0.704010;0.021429;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;5;0.577725;0.010346;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;5;0.292885;0.017873;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;5;0.710886;0.010454;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;5;0.576287;0.010095;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;5;0.737746;0.017209;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;5;0.705128;0.010563;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;5;0.815546;0.010920;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;5;0.712080;0.019161;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;6;0.640158;0.038795;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;6;0.639470;0.039413;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;6;0.639314;0.039343;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;6;0.639474;0.039184;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;6;0.494307;0.006959;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;6;0.226338;0.018570;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;6;0.642656;0.017571;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;6;0.492674;0.007166;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;6;0.679507;0.031971;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;6;0.635733;0.017218;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;6;0.778933;0.021247;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;6;0.648812;0.034314;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;7;0.600013;0.011786;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;7;0.599397;0.011626;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;7;0.599043;0.012021;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;7;0.599384;0.011687;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;7;0.444872;0.010395;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;7;0.190106;0.026689;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;7;0.594869;0.009411;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;7;0.443245;0.011165;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;7;0.637206;0.010021;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;7;0.587830;0.009943;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;7;0.743595;0.007761;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;3;7;0.606880;0.012641;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+LinearRegression;4;2;0.905659;0.000913;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;2;0.905659;0.000913;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;2;0.905659;0.000913;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;2;0.905659;0.000913;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;3;0.854387;0.010165;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;3;0.854387;0.010165;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;3;0.854387;0.010165;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;3;0.854387;0.010165;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;4;0.801744;0.004230;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': False}
+LinearRegression;4;4;0.801744;0.004230;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': False}
+LinearRegression;4;4;0.801744;0.004230;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': False}
+LinearRegression;4;4;0.801744;0.004230;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': False}
+LinearRegression;4;5;0.742732;0.011468;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;5;0.742732;0.011468;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;5;0.742732;0.011468;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;5;0.742732;0.011468;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;6;0.691243;0.002894;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;6;0.691243;0.002894;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;6;0.691243;0.002894;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;6;0.691243;0.002894;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;7;0.645037;0.012901;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;7;0.645037;0.012901;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;7;0.645037;0.012901;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;4;7;0.645037;0.012901;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+SVR;4;2;0.894514;0.002590;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;2;0.894121;0.001943;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;2;0.894056;0.001757;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;2;0.894190;0.001121;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;2;0.854104;0.003262;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;2;0.617272;0.010543;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;2;0.889773;0.000708;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;2;0.853602;0.003295;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;2;0.893769;0.001416;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;2;0.889495;0.000775;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;2;0.901516;0.000330;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;2;0.894433;0.002163;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;3;0.851795;0.009948;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;3;0.851067;0.010717;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;3;0.851065;0.010731;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;3;0.851025;0.010739;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;3;0.786261;0.010819;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;3;0.509103;0.017187;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;3;0.850841;0.009867;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;3;0.785108;0.011190;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;3;0.860312;0.009271;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;3;0.849289;0.009954;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;3;0.879200;0.008190;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;3;0.853464;0.009600;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;4;0.796647;0.007533;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;4;0.796553;0.007761;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;4;0.796528;0.007720;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;4;0.796418;0.008007;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;4;0.706782;0.006311;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;4;0.408136;0.014161;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;4;0.800535;0.007367;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;4;0.705403;0.006374;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;4;0.815835;0.006020;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;4;0.797277;0.007544;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;4;0.860384;0.004866;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;4;0.799838;0.007487;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;5;0.732811;0.016179;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;5;0.732882;0.015671;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;5;0.732933;0.015782;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;5;0.732945;0.015913;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;5;0.623932;0.007069;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;5;0.322712;0.016919;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;5;0.741011;0.015231;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;5;0.622268;0.007302;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;5;0.760253;0.016821;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;5;0.736295;0.015753;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;5;0.830808;0.010915;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;5;0.737932;0.016850;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;6;0.681686;0.007773;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;6;0.681304;0.007556;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;6;0.681258;0.007907;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;6;0.681358;0.008078;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;6;0.562558;0.006482;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;6;0.273627;0.022338;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;6;0.689080;0.007538;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;6;0.561127;0.006348;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;6;0.712513;0.007968;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;6;0.684026;0.007263;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;6;0.798438;0.006235;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;6;0.687220;0.008103;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;7;0.637528;0.016223;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;7;0.636981;0.016589;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;7;0.636812;0.016863;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;7;0.636741;0.016615;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;7;0.513082;0.013550;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;7;0.238940;0.026354;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;7;0.642286;0.016526;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;7;0.511397;0.013894;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;7;0.668369;0.016167;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;7;0.637574;0.016490;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;7;0.762625;0.014853;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;4;7;0.643006;0.016631;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+LinearRegression;5;2;0.910009;0.003789;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;5;2;0.910009;0.003789;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;5;2;0.910009;0.003789;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;5;2;0.910009;0.003789;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;5;3;0.863675;0.004067;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': False}
+LinearRegression;5;3;0.863675;0.004067;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': False}
+LinearRegression;5;3;0.863675;0.004067;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': False}
+LinearRegression;5;3;0.863675;0.004067;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': False}
+LinearRegression;5;4;0.812471;0.005133;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;5;4;0.812471;0.005133;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;5;4;0.812471;0.005133;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;5;4;0.812471;0.005133;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;5;5;0.758796;0.004340;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': False}
+LinearRegression;5;5;0.758796;0.004340;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': False}
+LinearRegression;5;5;0.758796;0.004340;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': False}
+LinearRegression;5;5;0.758796;0.004340;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': False}
+LinearRegression;5;6;0.710994;0.008554;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;5;6;0.710994;0.008554;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;5;6;0.710994;0.008554;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;5;6;0.710994;0.008554;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': True}
+LinearRegression;5;7;0.673672;0.002051;{u'copy_X': True, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': False}
+LinearRegression;5;7;0.673672;0.002051;{u'copy_X': True, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': False}
+LinearRegression;5;7;0.673672;0.002051;{u'copy_X': False, u'fit_intercept': True};{u'copy_X': True, u'fit_intercept': False}
+LinearRegression;5;7;0.673672;0.002051;{u'copy_X': False, u'fit_intercept': False};{u'copy_X': True, u'fit_intercept': False}
+SVR;5;2;0.901323;0.004353;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;2;0.901101;0.003352;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;2;0.901253;0.003569;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;2;0.901292;0.003694;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;2;0.866514;0.006637;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;2;0.630889;0.015000;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;2;0.895941;0.004993;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;2;0.866053;0.006456;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;2;0.900175;0.004844;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;2;0.895813;0.005088;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;2;0.905100;0.004216;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;2;0.901038;0.004624;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;3;0.860528;0.005932;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;3;0.860418;0.005519;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;3;0.860405;0.005310;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;3;0.860537;0.005520;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;3;0.812682;0.002467;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;3;0.530053;0.014138;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;3;0.860696;0.003463;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;3;0.811618;0.002612;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;3;0.870652;0.002710;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;3;0.859136;0.003327;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;3;0.889446;0.002158;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;3;0.862802;0.003817;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;4;0.806360;0.004965;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;4;0.805363;0.005908;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;4;0.805301;0.005751;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;4;0.805535;0.006052;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;4;0.742762;0.007262;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;4;0.432685;0.013476;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;4;0.809658;0.006672;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;4;0.741596;0.007163;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;4;0.826147;0.005283;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;4;0.806629;0.006956;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;4;0.867639;0.006192;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;4;0.809589;0.005325;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;5;0.751356;0.005479;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;5;0.751260;0.005834;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;5;0.751197;0.005823;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;5;0.751011;0.006221;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;5;0.677531;0.006052;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;5;0.369394;0.019470;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;5;0.757359;0.000520;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;5;0.675909;0.005480;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;5;0.775823;0.003254;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;5;0.753530;0.000600;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;5;0.839386;0.001241;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;5;0.756007;0.003754;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;6;0.704090;0.009096;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;6;0.703761;0.009483;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;6;0.703732;0.009567;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;6;0.703659;0.009510;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;6;0.618889;0.015857;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;6;0.317420;0.021527;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;6;0.710496;0.010106;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;6;0.617497;0.016024;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;6;0.731582;0.008474;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;6;0.706424;0.010620;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;6;0.809528;0.010191;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;6;0.708803;0.008619;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;7;0.669210;0.002387;{u'kernel': u'linear', u'C': 1};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;7;0.668724;0.002829;{u'kernel': u'linear', u'C': 10};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;7;0.668703;0.003010;{u'kernel': u'linear', u'C': 100};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;7;0.668645;0.003075;{u'kernel': u'linear', u'C': 1000};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;7;0.577986;0.011201;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;7;0.293138;0.012488;{u'kernel': u'rbf', u'C': 1, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;7;0.673077;0.002859;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;7;0.576604;0.011218;{u'kernel': u'rbf', u'C': 10, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;7;0.695291;0.000742;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;7;0.669144;0.003235;{u'kernel': u'rbf', u'C': 100, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;7;0.776275;0.003368;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}
+SVR;5;7;0.673633;0.001557;{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.0001};{u'kernel': u'rbf', u'C': 1000, u'gamma': 0.001}

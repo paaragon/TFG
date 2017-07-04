@@ -18,7 +18,7 @@ def getPrediction(df, row, index, start, k, modelo):
         os.path.abspath(__file__)), 'train/' + str(modelo) + '.pkl')
 
     normPath = os.path.join(os.path.dirname(
-        os.path.abspath(__file__)), 'train/reversenorm.json')
+        os.path.abspath(__file__)), 'train/reverse_mlp.json')
 
     if index < (k - 1) * step:
         print "No records enough."

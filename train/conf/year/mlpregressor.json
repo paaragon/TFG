@@ -1,5 +1,5 @@
 {
-    "id": "MLPClassifier1",
+    "id": "MLPRegressor",
     "startDate": 20150101,
     "endDate": 20151231,
     "startHour": 800,
