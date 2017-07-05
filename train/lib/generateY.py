@@ -29,9 +29,11 @@ def generateYDF(csvFilePath=None, xFilePath=None, destinationcsvPath=None, df=No
     resultList = []
     
     percentage = -1
-    last_date = ''
-    current_date = ''
+    last_date = None
+    current_date = None
+
     for index, value in enumerate(dfX['targetHour']):
+        #Recorrer los targetHour de dfX y buscar su radiacion en df
         
         perc = index * 100 / len(dfX)
         
@@ -39,22 +41,32 @@ def generateYDF(csvFilePath=None, xFilePath=None, destinationcsvPath=None, df=No
             print 'Appending row ', index, '/', str(len(dfX)) + '. ' + str(perc) + '%'
             percentage = perc
 
-        if len(df[(df['hora'] == value) & (df['fecha'] == dfX['fecha'].loc[index])]['radiacion'].values) == 0:
-
-            print df[(df['hora'] == value) &\
-                 (df['fecha'] == last_date)]['radiacion']
+        #Si no encuentra targetHour: 
+        # - probar si hay error de precision de floats
+        # - si no hay mas horas en el dia
+        if len(df[(df['hora'] == value) & \
+                  (df['fecha'] == dfX['fecha'].loc[index])]['radiacion'].values) == 0:
             
-            print last_date, index
-            print 'noooo'
-            rad = df[(df['hora'] == value) &\
-                 (df['fecha'] == last_date)]['radiacion'].values[0]
+            #Si probando con floats muy parecidos no se encuentra
+            # - Se prueba con la fecha de la vueta anterior
+            if len(df[(is_close(df['hora'], value)) &\
+                 (is_close(df['fecha'], dfX['fecha'].loc[index]))]['radiacion'].values) == 0:
+
+                rad = df[(is_close(df['hora'], value)) &\
+                    (is_close(df['fecha'], last_date))]['radiacion'].values[0]
+            
+            #Si probando con floats muy parecidos si se encuentra
+            else:
+                
+                rad = df[(is_close(df['hora'], value)) &\
+                    (is_close(df['fecha'], dfX['fecha'].loc[index]))]['radiacion'].values[0]
         else:
             rad = df[(df['hora'] == value) &\
                  (df['fecha'] == dfX['fecha'].loc[index])]['radiacion'].values[0]
 
-            if current_date != dfX['fecha'].loc[index]:
-                last_date = current_date
-                current_date = dfX['fecha'].loc[index]
+        if current_date != dfX['fecha'].loc[index]:
+            last_date = current_date
+            current_date = dfX['fecha'].loc[index]
         
         resultList.append(rad)
     
@@ -64,6 +76,10 @@ def generateYDF(csvFilePath=None, xFilePath=None, destinationcsvPath=None, df=No
         retDF.to_csv(destinationcsvPath, index = False)
     else:
         return retDF
+
+def is_close(f1, f2):
+
+    return abs(f1 - f2) <= 0.00000000001
     
 if __name__ == '__main__':
     
