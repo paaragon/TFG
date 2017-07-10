@@ -129,6 +129,12 @@ def createCSVWithConditions(sourceFolder, destinationFolder=None, cond=dict(), v
         # i + 1 para que al normalizar no divida entre 0
         df.loc[df['codigo'] == codigo, 'codigo'] = i + 1
 
+    for i, hora in enumerate(df['hora'].unique()):
+        # i + 1 para que al normalizar no divida entre 0
+        hAux = hora / 100
+        hAux += hora % 100 / 60.0
+        df.loc[df['hora'] == hora, 'hora'] = hAux
+
     fileName = str(conditions['dateStart']) + \
         str(conditions['dateEnd']) + '.csv'
 

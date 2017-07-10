@@ -8,7 +8,7 @@ from sklearn.neural_network import MLPRegressor
 
 start = 20150101
 end = 20153112
-start_hour = 100
+start_hour = 800
 end_hour = 2000
 k = 4
 target = 2
@@ -18,7 +18,7 @@ def trainMLPRegressor():
     print "training"
 
     start_date = 20150101
-    end_date = 20153112
+    end_date = 20151231
     start_hour = 800
     end_hour = 2000
 
@@ -31,7 +31,7 @@ def trainMLPRegressor():
     x = solar_data.getData()
     y = solar_data.getTarget()
 
-    mlp = MLPRegressor(hidden_layer_sizes=(100,100), activation='logistic', solver='lbfgs', random_state=2)
+    mlp = MLPRegressor(hidden_layer_sizes=(100,), activation='relu', solver='lbfgs', random_state=2)
     return mlp.fit(x, y.values.ravel())
 
 

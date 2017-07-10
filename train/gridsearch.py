@@ -1,6 +1,7 @@
 from lib.SolarData import SolarData
 import json
 from sys import argv
+import os
 import numpy as np
 #from sklearn import linear_model
 #from sklearn import svm
@@ -84,6 +85,9 @@ class GridSearch(object):
 
                     means = clf.cv_results_['mean_test_score']
                     stds = clf.cv_results_['std_test_score']
+
+                    if not os.path.isdir('results'):
+                        os.makedirs('results')
 
                     with open('results/' + conf['id'] + '.csv', 'w') as csvfile:
                         for mean, std, params in zip(means, stds, clf.cv_results_['params']):
