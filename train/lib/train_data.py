@@ -2,19 +2,28 @@
 # -*- coding: utf-8 -*-
 
 import os
+import argparse
 import pandas as pd
 
-def generate_train_data(conditions, original_set_path=None, destination_folder=None, verbose=True):
+def generate_train_data(config_file="", csv_file=None, n_samples=0, target_distance=[],  \
+                        orig_cols=None, orig_prefix_cols=[], x_cols=None, x_prefix_cols=[], y_cols=None):
     """
     This function generates data sets (x, y) to use them in training and save then in disk
 
-        - conditions: an object width the conditions of the sets.
-        - source_path: the path of the original set.
-        - destination_folder: destination path of the folder to save the sets (only the path to the
-            folder, not the path to the files)
+        Params:
+        
+        - config_file: File with the parameters to generate the sets. It can only contain some parameters and specify passing them by parameter.
+        - csv_file: File with original data..
+        - n_samples: Number of samples of the original set to add in a row of the X set.
+        - target_distance: Number of samples ahead where the ground truth is. More than one value is accepted.In that case, a multioutput Y set will be generated.
+        - orig_cols: Column names of the original set.
+        - orig_prefix_cols: Name of the first column names in the original set that shoul be included only once per row in the X set.
+        - x_cols: Column names of the X set.
+        - x_prefix_cols: Name of the first column names in the X set that shoul be included only once per row in the X set.
+        - y_cols: Column names of the Y set.
 
         Return:
-        
+
         - Tuple: x_destination_path, y_destination_path
     """
 
@@ -121,11 +130,32 @@ def generate_train_data(conditions, original_set_path=None, destination_folder=N
 def main():
     """Main function to execute this scripts from cli"""
 
-    conditions = dict()
-    conditions['relative_target_sample'] = 2
-    conditions['n_samples'] = 4
+    parser = argparse.ArgumentParser()
 
-    generate_train_data(conditions, '../data/csvWithCondition/2015.csv', '../data/xy')
+    parser.add_argument('-c', '--config-file', nargs='?', action="store", dest="config_file", default="", help="File with the parameters to generate the sets. It can only contain some parameters and specify the others by cli.")
+    parser.add_argument('-f', '--file', nargs='?', action="store", dest="csv_file", help="File with original data.")
+    parser.add_argument('-n', '--n-samples', nargs='?', dest="n_samples", help="Number of samples of the original set to add in a row of the X set.", type=int)
+    parser.add_argument('-t','--target-distance', nargs='?', dest="target_distance", help="Number of samples ahead where the ground truth is. More than one value is accepted.In that case, a multioutput Y set will be generated.")
+    parser.add_argument('--orig-cols', nargs='*', dest="orig_cols", help="Column names of the original set.")
+    parser.add_argument('--orig-prefix-cols', nargs='*', dest="orig_prefix_cols", help="Name of the first column names in the original set that shoul be included only once per row in the X set.")
+    parser.add_argument('--x-cols', nargs='*', dest="x_cols", help="Column names of the X set.")
+    parser.add_argument('--x-prefix-cols', nargs='*', dest="x_prefix_cols", help="Name of the first column names in the X set that shoul be included only once per row in the X set.")
+    parser.add_argument('--y-cols', nargs='*', dest="y_cols", help="Column names of the Y set.")
+
+    arguments = parser.parse_args()
+
+    config_file = arguments.config_file
+    csv_file = arguments.config_file
+    n_samples = arguments.n_samples
+    target_distance = arguments.target_distance
+    orig_cols = arguments.orig_cols
+    orig_prefix_cols = arguments.orig_prefix_cols
+    x_cols = arguments.x_cols
+    x_prefix_cols = arguments.x_prefix_cols
+    y_cols = arguments.y_cols
+
+    generate_train_data(config_file, csv_file, n_samples, target_distance,  \
+                        orig_cols, orig_prefix_cols, x_cols, x_prefix_cols, y_cols)
 
 if __name__ == '__main__':
     main()

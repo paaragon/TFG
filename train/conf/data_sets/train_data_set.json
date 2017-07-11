@@ -1,0 +1,6 @@
+{
+    "csv-path": "../data/csvWithCondition/2015.csv",
+    "destination_folder": "../data/xy",
+    "n_samples": 4,
+    "relative_target_sample_distance": [2]
+}
