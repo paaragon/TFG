@@ -4,7 +4,7 @@ import os.path
 import pandas as pd
 from csvManager import createCSVWithConditions
 from csvManager import normalizeCSV
-from train_data import generate_train_data
+from train_data import TrainData
 
 class SolarData(object):
     """This class generate data sets for train"""
@@ -14,7 +14,7 @@ class SolarData(object):
     start_hout = 100
     end_hour = 2400
     n_samples = 0
-    relative_target_distance = 0
+    target_distances = 0
     csv_with_conditions_path = ""
     x_path = ""
     y_path = ""
@@ -29,7 +29,7 @@ class SolarData(object):
         self.csv_with_conditions_path = self._generate_period_csv()
 
 
-    def load_data(self, n_samples, relative_target_distance):
+    def load_data(self, n_samples, target_distances):
         """
         Function that generate the needed data frames to predict the solar radiation
 
@@ -37,7 +37,26 @@ class SolarData(object):
             relativeTargetDistance - number of records below to set as target
         """
 
-        self.x_path, self.y_path = generate_train_data(n_samples, relative_target_distance)
+        orig_csv_file = str(self.data_path) \
+                          + "/csvWithCondition/" \
+                          + str(self.start_date) \
+                          + str(self.end_date) \
+                          + ".csv"
+
+        dest_folder = str(self.data_path) + "xy"
+
+        train_data = TrainData(orig_csv_file_path=orig_csv_file,
+                               dest_folder=dest_folder,
+                               n_samples=n_samples,
+                               target_distances=target_distances,
+                               orig_prefix_cols=["codigo", "fecha"],
+                               orig_cols=["hora", "temperatura", "humedad", "radiacion"],
+                               x_prefix_cols=["codigo", "fecha"],
+                               x_cols=["hora", "temperatura", "humedad", "radiacion"],
+                               y_cols=["radiacion"],
+                               orig_y_col=["radiacion"])
+
+        self.x_path, self.y_path = train_data.generate_train_data()
 
     def _generate_period_csv(self):
         '''
@@ -67,10 +86,11 @@ class SolarData(object):
         destination_folder = os.path.join(self.data_path, "csvWithCondition")
         source_folder = os.path.join(self.data_path, 'csvFiles')
 
-        destination_path = createCSVWithConditions(
-            source_folder, destinationFolder=destination_folder, cond=cond)
+        destination_path = createCSVWithConditions(source_folder,
+                                                   destinationFolder=destination_folder,
+                                                   cond=cond)
 
-        return destinationPath
+        return destination_path
 
     def get_x(self):
 
@@ -86,11 +106,12 @@ class SolarData(object):
 
 def main():
     """main function of the module (for use it on cli)"""
+
     k = 3
-    sDistance = 2
+    target_distances = [2]
 
     solar_data = SolarData(20150101, 20150131)
-    solar_data.load_data(k, sDistance)
+    solar_data.load_data(k, target_distances)
 
     data = solar_data.get_x()
     target = solar_data.get_y()
