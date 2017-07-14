@@ -135,6 +135,11 @@ def createCSVWithConditions(sourceFolder, destinationFolder=None, cond=dict(), v
         hAux += hora % 100 / 60.0
         df.loc[df['hora'] == hora, 'hora'] = hAux
 
+    for i, fecha in enumerate(df['fecha'].unique()):
+        hAux = hora / 100
+        hAux += hora % 100 / 60.0
+        df.loc[df['fecha'] == hora, 'fecha'] = hAux
+
     fileName = str(conditions['dateStart']) + \
         str(conditions['dateEnd']) + '.csv'
 

@@ -1,0 +1,13 @@
+{
+    "id": "example",
+    "original_csv_file_path": "../data/csvWithCondition/2016010120160101.csv",
+    "destination_folder": "../data/xy",
+    "n_samples": 4,
+    "target_distances": [0],
+    "original_prefix_column_names": ["codigo", "fecha"],
+    "original_column_names": ["hora", "temperatura", "humedad", "radiacion"],
+    "x_prefix_column_names": ["codigo", "fecha"],
+    "x_column_names": ["hora", "temperatura", "humedad", "radiacion"],
+    "y_colum_names": ["radiacion"],
+    "original_y_column_name": ["radiacion"]
+}
