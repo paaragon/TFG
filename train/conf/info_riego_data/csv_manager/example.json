@@ -1,0 +1,9 @@
+{
+    "start_date": 20150101,
+    "end_date": 20151231,
+    "start_hour": 80,
+    "end_hour": 2000,
+    "ubications": ["AV01"],
+    "original_folder": "../../../data/csv_files",
+    "destination_folder": "../../../data/filtered_csv"
+}

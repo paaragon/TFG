@@ -1,0 +1,5 @@
+{
+    "start_date": 20150101,
+    "end_date": 20151231,
+    "destination_folder": "../../../data/csv_files"
+}

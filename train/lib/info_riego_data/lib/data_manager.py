@@ -1,7 +1,12 @@
+# -*- coding: utf-8 -*-
+
 import os
 import io
 import zipfile
 from urllib2 import urlopen, URLError, HTTPError
+import argparse
+import urlparse
+import json
 import requests
 from bs4 import BeautifulSoup
 
@@ -11,10 +16,8 @@ class DataManager(object):
     start_date = None
     end_date = None
     years = None
+    csv_destination_folder = None
     config_file = None
-
-    csv_destionation_folder = None
-
     verbose = True
 
     uri = "http://ftp.itacyl.es/Meteorologia/Datos_observacion_Red_InfoRiego/DatosHorarios/"
@@ -70,37 +73,40 @@ class DataManager(object):
 
             zip_links = self._get_zip_links(req)
 
-            i = 0
+            i = 1
             for link in zip_links:
 
-                zip_file = self._download_zip(uri2, link)
-
-
-                self._uncompress_and_save_zip(zip_file)
-
-                if zip_file != None and self.verbose:
-
+                if self.verbose:
+                    print 'Downloading ' + link.get_text() + ' (' + str(i) + '/' + str(len(zip_links)) + ')'
                     i += 1
-                    print "Successfuly download and uncompress" + str(i) + "/" + str(len(zip_links)) + " in year " + year
+
+                zip_file = self._download_zip(uri2, link)
+                if zip_file:
+                    file_name = self._uncompress_and_save_zip(zip_file)
+                    self._correct_characters(file_name)
 
     def _uncompress_and_save_zip(self, zip_file):
-        """This function uncompress a zip file and returns it as a file in memory"""
+        """This function uncompress a zip file and save it in disk"""
 
         file_like_object = io.BytesIO(zip_file)
         zipfile_ob = zipfile.ZipFile(file_like_object)
 
-        zipfile_ob.extract(self.csv_destionation_folder)
+        for name in zipfile_ob.namelist():
+            zipfile_ob.extract(name, self.csv_destination_folder)
 
-        return zipfile_ob
+        return name
 
     def _download_zip(self, uri, link):
         """This function downloads a file with the given link"""
 
         zip_url = uri + link.get('href')
-        aux_path = os.path.join(self.csv_destination_folder, link.get_text()) # TODO check if CSV exist not ZIP
+        path = urlparse.urlparse(zip_url).path.split('/')[-1]
+        file_name = os.path.splitext(path)[0]
+
+        aux_path = os.path.join(self.csv_destination_folder, file_name + ".csv")
 
         if os.path.isfile(aux_path):
-            print "File already downloaded: " + aux_path
+            print "File already exists: " + aux_path
             return None
 
         #downloading zip file
@@ -108,9 +114,6 @@ class DataManager(object):
 
             # open url
             zip_file = urlopen(zip_url)
-
-            if self.verbose:
-                print 'Downloading ' + link.get_text()
 
             return zip_file.read()
 
@@ -171,9 +174,47 @@ class DataManager(object):
 
             os.makedirs(self.csv_destination_folder)
 
+    def _correct_characters(self, file_name):
+
+        if self.verbose:
+            print 'Correcting characters in ' + file_name
+
+        with open(os.path.join(self.csv_destination_folder, file_name)) as csv_file:
+            file_data = csv_file.read()
+
+        file_data = file_data.decode('unicode_escape')
+        file_data = file_data.replace(u'á', 'a')
+        file_data = file_data.replace(u'é', 'e')
+        file_data = file_data.replace(u'í', 'i')
+        file_data = file_data.replace(u'ó', 'o')
+        file_data = file_data.replace(u'ú', 'u')
+        file_data = file_data.replace(u'º', 'o')
+        file_data = file_data.replace(u'ó', 'o')
+        file_data = file_data.encode("utf-8")
+
+        # Write the file out again
+        with open(os.path.join(self.csv_destination_folder, file_name), 'w') as csv_file:
+            csv_file.write(file_data)
+
     def _parse_config_file(self):
         """this function parse the optional config file"""
-        pass
+
+        if self.config_file is not None:
+
+            if self.verbose:
+                print "Parsing config file"
+
+            with open(self.config_file) as data_file:
+                config_data = json.load(data_file)
+
+            if "start_date" in config_data:
+                self.start_date = config_data["start_date"]
+
+            if "end_date" in config_data:
+                self.end_date = config_data["end_date"]
+
+            if "destination_folder" in config_data:
+                self.csv_destination_folder = config_data["destination_folder"]
 
     def _check_errors(self):
         """This function checks if all attributes have correct values"""
@@ -184,14 +225,29 @@ class DataManager(object):
         if self.end_date is None:
             raise Exception(9, "No end date specified")
 
-        if self.csv_destionation_folder is None:
-            raise Exception(9, "No destination folder for csv files date specified")
+        if self.csv_destination_folder is None:
+            raise Exception(9, "No destination folder for csv files specified")
 
         if self.start_date > self.end_date:
             raise Exception(9, "Start date is greater than end date")
 
 def main():
-    pass
+    parser = argparse.ArgumentParser()
 
-if __name__ == '__main__':
+    parser.add_argument('-c', '--config-file', nargs='?', action="store", dest="config_file", help="File with the parameters download the data. It can only contain some parameters and specify the others by cli.")
+    parser.add_argument('--start-date', dest="start_date", action="store", help="The start date of the set. (YYYYMMDD).", type=int)
+    parser.add_argument('--end-date', dest="end_date", action="store", help="The end date of the set. (YYYYMMDD).", type=int)
+    parser.add_argument('--destination-folder', dest="dest_folder", action="store", help="Folder to save the data.")
+
+
+    arguments = parser.parse_args()
+
+    config_file = arguments.config_file
+    start_date = arguments.start_date
+    end_date = arguments.end_date
+    dest_folder = arguments.dest_folder
+    data_manager = DataManager(start_date, end_date, dest_folder, config_file)
+    data_manager.get_data()
+
+if __name__ == "__main__":
     main()

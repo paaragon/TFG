@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 This module download and combine InfoRiego data in one csv file
 """
@@ -9,7 +11,7 @@ import lib.csv_manager as csv_manager
 import json
 
 class InfoRiegoData(object):
-    
+
     start_date = None
     end_date = None
     start_hour = None
@@ -20,6 +22,7 @@ class InfoRiegoData(object):
 
     def __init__(self, start_date=None, end_date=None, start_hour=None, end_hour=None, destination_folder=None, config_file=None, verbose=True):
 
+        self.config_file = config_file
         self.start_date = start_date
         self.end_date = end_date
         self.start_hour = end_hour
@@ -37,12 +40,12 @@ class InfoRiegoData(object):
 
     def _download_data(self):
 
-        folder = os.path.join(self.destination_folder, 'info_riego_csv')
-        dm = data_manager.DataManager(self.start_date, self.end_date, folder, verbose = self.verbose)
+        folder = os.path.join(self.destination_folder)
+        dm = data_manager.DataManager(self.start_date, self.end_date, folder, verbose=self.verbose)
         dm.get_data()
 
     def _filter_and_unify_data(self):
-        
+
         folder = os.path.join(self.destination_folder, 'unified_csv')
         csv = csv_manager.CsvManager(self.start_date, self.end_date, self.start_hour, self.end_hour, folder, verbose=self.verbose)
         csv.filter_and_unify_data()
@@ -55,23 +58,23 @@ class InfoRiegoData(object):
             if self.verbose:
                 print "Parsing config file"
 
-            with open(self.config_file) as data_file:    
-                self.config_data = json.load(data_file)
+            with open(self.config_file) as data_file:
+                config_data = json.load(data_file)
 
-            if "start_date" in self.config_data:
-                self.start_date = self.config_data["start_date"]
+            if "start_date" in config_data:
+                self.start_date = config_data["start_date"]
 
-            if "end_date" in self.config_data:
-                self.end_date = self.config_data["end_date"]
+            if "end_date" in config_data:
+                self.end_date = config_data["end_date"]
 
-            if "start_hour" in self.config_data:
-                self.start_hour = self.config_data["start_hour"]
+            if "start_hour" in config_data:
+                self.start_hour = config_data["start_hour"]
 
-            if "end_hour" in self.config_data:
-                self.end_hour = self.config_data["end_hour"]
+            if "end_hour" in config_data:
+                self.end_hour = config_data["end_hour"]
 
-            if "dest_folder" in self.config_data:
-                self.dest_folder = self.config_data["dest_folder"]
+            if "destination_folder" in config_data:
+                self.destination_folder = config_data["destination_folder"]
 
     def check_errors(self):
         """ This method check if all the variables have the correct values """
@@ -88,15 +91,15 @@ class InfoRiegoData(object):
         elif self.end_hour is None:
             raise Exception(6, "No end_hour specified.")
 
-        elif self.dest_folder is None:
-            raise Exception(7, "No dest_folder specified.")
+        elif self.destination_folder is None:
+            raise Exception(7, "No destination_folder specified.")
 
         elif self.start_date > self.end_date:
             raise Exception(7, "start_date greater than end_date.")
 
         elif self.start_hour > self.end_hour:
             raise Exception(7, "start_hour greater than end_hour.")
-            
+
 def main():
 
     parser = argparse.ArgumentParser()
@@ -106,8 +109,8 @@ def main():
     parser.add_argument('--end-date', dest="end_date", action="store", help="The end date of the set. (YYYYMMDD).", type=int)
     parser.add_argument('--start-hour', dest="start_hour", action="store", help="The start hour of the set. (HHMM).", type=int)
     parser.add_argument('--end-hour', dest="end_hour", action="store", help="The start hour of the set. (HHMM).", type=int)
-    parser.add_argument('--dest-folder', dest="dest_folder", action="store", help="Folder to save the data.")
-    
+    parser.add_argument('--destination-folder', dest="dest_folder", action="store", help="Folder to save the data.")
+
     arguments = parser.parse_args()
 
     config_file = arguments.config_file
@@ -117,7 +120,7 @@ def main():
     end_hour = arguments.end_hour
     dest_folder = arguments.dest_folder
 
-    info_riego_data = InfoRiegoData(config_file, start_date, end_date, start_hour, end_hour)
+    info_riego_data = InfoRiegoData(start_date, end_date, start_hour, end_hour, dest_folder, config_file)
     info_riego_data.generate_csv()
 
 if __name__ == "__main__":
