@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 
 import os
+import sys
 import json
 import datetime
 import argparse
 import pandas
+sys.path.append('../../normalize')
+from normalize import Normalization
 
 class CsvManager(object):
 
@@ -48,9 +51,15 @@ class CsvManager(object):
         csv_files = sorted(csv_files)
 
         df = pandas.DataFrame(columns=self.columns)
+
         df = self._merge_csv_files(df, csv_files)
+
         df = self._patch_csv_df(df)
-        df_norm, norm_values = self._normalize_csv(df)
+
+        df = df.sort_values(by=['codigo', 'fecha', 'hora'], ascending=True)
+
+        df_norm, norm_values = Normalization.normalize_csv(df.copy())
+
         self._save_csv(df, df_norm, norm_values)
 
     def _save_csv(self, data_frame, df_norm, norm_values):
@@ -59,9 +68,10 @@ class CsvManager(object):
         """
 
         # Name of the file in the three folders
-        file_name = self.start_date + ":" + self.start_hour + "-" + self.end_date + ":" + self.end_hour
+        file_name = str(self.start_date) + ":" + str(self.start_hour) + "-" + str(self.end_date) + ":" + str(self.end_hour)
 
         # if base folder doesn't exist create it
+        print self.dest_folder
         if not os.path.isdir(self.dest_folder):
             os.makedirs(self.dest_folder)
 
@@ -81,15 +91,15 @@ class CsvManager(object):
             os.makedirs(destination_norm_data_folder)
 
         # saving original df
-        original_path = os.path.join(destination_orig_df_folder, file_name, ".csv")
+        original_path = os.path.join(destination_orig_df_folder, file_name + ".csv")
         data_frame.to_csv(original_path, index=False)
 
         # saving normalized df
-        normalized_path = os.path.join(destination_norm_df_folder, file_name, ".csv")
+        normalized_path = os.path.join(destination_norm_df_folder, file_name + ".csv")
         df_norm.to_csv(normalized_path, index=False)
 
         # saving denorm data
-        norm_data_path = os.path.join(destination_norm_data_folder, file_name, ".json")
+        norm_data_path = os.path.join(destination_norm_data_folder, file_name + ".csv")
 
         with open(norm_data_path, 'w') as outfile:
             json.dump(norm_values, outfile)
@@ -113,12 +123,12 @@ class CsvManager(object):
 
             df_aux = pandas.read_csv(aux_path, ';', usecols=self.orig_columns)
             df_aux.columns = self.columns
-            
+
             df_aux = self._filter_csv_df(df_aux)
 
             df = df.append(df_aux)
 
-        return df.sort_values(by=['codigo', 'fecha', 'hora'], ascending=True)
+        return df
 
     def _get_csv_files(self):
 
@@ -127,6 +137,8 @@ class CsvManager(object):
                 and int(f[:8]) >= self.start_date]
 
     def _patch_csv_df(self, df):
+
+        print "Patching csv"
 
         df['fecha'] = df['fecha'].str.replace('-', '').astype(float)
 
@@ -153,7 +165,7 @@ class CsvManager(object):
 
         for i, fecha in enumerate(df['fecha'].unique()):
             dt = datetime.datetime.strptime(str(int(fecha)), "%Y%m%d")
-            df.loc[df['fecha'] == fecha, 'fecha'] = datetime.datetime.strftime(dt, "%j")
+            df.loc[df['fecha'] == fecha, 'fecha'] = int(datetime.datetime.strftime(dt, "%j"))
 
         for i, codigo in enumerate(df['codigo'].unique()):
             # i + 1 para que al normalizar no divida entre 0
@@ -161,23 +173,6 @@ class CsvManager(object):
 
         return df
 
-    def _normalize(self, col):
-
-        if col.max() - col.min() == 0:
-            return col.max(), [col.mean(), col.max(), col.min()]
-
-        return (col - col.mean()) / (col.max() - col.min()), [col.mean(), col.max(), col.min()]
-
-    def _normalize_csv(self, df):
-
-        norm_values = dict()
-
-        for column in list(df):
-            df[column], norm_values[column] = self._normalize(df[column])
-
-        return df, norm_values
-
-    
     def parse_config_file(self):
         """This method parse the sef.config file and assign the values to attributes"""
 
@@ -208,7 +203,7 @@ class CsvManager(object):
                 self.orig_folder = config_data["original_folder"]
 
             if "destination_folder" in config_data:
-                self.destination_folder = config_data["destination_folder"]
+                self.dest_folder = config_data["destination_folder"]
 
     def check_errors(self):
         """ This method check if all the variables have the correct values """
@@ -234,7 +229,7 @@ class CsvManager(object):
         elif self.ubications is None:
             raise Exception(7, "No ubications specified.")
 
-        elif self.destination_folder is None:
+        elif self.dest_folder is None:
             raise Exception(7, "No destination_folder specified.")
 
         elif self.orig_folder is None:
