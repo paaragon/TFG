@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import os
-import sys
 import json
 import datetime
 import argparse
 import pandas
-sys.path.append('../../normalize')
-from normalize import Normalization
+from solar_model import solar_model
 
 class CsvManager(object):
 
@@ -16,6 +14,7 @@ class CsvManager(object):
     start_hour = None
     end_hour = None
     ubications = []
+    relative_radiation = False
     orig_folder = None
     dest_folder = None
     config_file = None
@@ -25,13 +24,14 @@ class CsvManager(object):
     orig_columns = ['Codigo', 'Fecha (AAAA-MM-DD)', 'Hora (HHMM)',
                    'Temperatura (oC)', 'Humedad relativa (%)', 'Radiacion (W/m2)']
 
-    def __init__(self, start_date=None, end_date=None, start_hour=None, end_hour=None, ubications=None, orig_folder=None, dest_folder=None, config_file=None, verbose=True):
-        
+    def __init__(self, start_date=None, end_date=None, start_hour=None, end_hour=None, ubications=None, relative_radiation=False, orig_folder=None, dest_folder=None, config_file=None, verbose=True):
+
         self.start_date = start_date
         self.end_date = end_date
         self.start_hour = start_hour
         self.end_hour = end_hour
         self.ubications = ubications
+        self.relative_radiation = relative_radiation
         self.orig_folder = orig_folder
         self.dest_folder = dest_folder
         self.config_file = config_file
@@ -41,6 +41,12 @@ class CsvManager(object):
         self.check_errors()
 
     def filter_data(self):
+
+        file_name = self._get_file_name()
+        
+        if os.path.isfile(os.path.join(self.dest_folder, "original", file_name + ".csv")):
+            print "Filtered CSV already exists: " + file_name
+            return None
 
         csv_files = self._get_csv_files()
 
@@ -58,7 +64,7 @@ class CsvManager(object):
 
         df = df.sort_values(by=['codigo', 'fecha', 'hora'], ascending=True)
 
-        df_norm, norm_values = Normalization.normalize_csv(df.copy())
+        df_norm, norm_values = self._normalize_csv(df.copy())
 
         self._save_csv(df, df_norm, norm_values)
 
@@ -68,7 +74,7 @@ class CsvManager(object):
         """
 
         # Name of the file in the three folders
-        file_name = str(self.start_date) + ":" + str(self.start_hour) + "-" + str(self.end_date) + ":" + str(self.end_hour)
+        file_name = self._get_file_name()
 
         # if base folder doesn't exist create it
         print self.dest_folder
@@ -158,20 +164,59 @@ class CsvManager(object):
         df.loc[df['fecha'] == 20140626, 'fecha'] = 20150608
         df.loc[df['fecha'] == 20140628, 'fecha'] = 20150610
 
+        print 'patching hour'
         for i, hora in enumerate(df['hora'].unique()):
             h_aux = hora / 100
             h_aux += hora % 100 / 60.0
             df.loc[df['hora'] == hora, 'hora'] = h_aux
 
+        print 'patching date'
         for i, fecha in enumerate(df['fecha'].unique()):
             dt = datetime.datetime.strptime(str(int(fecha)), "%Y%m%d")
             df.loc[df['fecha'] == fecha, 'fecha'] = int(datetime.datetime.strftime(dt, "%j"))
 
+        print 'patching code'
         for i, codigo in enumerate(df['codigo'].unique()):
             # i + 1 para que al normalizar no divida entre 0
             df.loc[df['codigo'] == codigo, 'codigo'] = i + 1
 
+        if self.relative_radiation:
+            print 'patching radiation'
+            for i, radiacion in enumerate(df['radiacion'].unique()):
+                hora = df.loc[df['radiacion'] == radiacion, 'hora'].values[0]
+                fecha = df.loc[df['radiacion'] == radiacion, 'fecha'].values[0]
+                model = 'robledo'
+
+                relative_rad = df.loc[df['radiacion'] == radiacion, 'radiacion'] / solar_model.get_ghi(fecha, hora, model)
+                df.loc[df['radiacion'] == radiacion, 'radiacion'] = relative_rad
+
         return df
+
+    def _get_file_name(self):
+
+        ubication_name = ""
+        for ubication in self.ubications:
+            ubication_name += "-" + ubication
+
+        return str(self.start_date) + ":" + str(self.start_hour) + "-" \
+               + str(self.end_date) + ":" + str(self.end_hour) + ubication_name
+
+
+    def _normalize(self, col):
+
+        if col.max() - col.min() == 0:
+            return col.max(), [col.mean(), col.max(), col.min()]
+
+        return (col - col.mean()) / (col.max() - col.min()), [col.mean(), col.max(), col.min()]
+
+    def _normalize_csv(self, data_frame):
+
+        norm_values = dict()
+        for column in list(data_frame):
+            data_frame[column], norm_values[column] = self._normalize(data_frame[column])
+
+        return data_frame, norm_values
+
 
     def parse_config_file(self):
         """This method parse the sef.config file and assign the values to attributes"""
@@ -185,19 +230,22 @@ class CsvManager(object):
                 config_data = json.load(data_file)
 
             if "start_date" in config_data:
-                self.start_date = config_data["start_date"]
+                self.start_date = int(config_data["start_date"])
 
             if "end_date" in config_data:
-                self.end_date = config_data["end_date"]
+                self.end_date = int(config_data["end_date"])
 
             if "start_hour" in config_data:
-                self.start_hour = config_data["start_hour"]
+                self.start_hour = int(config_data["start_hour"])
 
             if "end_hour" in config_data:
-                self.end_hour = config_data["end_hour"]
+                self.end_hour = int(config_data["end_hour"])
 
             if "ubications" in config_data:
                 self.ubications = config_data["ubications"]
+
+            if "relative_radiation" in config_data:
+                self.relative_radiation = config_data["relative_radiation"]
 
             if "original_folder" in config_data:
                 self.orig_folder = config_data["original_folder"]
@@ -244,6 +292,7 @@ def main():
     parser.add_argument('--start-hour', dest="start_hour", action="store", help="The start hour of the set. (HHMM).", type=int)
     parser.add_argument('--end-hour', dest="end_hour", action="store", help="The start hour of the set. (HHMM).", type=int)
     parser.add_argument('--ubications', nargs='+', dest="ubications", action="store", help="Ubication codes.")
+    parser.add_argument('--relative-radiation', dest="relative_radiation", action="store", help="Ubication codes.", type=bool)
     parser.add_argument('--original-folder', dest="orig_folder", action="store", help="The folder where the original data is.")
     parser.add_argument('--destination-folder', dest="dest_folder", action="store", help="Folder to save the data.")
 
@@ -255,10 +304,11 @@ def main():
     start_hour = arguments.start_hour
     end_hour = arguments.end_hour
     ubications = arguments.ubications
+    relative_radiation = arguments.relative_radiation
     orig_folder = arguments.orig_folder
     dest_folder = arguments.dest_folder
 
-    csv_manager = CsvManager(start_date, end_date, start_hour, end_hour, ubications, orig_folder, dest_folder, config_file)
+    csv_manager = CsvManager(start_date, end_date, start_hour, end_hour, ubications, relative_radiation, orig_folder, dest_folder, config_file)
     csv_manager.filter_data()
 
 if __name__ == "__main__":

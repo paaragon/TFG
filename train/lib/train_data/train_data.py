@@ -31,7 +31,7 @@ class TrainData(object):
         This class generates data sets (x, y) to use them in training and save then in disk
 
             Constructor params:
-            
+
             - config_file: File with the parameters to generate the sets. It can only contain some parameters and specify passing them by parameter.
             - csv_file: File with original data..
             - n_samples: Number of samples of the original set to add in a row of the X set.

@@ -1,27 +1,21 @@
-from lib.SolarData import SolarData
+"""This module search the best hyperparameters in a machine learning model"""
+
 import json
-from sys import argv
 import os
 import numpy as np
-#from sklearn import linear_model
-#from sklearn import svm
-from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
+import argparse
+from train_data import info_riego_data
 
 class GridSearch(object):
     """this class explore the hyperparameters of a machine learning model"""
 
-    files =[]
+    normalized_csv_path = None
+    estimator_config = None
 
-    def __init__(self, files):
-        self.files = files
-
-    def get_data_set(self, start_date, end_date, start_hour, end_hour, k, target):
-        """This method get the data sets"""
-        solar_data = SolarData(start_date, end_date, start_hour, end_hour)
-        solar_data.loadData(k, target)
-
-        return solar_data.getData(), solar_data.getTarget()
+    def __init__(self, normalized_csv_path, estimator_config):
+        self.normalized_csv_path = normalized_csv_path
+        self.estimator_config = estimator_config
 
     def instance_model(self, module_name, class_name, model_name):
         module = __import__(module_name)
@@ -38,10 +32,10 @@ class GridSearch(object):
             # map 0 - 2000 => 0 - 100
             map = int(((y.iloc[i] + 1) / 2) * 100)
             mapped_y.append(map)
-        
+
         return np.array(mapped_y,)
 
-    def explore_file(self, file_path):
+    def explore(self, file_path):
         """This method read files and iterate through described parameters"""
 
         with open(file_path) as data_file:
@@ -57,7 +51,7 @@ class GridSearch(object):
 
         print str(start_date)
         print str(end_date)
-        
+
         for k in k_list:
             for estimator in conf['estimator']:
 
@@ -95,33 +89,29 @@ class GridSearch(object):
                             csvfile.write("%s;%i;%i;%f;%f;%r;%s\n" % (
                                 estimator['model'], k, target, mean, std * 2, params, clf.best_params_))
 
-
-    def explore(self):
-        """This method performs the exploration"""
-
-        for i in range(len(self.files)):
-            print self.files[i]
-            self.explore_file(self.files[i])
-
         print "Test finished"
-
-def get_files():
-    ret = []
-    for i in range(1, len(argv)):
-        ret.append(argv[i])
-    return ret
 
 def main():
     """main function of module"""
-    
-    if len(argv) == 1:
-        print 'No train file specified'
-        exit()
 
-    files = get_files()
+    parser = argparse.ArgumentParser()
 
-    grid = GridSearch(files)
+    parser.add_argument('-c', '--config-file', nargs='?', action="store", \
+                        dest="config_file", help="File with the parameters \
+                        download the data. It can only contain some parameters  \
+                        and specify the others by cli.")
 
+    arguments = parser.parse_args()
+
+    config_file = arguments.config_file
+
+    with open(config_file) as data_file:
+        config_data = json.load(data_file)
+
+    normalized_csv_path = config_data["normalized_csv_path"]
+    estimator_config = config_data["estimator_config"]
+
+    grid = GridSearch(normalized_csv_path, estimator_config)
     grid.explore()
 
 if __name__ == "__main__":

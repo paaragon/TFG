@@ -1,0 +1,17 @@
+{
+    "normalized_csv_path": "../data/filtered_csv/normalized/20150101:800-20151231:2000-AV01.csv",
+    "estimator_config": [{
+        "module": "sklearn.neural_network",
+        "class": "neural_network",
+        "model": "MLPClassifier",
+        "parameters": [{
+            "solver": ["lbfgs", "sgd"],
+            "hidden_layer_sizes": [
+                [5, 2],
+                [5, 3],
+                [5, 4]
+            ],
+            "random_state": [1, 2]
+        }]
+    }]
+}

@@ -3,5 +3,7 @@
     "end_date": 20151231,
     "start_hour": 800,
     "end_hour": 2000,
-    "destination_folder": "../../data/csv_files"
+    "ubications": ["AV01"],
+    "relative_radiation": true,
+    "destination_folder": "../../data"
 }

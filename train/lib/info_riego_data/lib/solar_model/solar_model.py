@@ -6,7 +6,7 @@ from kasten import kasten
 from adnot import adnot
 from dpp import dpp
 
-def getGHI(doy, h, model, lat = 40.9904320, lng = -4.758942):
+def get_ghi(doy, h, model, lat = 40.9904320, lng = -4.758942):
     '''
     doy = datetime.strptime(str(fecha), "%Y%m%d").timetuple().tm_yday
     print doy
@@ -15,6 +15,7 @@ def getGHI(doy, h, model, lat = 40.9904320, lng = -4.758942):
     h += hora % 100
     print h
     '''
+
     z, cosz = zentihAngle(lat, lng, doy - 1, h - 1)
 
     if model == 'robledo':
