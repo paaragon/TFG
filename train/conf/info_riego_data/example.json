@@ -4,6 +4,6 @@
     "start_hour": 800,
     "end_hour": 2000,
     "ubications": ["AV01"],
-    "relative_radiation": true,
-    "destination_folder": "../../data"
+    "relative_radiation": false,
+    "destination_folder": "data"
 }

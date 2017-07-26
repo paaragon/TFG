@@ -6,8 +6,8 @@ This module download and combine InfoRiego data in one csv file
 
 import os
 import argparse
-import lib.data_manager as data_manager
-import lib.csv_manager as csv_manager
+import lib.info_riego_data.lib.data_manager as data_manager
+import lib.info_riego_data.lib.csv_manager as csv_manager
 import json
 
 class InfoRiegoData(object):
@@ -17,6 +17,7 @@ class InfoRiegoData(object):
     start_hour = None
     end_hour = None
     ubications = []
+    relative_radiation = False
     destination_folder = None
     config_file = None
     verbose = True

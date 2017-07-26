@@ -1,5 +1,4 @@
 {
-    "id": "example",
     "original_csv_file_path": "../data/csvWithCondition/2016010120160101.csv",
     "destination_folder": "../data/xy",
     "n_samples": 4,

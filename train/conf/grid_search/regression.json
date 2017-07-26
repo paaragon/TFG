@@ -1,13 +1,32 @@
 {
-    "id": "regression",
-    "start": 20150101,
-    "end": 20151231,
-    "k": [2, 3, 4, 5],
-    "relative_target": [2, 3, 4, 5, 6, 7],
-    "estimator": [{
+    "normalized_csv_paths": [
+        "data/filtered_csv/normalized/20150101:800-20151231:2000-AV01.csv"
+    ],
+    "results_destination_folder": "data/grid_search_results",
+    "training_sets_config": {
+        "destination_folder": "../data/xy",
+        "n_samples": [2, 3, 4, 5],
+        "target_distances": [
+            [2],
+            [3],
+            [4],
+            [5],
+            [6],
+            [7]
+        ],
+        "original_prefix_column_names": ["codigo", "fecha"],
+        "original_column_names": ["hora", "temperatura", "humedad", "radiacion"],
+        "x_prefix_column_names": ["codigo", "fecha"],
+        "x_column_names": ["hora", "temperatura", "humedad", "radiacion"],
+        "y_colum_names": ["radiacion"],
+        "original_y_column_name": ["radiacion"]
+    },
+    "estimator_configs": [{
             "module": "sklearn.linear_model",
             "class": "linear_model",
             "model": "LinearRegression",
+            "scoring": "neg_mean_absolute_error",
+            "map": "regression",
             "parameters": [{
                 "fit_intercept": [true, false],
                 "copy_X": [true, false]
@@ -17,6 +36,8 @@
             "module": "sklearn.svm",
             "class": "svm",
             "model": "SVR",
+            "scoring": "neg_mean_absolute_error",
+            "map": "regression",
             "parameters": [{
                     "C": [1, 10, 100, 1000],
                     "kernel": ["linear"]

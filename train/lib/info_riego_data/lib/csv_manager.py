@@ -194,12 +194,12 @@ class CsvManager(object):
 
     def _get_file_name(self):
 
-        ubication_name = ""
-        for ubication in self.ubications:
-            ubication_name += "-" + ubication
+        ubication_name = ":".join(self.ubications)
+        relative = "r" if self.relative_radiation else ""
 
         return str(self.start_date) + ":" + str(self.start_hour) + "-" \
-               + str(self.end_date) + ":" + str(self.end_hour) + ubication_name
+               + str(self.end_date) + ":" + str(self.end_hour) + "-" + ubication_name \
+               + relative
 
 
     def _normalize(self, col):

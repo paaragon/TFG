@@ -24,9 +24,9 @@ class TrainData(object):
     orig_y_col = None
     verbose = True
 
-    def __init__(self, config_file=None, orig_csv_file_path=None, dest_folder=None, n_samples=1, \
+    def __init__(self, orig_csv_file_path=None, dest_folder=None, n_samples=1, \
                     target_distances=None, orig_prefix_cols=[], orig_cols=None, x_prefix_cols=[], \
-                    x_cols=None, y_cols=None, orig_y_col=None, verbose=True):
+                    x_cols=None, y_cols=None, orig_y_col=None, config_file=None, verbose=True):
         """
         This class generates data sets (x, y) to use them in training and save then in disk
 
@@ -66,6 +66,13 @@ class TrainData(object):
 
         - Tuple: x_destination_path, y_destination_path.
         """
+
+        # if files exists, we don't regenerate them
+        x_destination_path, y_destination_path = self.get_file_names()
+        if os.path.isfile(x_destination_path) and \
+            os.path.isfile(y_destination_path):
+
+            return x_destination_path, y_destination_path
 
         # x_columns is an array that starts with the name of some prefix columns
         x_columns = self.generate_x_columns()
@@ -114,7 +121,7 @@ class TrainData(object):
             # appending the relative target samples to y_row
             for k in self.target_distances:
                 y_row.append(data_frame[self.orig_y_col].iloc[index + j + k].values[0])
-            
+
             # appending y_row to y_set
             y_set.append(y_row)
 
@@ -156,16 +163,26 @@ class TrainData(object):
         if not os.path.isdir(self.dest_folder):
             os.makedirs(self.dest_folder)
 
+        # generating the file paths
+        x_destination_path, y_destination_path = self.get_file_names()
+
+        # saving sets in disk
+        x_df.to_csv(x_destination_path, index=False)
+        y_df.to_csv(y_destination_path, index=False)
+
+        return x_destination_path, y_destination_path
+
+    def get_file_names(self):
+        """This method return the x and y file names"""
+
         base_file_name = os.path.splitext(os.path.basename(self.orig_csv_file_path))[0]
 
-        target_identifier = ""
-        for distance in self.target_distances:
-            target_identifier += str(distance)
+        target_identifier = ':'.join(str(x) for x in self.target_distances)
 
         file_identifier = base_file_name \
-                          + str(self.n_samples) \
-                          + target_identifier
-        
+                          + "-" + str(self.n_samples) \
+                          + "-" + target_identifier
+
         # generating the file names
         x_file_name = file_identifier +'-x.csv'
         y_file_name = file_identifier + '-y.csv'
@@ -173,10 +190,6 @@ class TrainData(object):
         # generating the file paths
         x_destination_path = os.path.join(self.dest_folder, x_file_name)
         y_destination_path = os.path.join(self.dest_folder, y_file_name)
-
-        # saving sets in disk
-        x_df.to_csv(x_destination_path, index=False)
-        y_df.to_csv(y_destination_path, index=False)
 
         return x_destination_path, y_destination_path
 
@@ -298,9 +311,9 @@ def main():
     y_cols = arguments.y_cols
     orig_y_col = arguments.orig_y_cols
 
-    train_data = TrainData(config_file, orig_csv_file_path, dest_folder, n_samples, \
+    train_data = TrainData(orig_csv_file_path, dest_folder, n_samples, \
                             target_distances, orig_prefix_cols, orig_cols, x_prefix_cols, \
-                            x_cols, y_cols, orig_y_col)
+                            x_cols, y_cols, orig_y_col, config_file)
 
     x_file_path, y_file_path = train_data.generate_train_data()
 
