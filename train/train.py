@@ -1,105 +1,174 @@
-from sklearn.externals import joblib
-from sklearn.svm import SVR
+"""This module search the best hyperparameters in a machine learning model"""
+
+import json
+import os
+import time
+import argparse
+import copy
 import numpy as np
-from sklearn import linear_model
-from lib.SolarData import SolarData
-from sklearn.neural_network import MLPClassifier
-from sklearn.neural_network import MLPRegressor
+import pandas as pd
+from sklearn.model_selection import GridSearchCV
+from sklearn.externals import joblib
+import train_data
 
-start = 20150101
-end = 20153112
-start_hour = 800
-end_hour = 2000
-k = 4
-target = 2
+class Train(object):
+    """this class explore the hyperparameters of a machine learning model"""
 
+    normalized_csv_path = None
+    model_destination_folder = None
+    model_file_name = None
+    training_set_config = None
+    estimator_config = None
+    verbose = True
 
-def trainMLPRegressor():
-    print "training"
+    def __init__(self, normalized_csv_path, model_destination_folder, model_file_name, training_set_config, estimator_config, verbose=True):
 
-    start_date = 20150101
-    end_date = 20151231
-    start_hour = 800
-    end_hour = 2000
+        self.normalized_csv_path = normalized_csv_path
+        self.model_destination_folder = model_destination_folder
+        self.model_file_name = model_file_name
+        self.training_set_config = training_set_config
+        self.estimator_config = estimator_config
+        self.verbose = verbose
 
-    k = 4
-    target = 2
+    def fit(self):
+        """This method read files and iterate through described parameters"""
 
-    solar_data = SolarData(start_date, end_date, start_hour, end_hour)
-    solar_data.loadData(k, target)
+        if self.verbose:
+            print "Starting grid search"
 
-    x = solar_data.getData()
-    y = solar_data.getTarget()
+        k = self.training_set_config["n_samples"]
+        destination_folder = self.training_set_config["destination_folder"]
+        target_distance = self.training_set_config["target_distance"]
+        original_prefix_column_names = self.training_set_config["original_prefix_column_names"]
+        original_column_names = self.training_set_config["original_column_names"]
+        x_prefix_column_names = self.training_set_config["x_prefix_column_names"]
+        x_column_names = self.training_set_config["x_column_names"]
+        y_colum_names = self.training_set_config["y_colum_names"]
+        original_y_column_name = self.training_set_config["original_y_column_name"]
 
-    mlp = MLPRegressor(hidden_layer_sizes=(100,), activation='relu', solver='lbfgs', random_state=2)
-    return mlp.fit(x, y.values.ravel())
+        total_time = time.time()
 
-
-def trainSVR():
-    print "Training"
-
-    solarData = SolarData(start, end)
-    solarData.loadData(k, target)
-
-    X = solarData.getData()
-    y = solarData.getTarget()
-
-    svr_rbf = SVR(kernel='rbf', C=1000, gamma=0.001)
-    return svr_rbf.fit(X, y.values.ravel())
-
-
-def trainLinear():
-    print "Training Linear"
-
-    solarData = SolarData(start, end)
-    solarData.loadData(k, target)
-
-    X = solarData.getData()
-    y = solarData.getTarget()
-
-    regr = linear_model.LinearRegression()
-    return regr.fit(X, y)
+        file_time = time.time()
+        if self.verbose:
+            print "Exploring " + self.normalized_csv_path
 
 
-def y_Mlp(y):
-    mappedY = []
-    for i in range(y.shape[0]):
-        # map 0 - 2000 => 0 - 100
-        map = int(((y.iloc[i] + 1) / 2) * 100)
-        mappedY.append(map)
+        # This is a hack. Multiout is not supported yet but TrainData is
+        # prepared for this so we must pass an array to TrainData not an int
+        target = [target_distance]
 
-    return np.array(mappedY,)
+        print "grid_search: x_prefix - " + str(x_prefix_column_names)
+
+        train_sets = train_data.TrainData(self.normalized_csv_path, destination_folder, \
+                        k, target, original_prefix_column_names, \
+                        original_column_names, copy.copy(x_prefix_column_names), \
+                        x_column_names, y_colum_names, original_y_column_name)
+
+        x_destination_path, y_destination_path = train_sets.generate_train_data()
+        x_set = pd.read_csv(x_destination_path)
+        y_set = pd.read_csv(y_destination_path)
+
+        if self.verbose:
+            print "Tuning hyperparameters for k=" + str(k) + \
+                    " and targets=" + str(target)
+
+        for estimator in self.estimator_config:
+
+            module_name = estimator["module"]
+            class_name = estimator["class"]
+            model_name = estimator["model"]
+            tuned_parameters = estimator["parameters"]
+
+            if estimator["map"] == "classification":
+                y_set = self._map_y_classifier(y_set)
+
+            elif estimator["map"] == "regression":
+                y_set = self._map_y_regression(y_set)
+
+            model = self._instance_model(module_name, class_name, model_name)
+
+            clf = GridSearchCV(model, tuned_parameters, cv=3, \
+                                scoring=estimator["scoring"])
+
+            fit_time = time.time()
+
+            trained_model = clf.fit(x_set, y_set)
+
+            if self.verbose:
+                print "Tuning done in {} seconds".format(time.time() - fit_time)
+                print "Saving trained model"
+
+            if not os.path.isdir(self.model_destination_folder):
+                os.makedirs(self.model_destination_folder)
+
+            destination_path = os.path.join(self.model_destination_folder, \
+                                            self.model_file_name)
+
+            self._save_model(trained_model, destination_path)
+
+        if self.verbose:
+            print "Train finished in {} seconds".format(time.time() - total_time)
+
+    def _instance_model(self, module_name, class_name, model_name):
+        """This method instances a model from scikit learn"""
+
+        module = __import__(module_name)
+        class_ = getattr(module, class_name)
+        method = getattr(class_, model_name)
+
+        return method()
+
+    def _map_y_regression(self, y):
+        """This method map the y set for regressions"""
+
+        return y.values.ravel()
+
+    def _map_y_classifier(self, y):
+        """This method map the y set for classifiers"""
+
+        mapped_y = []
+        for i in range(y.shape[0]):
+            # map 0 - 2000 => 0 - 100
+            mapped_val = int(((y.iloc[i] + 1) / 2) * 100)
+            mapped_y.append(mapped_val)
+
+        return np.array(mapped_y,)
+
+    def _get_file_name(self):
+        pass
+
+    def _save_model(self, model, path):
+        print "Saving"
+        joblib.dump(model, path)
+        print "Saved"
 
 
-def trainMLP():
-    print "Training MLP"
+def main():
+    """main function of module"""
 
-    solarData = SolarData(start, end)
-    solarData.loadData(k, target)
+    parser = argparse.ArgumentParser()
 
-    X = solarData.getData()
-    y = solarData.getTarget()
+    parser.add_argument("-c", "--config-file", nargs="?", action="store", \
+                        dest="config_file", help="File with the parameters \
+                        to configure the train")
 
-    clf = MLPClassifier(solver='lbfgs', alpha=1e-5,
-                        hidden_layer_sizes=(5, 4), random_state=2)
-    return clf.fit(X, y_Mlp(y))
+    arguments = parser.parse_args()
 
+    config_file = arguments.config_file
 
-def save(model, path):
-    print "Saving"
-    joblib.dump(model, path)
-    print "Saved"
+    with open(config_file) as data_file:
+        config_data = json.load(data_file)
 
+    normalized_csv_paths = config_data["normalized_csv_paths"]
+    model_destination_folder = config_data["model_destination_folder"]
+    model_file_name = config_data["model_file_name"]
+    training_set_config = config_data["training_set_config"]
+    estimator_config = config_data["estimator_config"]
 
-def trainAndSave():
-    print "Train and save"
-    #model = trainSVR()
-    #model = trainLinear()
-    #model = trainMLP()
-    model = trainMLPRegressor()
-    save(model, 'trained/mlp_regressor.pkl')
+    train = Train(normalized_csv_paths, model_destination_folder, model_file_name, \
+                training_set_config, estimator_config)
 
+    train.fit()
 
 if __name__ == "__main__":
-
-    trainAndSave()
+    main()

@@ -2,11 +2,13 @@
 
 import json
 import os
+import time
 import argparse
+import copy
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import GridSearchCV
-import train_data
+import train_data_sets
 
 class GridSearch(object):
     """this class explore the hyperparameters of a machine learning model"""
@@ -31,25 +33,37 @@ class GridSearch(object):
         if self.verbose:
             print "Starting grid search"
 
+        k_list = self.training_sets_config["n_samples"]
+        destination_folder = self.training_sets_config["destination_folder"]
+        target_distances = self.training_sets_config["target_distances"]
+        original_prefix_column_names = self.training_sets_config["original_prefix_column_names"]
+        original_column_names = self.training_sets_config["original_column_names"]
+        x_prefix_column_names = self.training_sets_config["x_prefix_column_names"]
+        x_column_names = self.training_sets_config["x_column_names"]
+        y_colum_names = self.training_sets_config["y_colum_names"]
+        original_y_column_name = self.training_sets_config["original_y_column_name"]
+
+        total_time = time.time()
+
         for normalized_csv_path in self.normalized_csv_paths:
 
-            k_list = self.training_sets_config["n_samples"]
-            target_distances = self.training_sets_config["target_distances"]
+            file_time = time.time()
+            if self.verbose:
+                print "Exploring " + normalized_csv_path
 
             for k in k_list:
-                for targets in target_distances:
+                for target in target_distances:
 
-                    train_sets = train_data.TrainData(normalized_csv_path, \
-                                    self.training_sets_config["destination_folder"], \
-                                    k, \
-                                    targets, \
-                                    self.training_sets_config["original_prefix_column_names"], \
-                                    self.training_sets_config["original_column_names"], \
-                                    self.training_sets_config["x_prefix_column_names"], \
-                                    self.training_sets_config["x_column_names"], \
-                                    self.training_sets_config["y_colum_names"], \
-                                    self.training_sets_config["original_y_column_name"], \
-                                    )
+                    # This is a hack. Multiout is not supported yet but TrainData is
+                    # prepared for this so we must pass an array to TrainData not an int
+                    target = [target]
+
+                    print "grid_search: x_prefix - " + str(x_prefix_column_names)
+
+                    train_sets = train_data.TrainDataSets(normalized_csv_path, destination_folder, \
+                                    k, target, original_prefix_column_names, \
+                                    original_column_names, copy.copy(x_prefix_column_names), \
+                                    x_column_names, y_colum_names, original_y_column_name)
 
                     x_destination_path, y_destination_path = train_sets.generate_train_data()
                     x_set = pd.read_csv(x_destination_path)
@@ -57,7 +71,7 @@ class GridSearch(object):
 
                     if self.verbose:
                         print "Tuning hyperparameters for k=" + str(k) + \
-                                " and targets=" + str(targets)
+                                " and targets=" + str(target)
 
                     for estimator in self.estimator_configs:
 
@@ -66,7 +80,7 @@ class GridSearch(object):
                         model_name = estimator["model"]
                         tuned_parameters = estimator["parameters"]
 
-                        if estimator["map"] == "classifier":
+                        if estimator["map"] == "classification":
                             y_set = self.map_y_classifier(y_set)
 
                         elif estimator["map"] == "regression":
@@ -77,10 +91,13 @@ class GridSearch(object):
                         clf = GridSearchCV(model, tuned_parameters, cv=3, \
                                             scoring=estimator["scoring"])
 
+                        fit_time = time.time()
+
                         clf.fit(x_set, y_set)
 
                         if self.verbose:
-                            print "Tuning done. Saving results"
+                            print "Tuning done in {} seconds".format(time.time() - fit_time)
+                            print "Saving results"
 
                         means = clf.cv_results_["mean_test_score"]
                         stds = clf.cv_results_["std_test_score"]
@@ -98,13 +115,17 @@ class GridSearch(object):
                                     normalized_csv_path, \
                                     model_name, \
                                     k, \
-                                    targets, \
+                                    target, \
                                     mean, \
                                     std * 2, \
                                     params, \
                                     clf.best_params_))
 
-        print "Test finished"
+            if self.verbose:
+                print "File explored in {} seconds".format(time.time() - file_time)
+
+        if self.verbose:
+            print "Grid finished in {} seconds".format(time.time() - total_time)
 
     def instance_model(self, module_name, class_name, model_name):
         """This method instances a model from scikit learn"""
@@ -117,6 +138,7 @@ class GridSearch(object):
 
     def map_y_regression(self, y):
         """This method map the y set for regressions"""
+
         return y.values.ravel()
 
     def map_y_classifier(self, y):

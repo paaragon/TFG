@@ -1,14 +1,13 @@
 {
     "normalized_csv_paths": [
-        "data/filtered_csv/normalized/20150101:800-20151231:2000-AV01.csv"
+        "data/filtered_csv/normalized/20150101:800-20151231:2000-AV01.csv",
+        "data/filtered_csv/normalized/20150101:800-20151231:2000-AV01r.csv"
     ],
     "results_destination_folder": "data/grid_search_results",
     "training_sets_config": {
         "destination_folder": "data/xy",
         "n_samples": [4],
-        "target_distances": [
-            [2]
-        ],
+        "target_distances": [2, 3, 4, 5],
         "original_prefix_column_names": ["codigo", "fecha"],
         "original_column_names": ["hora", "temperatura", "humedad", "radiacion"],
         "x_prefix_column_names": ["codigo", "fecha"],
@@ -23,7 +22,7 @@
         "scoring": "r2",
         "map": "regression",
         "parameters": [{
-            "activation": ["tanh"],
+            "activation": ["identity", "logistic", "tanh", "relu"],
             "alpha": [0.0001, 0.001, 0.01, 0.1],
             "hidden_layer_sizes": [
                 [100],

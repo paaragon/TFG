@@ -13,5 +13,6 @@
 **/*.synctex.gz # Fichero synctex de Maris
 train/data/*
 train/results/*
+train/gui/*
 .vscode
 codigo_fuente.zip

@@ -6,7 +6,7 @@ import argparse
 import json
 import pandas as pd
 
-class TrainData(object):
+class TrainDataSets(object):
     """
     This class generates data sets (x, y) to use them in training and save then in disk.
     """
@@ -22,6 +22,7 @@ class TrainData(object):
     x_prefix_cols = []
     y_cols = None
     orig_y_col = None
+    is_relative = False
     verbose = True
 
     def __init__(self, orig_csv_file_path=None, dest_folder=None, n_samples=1, \
@@ -59,6 +60,7 @@ class TrainData(object):
         # parsing the config fle and checking errors
         self.parse_config_file()
         self.check_errors()
+        self.is_relative = (self.orig_csv_file_path[-1:] == "r")
 
     def generate_train_data(self):
         """
@@ -156,6 +158,7 @@ class TrainData(object):
         """
 
         # create Data Frame with result values
+        print x_columns
         x_df = pd.DataFrame(data=x_set, columns=x_columns)
         y_df = pd.DataFrame(data=y_set, columns=y_columns)
 
@@ -182,6 +185,9 @@ class TrainData(object):
         file_identifier = base_file_name \
                           + "-" + str(self.n_samples) \
                           + "-" + target_identifier
+
+        if self.is_relative:
+            file_identifier += "-r"
 
         # generating the file names
         x_file_name = file_identifier +'-x.csv'
@@ -311,7 +317,7 @@ def main():
     y_cols = arguments.y_cols
     orig_y_col = arguments.orig_y_cols
 
-    train_data = TrainData(orig_csv_file_path, dest_folder, n_samples, \
+    train_data = TrainDataSets(orig_csv_file_path, dest_folder, n_samples, \
                             target_distances, orig_prefix_cols, orig_cols, x_prefix_cols, \
                             x_cols, y_cols, orig_y_col, config_file)
 
