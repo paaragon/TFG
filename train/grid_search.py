@@ -60,7 +60,7 @@ class GridSearch(object):
 
                     print "grid_search: x_prefix - " + str(x_prefix_column_names)
 
-                    train_sets = train_data.TrainDataSets(normalized_csv_path, destination_folder, \
+                    train_sets = train_data_sets.TrainDataSets(normalized_csv_path, destination_folder, \
                                     k, target, original_prefix_column_names, \
                                     original_column_names, copy.copy(x_prefix_column_names), \
                                     x_column_names, y_colum_names, original_y_column_name)
