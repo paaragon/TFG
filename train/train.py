@@ -50,14 +50,12 @@ class Train(object):
 
         file_time = time.time()
         if self.verbose:
-            print "Exploring " + self.normalized_csv_path
+            print "Training with: " + self.normalized_csv_path
 
 
         # This is a hack. Multiout is not supported yet but TrainData is
         # prepared for this so we must pass an array to TrainData not an int
         target = [target_distance]
-
-        print "grid_search: x_prefix - " + str(x_prefix_column_names)
 
         train_sets = train_data.TrainData(self.normalized_csv_path, destination_folder, \
                         k, target, original_prefix_column_names, \
@@ -68,43 +66,31 @@ class Train(object):
         x_set = pd.read_csv(x_destination_path)
         y_set = pd.read_csv(y_destination_path)
 
-        if self.verbose:
-            print "Tuning hyperparameters for k=" + str(k) + \
-                    " and targets=" + str(target)
+        module_name = self.estimator_config["module"]
+        class_name = self.estimator_config["class"]
+        model_name = self.estimator_config["model"]
+        tuned_parameters = self.estimator_config["parameters"]
 
-        for estimator in self.estimator_config:
+        if self.estimator_config["map"] == "classification":
+            y_set = self._map_y_classifier(y_set)
 
-            module_name = estimator["module"]
-            class_name = estimator["class"]
-            model_name = estimator["model"]
-            tuned_parameters = estimator["parameters"]
+        elif self.estimator_config["map"] == "regression":
+            y_set = self._map_y_regression(y_set)
 
-            if estimator["map"] == "classification":
-                y_set = self._map_y_classifier(y_set)
+        model = self._instance_model(module_name, class_name, model_name)
 
-            elif estimator["map"] == "regression":
-                y_set = self._map_y_regression(y_set)
+        clf = GridSearchCV(model, tuned_parameters, cv=3, \
+                            scoring=self.estimator_config["scoring"])
 
-            model = self._instance_model(module_name, class_name, model_name)
+        trained_model = clf.fit(x_set, y_set).best_estimator_
 
-            clf = GridSearchCV(model, tuned_parameters, cv=3, \
-                                scoring=estimator["scoring"])
+        if not os.path.isdir(self.model_destination_folder):
+            os.makedirs(self.model_destination_folder)
 
-            fit_time = time.time()
+        destination_path = os.path.join(self.model_destination_folder, \
+                                        self.model_file_name)
 
-            trained_model = clf.fit(x_set, y_set)
-
-            if self.verbose:
-                print "Tuning done in {} seconds".format(time.time() - fit_time)
-                print "Saving trained model"
-
-            if not os.path.isdir(self.model_destination_folder):
-                os.makedirs(self.model_destination_folder)
-
-            destination_path = os.path.join(self.model_destination_folder, \
-                                            self.model_file_name)
-
-            self._save_model(trained_model, destination_path)
+        self._save_model(trained_model, destination_path)
 
         if self.verbose:
             print "Train finished in {} seconds".format(time.time() - total_time)
@@ -138,9 +124,8 @@ class Train(object):
         pass
 
     def _save_model(self, model, path):
-        print "Saving"
         joblib.dump(model, path)
-        print "Saved"
+        print "model saved"
 
 
 def main():
@@ -159,13 +144,13 @@ def main():
     with open(config_file) as data_file:
         config_data = json.load(data_file)
 
-    normalized_csv_paths = config_data["normalized_csv_paths"]
+    normalized_csv_path = config_data["normalized_csv_path"]
     model_destination_folder = config_data["model_destination_folder"]
     model_file_name = config_data["model_file_name"]
     training_set_config = config_data["training_set_config"]
     estimator_config = config_data["estimator_config"]
 
-    train = Train(normalized_csv_paths, model_destination_folder, model_file_name, \
+    train = Train(normalized_csv_path, model_destination_folder, model_file_name, \
                 training_set_config, estimator_config)
 
     train.fit()

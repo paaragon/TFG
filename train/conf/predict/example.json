@@ -1,0 +1,11 @@
+{
+    "data_set_file_name": "data/filtered_csv/normalized/20160101:800-20161231:2000-AV01.csv",
+    "normalization_info": "data/filtered_csv/norm_data/20160101:800-20161231:2000-AV01.csv",
+    "model_path": "data/trained_models/example.pkl",
+    "score": "neg_mean_absolute_error",
+    "n_samples": 4,
+    "samples_step": 2,
+    "target_time_step": 100,
+    "target_column": "radiacion",
+    "map_target": "regression"
+}

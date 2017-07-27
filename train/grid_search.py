@@ -58,8 +58,6 @@ class GridSearch(object):
                     # prepared for this so we must pass an array to TrainData not an int
                     target = [target]
 
-                    print "grid_search: x_prefix - " + str(x_prefix_column_names)
-
                     train_sets = train_data_sets.TrainDataSets(normalized_csv_path, destination_folder, \
                                     k, target, original_prefix_column_names, \
                                     original_column_names, copy.copy(x_prefix_column_names), \

@@ -1,11 +1,11 @@
 {
     "normalized_csv_path": "data/filtered_csv/normalized/20150101:800-20151231:2000-AV01.csv",
-    "model_destination_path": "data/trained_models/",
+    "model_destination_folder": "data/trained_models/",
     "model_file_name": "example.pkl",
-    "training_sets_config": {
+    "training_set_config": {
         "destination_folder": "data/xy",
         "n_samples": 4,
-        "target_distances": 2,
+        "target_distance": 2,
         "original_prefix_column_names": ["codigo", "fecha"],
         "original_column_names": ["hora", "temperatura", "humedad", "radiacion"],
         "x_prefix_column_names": ["codigo", "fecha"],
@@ -20,10 +20,12 @@
         "scoring": "r2",
         "map": "regression",
         "parameters": {
-            "activation": "tanh",
-            "alpha": 0.1,
-            "hidden_layer_sizes": [100, 100],
-            "random_state": 1
+            "activation": ["tanh"],
+            "alpha": [0.1],
+            "hidden_layer_sizes": [
+                [100, 100]
+            ],
+            "random_state": [1]
         }
     }
 }
